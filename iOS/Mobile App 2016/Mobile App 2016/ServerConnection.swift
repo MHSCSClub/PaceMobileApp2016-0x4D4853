@@ -14,12 +14,8 @@ func connectionFile(data: NSData) -> NSData | this is for uploading files | mp4
 import Foundation
 
 class ServerConnection {
-    var url: String;
     
-    init(url: String){
-        self.url = url;
-    }
-    func postRequest(params: [String: String], completion: ((data: NSData) -> Void)!) -> Void{
+    static func postRequest(params: [String: String], url: String, completion: ((data: NSData) -> Void)!) -> Void{
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
         let session = NSURLSession.sharedSession()
         var bodyData = ""
@@ -32,15 +28,38 @@ class ServerConnection {
         request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding);
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            completion(data: data!)
+            if(data != nil){
+                completion(data: data!)
+            }else{
+                print(error)
+            }
             
         })
         task.resume()
         
 
     }
+    static func getRequest(url: String, completion: ((data: NSData) -> Void)!) -> Void{
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+        let session = NSURLSession.sharedSession()
+        
+        request.HTTPMethod = "GET"
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            if(data != nil){
+                completion(data: data!)
+            }else{
+                print(error)
+            }
+            
+            
+        })
+        task.resume()
+        
+        
+    }
     
-    func connectionFile(data: NSData, completion: ((data: NSData) -> Void)!) -> Void {
+    static func postFile(data: NSData, url: String, completion: ((data: NSData) -> Void)!) -> Void {
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         let session = NSURLSession.sharedSession()
         
@@ -66,7 +85,12 @@ class ServerConnection {
         
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            completion(data: data!)
+            
+            if(data != nil){
+                completion(data: data!)
+            }else{
+                print(error)
+            }
             
             
         })

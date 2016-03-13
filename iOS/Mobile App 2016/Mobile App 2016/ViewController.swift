@@ -13,11 +13,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         File.writeFile("jack.txt", data: "Jack is so cool")
-        let server = ServerConnection(url: "http://garlandphillips.net/testConn/filetest.php")
-        server.connectionFile(NSData(contentsOfURL: NSURL(fileURLWithPath: File.getFilePath("jack.txt")))!, completion: OnFinish);
-        let server2 = ServerConnection(url: "http://garlandphillips.net/testConn/test.php")
+        ServerConnection.postFile(NSData(contentsOfURL: NSURL(fileURLWithPath: File.getFilePath("jack.txt")))!, url: "\(Constants.baseURL)filetest.php", completion: OnFinish);
+        
         let params = ["name":"cool", "name2":"Jack Phillips"]
-        server2.postRequest(params, completion: Done)
+        ServerConnection.postRequest(params, url: "\(Constants.baseURL)test.php", completion: Done)
+        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/test", completion: OnFinish)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     

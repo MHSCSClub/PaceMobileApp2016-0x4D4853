@@ -17,6 +17,7 @@
 		9F690D791C95D081009F918E /* Mobile_App_2016UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D781C95D081009F918E /* Mobile_App_2016UITests.swift */; };
 		9F690D8B1C95D12B009F918E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D891C95D12B009F918E /* File.swift */; };
 		9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D8A1C95D12B009F918E /* ServerConnection.swift */; };
+		9F690D8F1C95DCBA009F918E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D8E1C95DCBA009F918E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		9F690D7A1C95D081009F918E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F690D891C95D12B009F918E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		9F690D8A1C95D12B009F918E /* ServerConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
+		9F690D8E1C95DCBA009F918E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		9F690D541C95D080009F918E /* Mobile App 2016 */ = {
 			isa = PBXGroup;
 			children = (
+				9F690D8E1C95DCBA009F918E /* Constants.swift */,
 				9F690D8D1C95D12F009F918E /* api */,
 				9F690D551C95D080009F918E /* AppDelegate.swift */,
 				9F690D571C95D080009F918E /* ViewController.swift */,
@@ -278,6 +281,7 @@
 				9F690D5E1C95D080009F918E /* Mobile_App_2016.xcdatamodeld in Sources */,
 				9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */,
 				9F690D561C95D080009F918E /* AppDelegate.swift in Sources */,
+				9F690D8F1C95DCBA009F918E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
