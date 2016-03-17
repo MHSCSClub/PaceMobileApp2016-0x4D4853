@@ -14,7 +14,7 @@ The app is for caretakers to be able to manage what medication the patients take
 * [add info here]
 
 ###Documentation:
-It's here somewhere :)
+Documentation on wiki
 
 * [Add Doc list here]
 
