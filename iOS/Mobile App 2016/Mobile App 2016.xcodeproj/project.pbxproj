@@ -18,6 +18,9 @@
 		9F690D8B1C95D12B009F918E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D891C95D12B009F918E /* File.swift */; };
 		9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D8A1C95D12B009F918E /* ServerConnection.swift */; };
 		9F690D8F1C95DCBA009F918E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D8E1C95DCBA009F918E /* Constants.swift */; };
+		9F6A6D061C9B618C000DAFDA /* Caregiver_PatientOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */; };
+		9F6A6D081C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F6A6D071C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg */; };
+		9F6A6D0A1C9B67E6000DAFDA /* MedHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D091C9B67E6000DAFDA /* MedHistory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,9 @@
 		9F690D891C95D12B009F918E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		9F690D8A1C95D12B009F918E /* ServerConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		9F690D8E1C95DCBA009F918E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Caregiver_PatientOverview.swift; sourceTree = "<group>"; };
+		9F6A6D071C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg"; sourceTree = "<group>"; };
+		9F6A6D091C9B67E6000DAFDA /* MedHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedHistory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F233C8A1C97ADD9001752EE /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9F690D8E1C95DCBA009F918E /* Constants.swift */,
+				9F6A6D091C9B67E6000DAFDA /* MedHistory.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		9F690D491C95D080009F918E = {
 			isa = PBXGroup;
 			children = (
@@ -105,11 +120,13 @@
 		9F690D541C95D080009F918E /* Mobile App 2016 */ = {
 			isa = PBXGroup;
 			children = (
-				9F690D8E1C95DCBA009F918E /* Constants.swift */,
+				9F233C8A1C97ADD9001752EE /* Classes */,
 				9F690D8D1C95D12F009F918E /* api */,
 				9F690D551C95D080009F918E /* AppDelegate.swift */,
 				9F690D571C95D080009F918E /* ViewController.swift */,
+				9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */,
 				9F690D591C95D080009F918E /* Main.storyboard */,
+				9F6A6D071C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg */,
 				9F690D5F1C95D080009F918E /* Assets.xcassets */,
 				9F690D611C95D080009F918E /* LaunchScreen.storyboard */,
 				9F690D641C95D080009F918E /* Info.plist */,
@@ -139,10 +156,18 @@
 		9F690D8D1C95D12F009F918E /* api */ = {
 			isa = PBXGroup;
 			children = (
+				9F6A6D041C9B60E9000DAFDA /* Patient View */,
 				9F690D891C95D12B009F918E /* File.swift */,
 				9F690D8A1C95D12B009F918E /* ServerConnection.swift */,
 			);
 			name = api;
+			sourceTree = "<group>";
+		};
+		9F6A6D041C9B60E9000DAFDA /* Patient View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Patient View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F6A6D081C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg in Resources */,
 				9F690D631C95D080009F918E /* LaunchScreen.storyboard in Resources */,
 				9F690D601C95D080009F918E /* Assets.xcassets in Resources */,
 				9F690D5B1C95D080009F918E /* Main.storyboard in Resources */,
@@ -276,8 +302,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F6A6D061C9B618C000DAFDA /* Caregiver_PatientOverview.swift in Sources */,
 				9F690D581C95D080009F918E /* ViewController.swift in Sources */,
 				9F690D8B1C95D12B009F918E /* File.swift in Sources */,
+				9F6A6D0A1C9B67E6000DAFDA /* MedHistory.swift in Sources */,
 				9F690D5E1C95D080009F918E /* Mobile_App_2016.xcdatamodeld in Sources */,
 				9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */,
 				9F690D561C95D080009F918E /* AppDelegate.swift in Sources */,
@@ -508,6 +536,7 @@
 				9F690D7F1C95D081009F918E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F690D801C95D081009F918E /* Build configuration list for PBXNativeTarget "Mobile App 2016Tests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +545,7 @@
 				9F690D821C95D081009F918E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F690D831C95D081009F918E /* Build configuration list for PBXNativeTarget "Mobile App 2016UITests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +554,7 @@
 				9F690D851C95D081009F918E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
