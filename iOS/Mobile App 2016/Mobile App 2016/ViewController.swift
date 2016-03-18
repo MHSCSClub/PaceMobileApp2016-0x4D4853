@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         
         let params = ["name":"cool", "name2":"Jack Phillips"]
         ServerConnection.postRequest(params, url: "\(Constants.baseURL)test.php", completion: Done)
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/test", completion: OnFinish)
+        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/test/sdsd", completion: OnFinish)
         
         // Do any additional setup after loading the view, typically from a nib.
     }

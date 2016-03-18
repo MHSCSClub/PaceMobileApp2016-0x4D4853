@@ -41,12 +41,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6b-EP-khQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-536" y="604"/>
+            <point key="canvasLocation" x="-560.5" y="655.5"/>
         </scene>
         <!--Medication-->
         <scene sceneID="Ebg-FQ-gjZ">
             <objects>
-                <viewController id="zqR-9Z-UgD" sceneMemberID="viewController">
+                <viewController id="zqR-9Z-UgD" customClass="CareGiver_PatientMed" customModule="Mobile_App_2016" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ac0-ju-Lzc"/>
                         <viewControllerLayoutGuide type="bottom" id="w0c-Ud-1iJ"/>
@@ -54,13 +54,73 @@
                     <view key="view" contentMode="scaleToFill" id="LVt-5C-qEk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="cXY-es-rdo">
+                                <rect key="frame" x="20" y="20" width="150" height="150"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Patient Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nz8-lO-xfp">
+                                <rect key="frame" x="192" y="28" width="163" height="142"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Medication Inventory:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-Ug-wCT">
+                                <rect key="frame" x="20" y="178" width="335" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5my-RM-y1A">
+                                <rect key="frame" x="0.0" y="225" width="375" height="393"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Medication" id="G4y-qz-MmL" userLabel="Medication"/>
+                    <connections>
+                        <outlet property="med_invitory" destination="f4d-Ug-wCT" id="2HD-HD-sBY"/>
+                        <outlet property="patientName" destination="Nz8-lO-xfp" id="zkY-bT-CuX"/>
+                        <outlet property="profilePic" destination="cXY-es-rdo" id="YqZ-0S-Y7T"/>
+                        <outlet property="tableView" destination="5my-RM-y1A" id="rcs-9y-cW4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9a-50-EsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-536.5" y="-96.5"/>
+            <point key="canvasLocation" x="-560.5" y="-61.5"/>
+        </scene>
+        <!--Med Reminder-->
+        <scene sceneID="Quy-6g-Gh7">
+            <objects>
+                <viewController storyboardIdentifier="MedReminder" id="hPT-Xz-14u" customClass="MedReminder" customModule="Mobile_App_2016" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MLO-5n-CkS"/>
+                        <viewControllerLayoutGuide type="bottom" id="ABp-Am-ADo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ujC-f2-Uz1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Med Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaO-yP-8NV">
+                                <rect key="frame" x="20" y="28" width="335" height="91"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="images-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="ONU-2g-0Ik">
+                                <rect key="frame" x="20" y="127" width="329" height="383"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="Med_Label" destination="TaO-yP-8NV" id="2U1-WF-L4u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vTk-6g-kuY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="15.5" y="-375.5"/>
         </scene>
         <!--Overview-->
         <scene sceneID="AmG-Cu-Ao7">
@@ -120,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwD-cw-m7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-536.5" y="-809.5"/>
+            <point key="canvasLocation" x="-560.5" y="-784.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="5aa-di-18x">
@@ -145,5 +205,6 @@
     </scenes>
     <resources>
         <image name="cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg" width="215" height="259"/>
+        <image name="images-1.png" width="225" height="225"/>
     </resources>
 </document>

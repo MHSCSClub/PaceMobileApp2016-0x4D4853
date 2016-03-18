@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,9 +17,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let notificationActionOk :UIMutableUserNotificationAction = UIMutableUserNotificationAction()
+        notificationActionOk.identifier = "ACCEPT_IDENTIFIER"
+        notificationActionOk.title = "Take Meds"
+        notificationActionOk.destructive = false
+        notificationActionOk.authenticationRequired = false
+        notificationActionOk.activationMode = UIUserNotificationActivationMode.Foreground
+        
+        let notificationActionCancel :UIMutableUserNotificationAction = UIMutableUserNotificationAction()
+        notificationActionCancel.identifier = "NOT_NOW_IDENTIFIER"
+        notificationActionCancel.title = "Not Now"
+        notificationActionCancel.destructive = true
+        notificationActionCancel.authenticationRequired = false
+        notificationActionCancel.activationMode = UIUserNotificationActivationMode.Background
+        
+        let notificationCategory:UIMutableUserNotificationCategory = UIMutableUserNotificationCategory()
+        notificationCategory.identifier = "INVITE_CATEGORY"
+        notificationCategory .setActions([notificationActionOk,notificationActionCancel], forContext: UIUserNotificationActionContext.Default)
+        notificationCategory .setActions([notificationActionOk,notificationActionCancel], forContext: UIUserNotificationActionContext.Minimal)
+        
+       // application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Sound | .Alert | .Badge,categories: NSSet(array:[notificationCategory])))
+
         // Override point for customization after application launch.
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: (NSSet(array:[notificationCategory]) as! Set<UIUserNotificationCategory>)))
+
         return true
     }
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?,forLocalNotification notification: UILocalNotification,completionHandler: () -> Void) {
+        if notification.category == "INVITE_CATEGORY" {
+            let action = "\(identifier)"
+            print(action)
+            switch action {
+                case "Optional(\"ACCEPT_IDENTIFIER\")":
+                    print("Yes");
+                    if let userInfo = notification.userInfo {
+                        let med = userInfo["Medication"] as! String
+                        let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let initialViewControlleripad : MedReminder = mainStoryboardIpad.instantiateViewControllerWithIdentifier("MedReminder") as! MedReminder
+                        initialViewControlleripad.medText = med
+                        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                        self.window?.rootViewController = initialViewControlleripad
+                        self.window?.makeKeyAndVisible()
+                    }
+                
+                case "Optional(\"NOT_NOW_IDENTIFIER\")":
+                    print("hhh");
+                
+                default:
+                    print("jjjjj")
+            }
+        }
+        completionHandler()
+    }
+    
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -29,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
+    
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
