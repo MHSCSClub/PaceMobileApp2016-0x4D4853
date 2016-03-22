@@ -137,6 +137,7 @@
 				9F233C8A1C97ADD9001752EE /* Classes */,
 				9F690D8D1C95D12F009F918E /* api */,
 				9F6A6D0B1C9B7752000DAFDA /* Caregiver */,
+				9F6A6D041C9B60E9000DAFDA /* Patient View */,
 				9F690D551C95D080009F918E /* AppDelegate.swift */,
 				9F690D611C95D080009F918E /* LaunchScreen.storyboard */,
 				9F690D571C95D080009F918E /* ViewController.swift */,
@@ -173,7 +174,6 @@
 		9F690D8D1C95D12F009F918E /* api */ = {
 			isa = PBXGroup;
 			children = (
-				9F6A6D041C9B60E9000DAFDA /* Patient View */,
 				9F690D891C95D12B009F918E /* File.swift */,
 				9F690D8A1C95D12B009F918E /* ServerConnection.swift */,
 			);
@@ -265,6 +265,11 @@
 					9F690D511C95D080009F918E = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = V67E73GR75;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9F690D681C95D081009F918E = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -488,7 +493,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mobile App 2016/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Mamaroneck.Mobile-App-2016";
+				PRODUCT_BUNDLE_IDENTIFIER = PaceApp.PaceApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -502,7 +507,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mobile App 2016/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Mamaroneck.Mobile-App-2016";
+				PRODUCT_BUNDLE_IDENTIFIER = PaceApp.PaceApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

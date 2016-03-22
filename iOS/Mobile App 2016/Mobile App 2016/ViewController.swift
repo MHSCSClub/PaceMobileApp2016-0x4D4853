@@ -9,10 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var userNameInput: UITextField!
     
+    @IBOutlet var passwordInput: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         File.writeFile("jack.txt", data: "Jack is so cool")
+       
         ServerConnection.postFile(NSData(contentsOfURL: NSURL(fileURLWithPath: File.getFilePath("jack.txt")))!, url: "\(Constants.baseURL)filetest.php", completion: OnFinish);
         
         let params = ["name":"cool", "name2":"Jack Phillips"]
@@ -20,6 +23,10 @@ class ViewController: UIViewController {
         ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/test/sdsd", completion: OnFinish)
         
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    @IBAction func registerAccount(sender: AnyObject) {
+        print(userNameInput.text);
     }
     
     override func didReceiveMemoryWarning() {

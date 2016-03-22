@@ -37,12 +37,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notificationCategory .setActions([notificationActionOk,notificationActionCancel], forContext: UIUserNotificationActionContext.Minimal)
         
        // application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Sound | .Alert | .Badge,categories: NSSet(array:[notificationCategory])))
-
+        
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
+        UIApplication.sharedApplication().registerUserNotificationSettings((UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: (NSSet(array:[notificationCategory]) as! Set<UIUserNotificationCategory>))))
+        
         // Override point for customization after application launch.
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: (NSSet(array:[notificationCategory]) as! Set<UIUserNotificationCategory>)))
 
         return true
     }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("Got token data! \(deviceToken))")
+        File.writeFile("UDID", data: deviceToken)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Couldn't register: \(error)")
+    }
+    
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?,forLocalNotification notification: UILocalNotification,completionHandler: () -> Void) {
         if notification.category == "INVITE_CATEGORY" {
             let action = "\(identifier)"
