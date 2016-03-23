@@ -5,7 +5,7 @@ USE pace2016;
 CREATE TABLE users
 (
 	userid int unsigned not null auto_increment primary key,
-	usertype int unsigned not null,
+	usertype int unsigned not null
 );
 
 CREATE TABLE caretakers
@@ -42,7 +42,8 @@ CREATE TABLE relation
 (
 	rid int unsigned not null auto_increment primary key,
 	cid int unsigned not null,
-	pid int unsigned not null
+	pid int unsigned not null,
+	active BOOL not null
 );
 
 CREATE TABLE link
