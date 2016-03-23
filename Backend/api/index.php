@@ -2,6 +2,7 @@
 	
 	require_once("requestHandler.class.php");
 	require_once("signal.class.php");
+	require_once("dataAccess.class.php");
 
 	$user_request = @$_GET['request'];
 
@@ -17,10 +18,10 @@
 
 	$RH->D("", "test");
 
+	// test/*
 	$RH->F("test", $WC, function($trace) {
 		return Signal::success()->setData($trace[1]);
 	});
-
 	// test/get
 	$RH->F("test", "get", function() {
 		return Signal::success();
@@ -38,6 +39,36 @@
 		}
 
 		return $ret;
+	});
+
+	$RH->D("", "caretaker");
+
+	// caretaker/register
+	$RH->F("caretaker", "register", function() {
+		$username = @$_POST['username'];
+		$password = @$_POST['password'];
+		return DataAccess::careREGISTER($username, $password);
+	});
+	// caretaker/login
+	$RH->F("caretaker", "login", function() {
+		$username = @$_POST['username'];
+		$password = @$_POST['password'];
+		return DataAccess::careLOGIN($username, $password);
+	});
+	// caretaker/link
+	$RH->F("caretaker", "link", function() {
+		$params = array();
+		$params['name'] = @$_POST['name'];
+		$params['usability'] = @$_POST['usability'];
+
+		return DataAccess::carePOST(@$_GET['authcode'], "createPatient", $params);
+	});
+
+	$RH->D("", "patient");
+	// patient/link
+	$RH->F("patient", "link", function() {
+		$lcode = @$_POST['lcode'];
+		return DataAccess::patiLINK($lcode);
 	});
 
 	try {
