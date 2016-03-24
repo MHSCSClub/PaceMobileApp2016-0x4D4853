@@ -172,7 +172,7 @@
 			$stmt->close();
 
 			if($res->num_rows != 1) {
-				throw new Exception("Invalid caretaker id")
+				throw new Exception("Invalid caretaker id");
 			}
 			return $res->fetch_assoc()['cid'];
 		}

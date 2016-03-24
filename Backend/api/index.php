@@ -40,6 +40,20 @@
 
 		return $ret;
 	});
+	// test/schedule
+	$RH->F("test", "schedule", function() {
+		$url = "http://localhost:1337/";
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_URL => $url
+		));
+
+		$res = curl_exec($curl);
+		curl_close($curl);
+		return Signal::success();
+	});
 
 	$RH->D("", "caretaker");
 
@@ -89,7 +103,7 @@
 	// caretaker/patient/{pid}/share
 	$RH->F("caretaker/patient/$WC", "share", function($trace) {
 		$pid = $trace[2];
-		return DataAccess::capaGET(@$_GET['authcode'], $pid, "share");
+		//return DataAccess::capaGET(@$_GET['authcode'], $pid, "share");
 	});
 
 
