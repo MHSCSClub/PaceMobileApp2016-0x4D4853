@@ -73,6 +73,21 @@
 			});
 		}
 
+		public static function capaGET($authcode, $pid, $funcname) {
+				return self::run(function() use ($authcode, $pid, $funcname) {
+				$realfunc = "DataAccess::GET_CAPA_$funcname";
+				$db = self::getConnection();
+				$userinfo = DataAccess::authSetup($db, $authcode);
+				if($userinfo['usertype'] != 1)
+					throw new AuthException();
+
+				$cid = $userinfo['userid'];
+				$pid = self::checkRelation($db, $cid, $pid);
+
+				return call_user_func($realfunc, $db, $cid, $pid);
+			});
+		}
+
 		/*
 			Private methods
 
@@ -132,6 +147,34 @@
 			//Update authcode expiration
 			self::updateAuthExpiration($db, $userid);
 			return $userinfo;
+		}
+
+		private static function checkRelation($db, $cid, $pid) {
+			//Get userid from auth
+			$stmt = $db->prepare("SELECT pid FROM relation WHERE cid=? AND pid=?");
+			$stmt->bind_param("ii", $cid, $pid);
+			$stmt->execute();
+			$res = $stmt->get_result();
+			$stmt->close();
+
+			if($res->num_rows != 1)
+				throw new Exception("Invalid patient id");
+
+			return $res->fetch_assoc()['pid'];
+		}
+
+		private static function getIdFromUsername($db, $username) {
+			$db = self::getConnection();
+			$stmt = $db->prepare("SELECT cid FROM caretakers WHERE username=?");
+			$stmt->bind_param('s', $username);
+			$stmt->execute();
+			$res = $stmt->get_result();
+			$stmt->close();
+
+			if($res->num_rows != 1) {
+				throw new Exception("Invalid caretaker id")
+			}
+			return $res->fetch_assoc()['cid'];
 		}
 
 		private static function updateAuthExpiration($db, $userid) {
@@ -238,7 +281,7 @@
 			$db = self::getConnection();
 
 			//Fetch link
-			$stmt = $db->prepare('SELECT cid, pid FROM link WHERE lcode=? AND open=1');
+			$stmt = $db->prepare('SELECT lid, cid, pid FROM link WHERE lcode=? AND open=1');
 			$stmt->bind_param('s', $lcode);
 			$stmt->execute();
 			$res = $stmt->get_result();
@@ -249,11 +292,15 @@
 				throw new Exception("Invalid link code error");
 
 			$res = $res->fetch_assoc();
+			$lid = $res['lid'];
 			$cid = $res['cid'];
 			$pid = $res['pid'];
 
 			//Update relation
 			$db->query("UPDATE relation SET active=1 WHERE cid=$cid AND pid=$pid");
+
+			//Update link
+			$db->query("UPDATE link SET open=0 WHERE lid=$lid");
 
 			//Return authcode
 			$random = openssl_random_pseudo_bytes(64);
@@ -273,12 +320,18 @@
 
 		private static function GET_CARE_info($db, $cid) {
 			//Username
-			$res = $db->query("SELECT username FROM users WHERE userid=$cid");
+			$res = $db->query("SELECT username FROM caretakers WHERE cid=$cid");
 			$username = $res->fetch_assoc()["username"];
 
 			//Data
 			$data = array("username" => $username);
 			return Signal::success()->setData($data);
+		}
+
+		private static function GET_CARE_patients($db, $cid) {
+			$res = $db->query("SELECT cid, pid FROM relation WHERE cid=$cid");
+
+			return self::formatArrayResults($res);
 		}
 
 		private static function POST_CARE_createPatient($db, $cid, $params) {
@@ -290,7 +343,7 @@
 			$usability = $params['usability'];
 
 			//Create patient
-			$stmt = $db->query('INSERT INTO users VALUES (null, 0)');
+			$db->query('INSERT INTO users VALUES (null, 0)');
 			$res = $db->query("SELECT LAST_INSERT_ID()");
 			$pid = $res->fetch_assoc()['LAST_INSERT_ID()']; 
 
@@ -307,10 +360,36 @@
 
 			//Create link
 			$db->query("INSERT INTO link VALUES (null, $cid, $pid, '$lcode', 1)");
-			$data = array("lcode" => $lcode);
+			$data = array("pid" => $pid, "lcode" => $lcode);
 			return Signal::success()->setData($data);
 		}
 
+		private static function GET_CAPA_relink($db, $cid, $pid) {
+			$data = array();
+			//Look for existing open link
+			$res = $db->query("SELECT lcode FROM link WHERE cid=$cid AND pid=$pid AND open=1");
+			if($res->num_rows == 1) {
+				$data['lcode'] = $res->fetch_assoc()['lcode'];
+				return Signal::success()->setData($data);
+			}
+
+			//Create link
+			$random = openssl_random_pseudo_bytes(6);
+			$lcode = base64_encode($random);
+
+			$db->query("INSERT INTO link VALUES (null, $cid, $pid, '$lcode', 1)");
+			$data['lcode'] = $lcode;
+			return Signal::success()->setData($data);
+		}
+
+		private static function GET_CAPA_share($db, $cid, $pid, $params) {
+			$username = $params['username'];
+			$ncid = self::getIdFromUsername($username);
+
+			//Create relation
+			$db->query("INSERT INTO relation VALUES (null, $cid, $pid, 1)");
+			return Signal::success();
+		}
 
 	}
 ?>

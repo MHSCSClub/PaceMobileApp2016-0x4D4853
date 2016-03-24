@@ -55,14 +55,43 @@
 		$password = @$_POST['password'];
 		return DataAccess::careLOGIN($username, $password);
 	});
-	// caretaker/link
-	$RH->F("caretaker", "link", function() {
+	// caretaker/verify
+	$RH->F("caretaker", "verify", function() {
+		return DataAccess::careGet(@$_GET['authcode'], "verify");
+	});
+	// caretaker/info
+	$RH->F("caretaker", "info", function() {
+		return DataAccess::careGet(@$_GET['authcode'], "info");
+	});
+	// caretaker/patients
+	$RH->F("caretaker", "patients", function() {
+		return DataAccess::careGet(@$_GET['authcode'], "patients");
+	});
+
+	$RH->D("caretaker", "patient");
+
+	// caretaker/patient/new
+	$RH->F("caretaker/patient", "new", function() {
 		$params = array();
 		$params['name'] = @$_POST['name'];
 		$params['usability'] = @$_POST['usability'];
 
 		return DataAccess::carePOST(@$_GET['authcode'], "createPatient", $params);
 	});
+
+	$RH->D("caretaker/patient", $WC);
+
+	// caretaker/patient/{pid}/relink
+	$RH->F("caretaker/patient/$WC", "relink", function($trace) {
+		$pid = $trace[2];
+		return DataAccess::capaGET(@$_GET['authcode'], $pid, "relink");
+	});
+	// caretaker/patient/{pid}/share
+	$RH->F("caretaker/patient/$WC", "share", function($trace) {
+		$pid = $trace[2];
+		return DataAccess::capaGET(@$_GET['authcode'], $pid, "share");
+	});
+
 
 	$RH->D("", "patient");
 	// patient/link
