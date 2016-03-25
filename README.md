@@ -1,4 +1,4 @@
-# PaceMobileApp2016-0x4D4853
+# Pace Mobile App 2016 for team 0x4D4853
 
 ## [From The Westchester Smart Mobile App Development Bowl](http://www.pace.edu/seidenberg/mobile-app-development-bowl-2016-challenge)
 
@@ -11,12 +11,15 @@ The app is for caretakers to be able to manage what medication the patients take
 * If the patient fails to log in that they have taken the medication or if they have not taken the medication both the caretaker and the user are alerted.
 
 ###Software Needed:
-* [add info here]
+* Your favorite text editor. We recommend Sublime Text.
+* Xcode for Apple Swift development
+* A LAMP server (preferably Ubuntu), for the backend.
+ * `mysqlnd`, `openSSL` and `cURL` should be enabled for PHP (5+)
+ * `mod_rewrite` for Apache server, a `.htaccess` file (see hta template in background)
+* A nodejs server is also needed, dependencies listed, running on `locahost`
 
 ###Documentation:
-Documentation on wiki
-
-* [Add Doc list here]
+All documentation is located on the wiki
 
 ###Deadlines
-* Is this even necessary
+* 4/15 presentation
