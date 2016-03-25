@@ -42,17 +42,33 @@
 	});
 	// test/schedule
 	$RH->F("test", "schedule", function() {
-		$url = "http://localhost:1337/";
+		$url = "http://localhost:6969/api/schedule";
+
+		$date = new DateTime('2001-09-11');
+		$date->setTime(14, 10, 5);
+
+		$parameters = array();
+		$parameters['time'] = $date->format('Y-m-d H:i:s');
+		$parameters['medid'] = @$_POST['medid'];
+		$parameters['message'] = @$_POST['message'];
+		$parameters = json_encode($parameters);
+
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_URL => $url
+			CURLOPT_URL => $url,
+			CURLOPT_POST => 1,
+			CURLOPT_POSTFIELDS => $parameters,
+			CURLOPT_HTTPHEADER => array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($parameters)
+			)
 		));
 
 		$res = curl_exec($curl);
 		curl_close($curl);
-		return Signal::success();
+		return Signal::success()->setMessage(array("res" => $res));
 	});
 
 	$RH->D("", "caretaker");
@@ -128,6 +144,7 @@
 				break;
 		}
 	} catch(Exception $e) {
+		echo $e->getMessage();
 		notFound();
 	}
 
