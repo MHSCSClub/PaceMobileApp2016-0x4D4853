@@ -221,10 +221,11 @@
 
 			//Insert user into database
 			$stmt = $db->query('INSERT INTO users VALUES (null, 1)');
-			$userid = $db->query("SELECT LAST_INSERT_ID()");
+			$res = $db->query("SELECT LAST_INSERT_ID()");
+			$cid = $res->fetch_assoc()['LAST_INSERT_ID()'];
 
 			$stmt = $db->prepare('INSERT INTO caretakers VALUES (?, ?, ?, ?)');
-			$stmt->bind_param('isss', $userid, $username, $hshpass, $salt);
+			$stmt->bind_param('isss', $cid, $username, $hshpass, $salt);
 			$stmt->execute();
 			$stmt->close();
 			return Signal::success();
