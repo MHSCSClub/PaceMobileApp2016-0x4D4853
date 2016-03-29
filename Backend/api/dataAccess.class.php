@@ -406,8 +406,8 @@
 		}
 
 		private static function registerDevice($db, $userid, $uiud) {
-			$stmt = $db->prepare('INSERT INTO devices VALUES (null, ?, ?)');
-			$stmt->bind_param('is', $userid, $uiud);
+			$stmt = $db->prepare('INSERT INTO devices VALUES (null, ?, ?) ON DUPLICATE KEY UPDATE uiud=?');
+			$stmt->bind_param('iss', $userid, $uiud, $uiud);
 			$stmt->execute();
 			$stmt->close();
 		}
@@ -427,7 +427,6 @@
 			self::registerDevice($db, $pid, $params['uiud']);
 			return Signal::success();
 		}
-
 
 		private static function GET_CAPA_relink($db, $cid, $pid) {
 			$data = array();

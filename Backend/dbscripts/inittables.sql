@@ -26,7 +26,7 @@ CREATE TABLE patients
 CREATE TABLE devices
 (
 	did int unsigned not null auto_increment primary key,
-	userid int unsigned not null,
+	userid int unsigned not null unique,
 	uiud char(64) not null
 );
 
@@ -54,3 +54,27 @@ CREATE TABLE link
 	lcode char(8) not null,
 	open BOOL not null
 );
+
+CREATE TABLE medicine
+(
+	medid int unsigned not null auto_increment primary key,
+	name char(50) not null,
+	dosage int unsigned not null,
+	pic MEDIUMBLOB,
+	info varchar(800)
+);
+
+CREATE TABLE schedule
+(
+	schid int unsigned not null auto_increment primary key,
+	pid int unsigned not null,
+	take DATETIME not null
+);
+
+CREATE TABLE medsche
+(
+	msid int unsigned not null auto_increment primary key,
+	schid int unsigned not null,
+	medid int unsigned not null,
+	taken DATETIME
+)
