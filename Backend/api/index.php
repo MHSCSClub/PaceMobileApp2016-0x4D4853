@@ -45,7 +45,7 @@
 		$url = "http://localhost:6969/api/schedule";
 
 		$date = new DateTime('2001-09-11');
-		$date->setTime(14, 10, 5);
+		$date->setTime(14, 10, rand(1, 60));
 
 		$parameters = array();
 		$parameters['time'] = $date->format('Y-m-d H:i:s');
@@ -93,6 +93,13 @@
 	$RH->F("caretaker", "info", function() {
 		return DataAccess::careGet(@$_GET['authcode'], "info");
 	});
+	//caretaker/device
+	$RH->F("caretaker", "device", function() {
+		$params = array();
+		$params['uiud'] = @$_POST['uiud'];
+
+		return DataAccess::carePOST(@$_GET['authcode'], "registerDevice", $params);
+	});
 	// caretaker/patients
 	$RH->F("caretaker", "patients", function() {
 		return DataAccess::careGet(@$_GET['authcode'], "patients");
@@ -128,6 +135,13 @@
 	$RH->F("patient", "link", function() {
 		$lcode = @$_POST['lcode'];
 		return DataAccess::patiLINK($lcode);
+	});
+	// patient/device
+	$RH->F("pateint", "device", function() {
+		$params = array();
+		$params['uiud'] = @$_POST['uiud'];
+
+		return DataAccess::carePOST(@$_GET['authcode'], "registerDevice", $params);
 	});
 
 	try {

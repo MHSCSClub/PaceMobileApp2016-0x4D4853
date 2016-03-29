@@ -11,13 +11,18 @@
 
 		Return value is ALWAYS an object of type ISignal
 
-		register($username, $password): registers users in database
+		caretaker:
+		careREGISTER: registers a new caretaker
+		careLOGIN: caretaker login
+		careGET: standard caretaker GET request
+		carePOST: standard caretaker POST request
+		capaGET: caretaker accessing patient data (checks relation)
+		capaPOST: caretaker creating patient data (checks relation)
 
-		login($username, $password): logs in + authcode
-
-		authGET($authcode, $function): calls a function, no additional data
-
-		authPOST($authcode, $function, $params): $params is an array
+		patient:
+		patiLINK: links caretaker and patient
+		patiGET: standard patient GET request
+		patiPOST: standard patient POST request
 
 	*/
 
@@ -27,9 +32,14 @@
 		private static $ip = "localhost";
 		private static $dbName = "pace2016";
 
+		const T_PATI = 0;
+		const T_CARE = 1;
+
 		/*
 			Public interface
 		*/
+
+		//Caretaker
 
 		public static function careREGISTER($username, $password) {
 			return self::run(function() use ($username, $password) {
@@ -43,21 +53,13 @@
 			});
 		}
 
-		public static function patiLINK($lcode) {
-			return self::run(function() use ($lcode) {
-				return DataAccess::PATI_link($lcode);
-			});
-		}
-
 		public static function careGET($authcode, $funcname) {
 			return self::run(function() use ($authcode, $funcname) {
 				$realfunc = "DataAccess::GET_CARE_$funcname";
 				$db = self::getConnection();
-				$userinfo = DataAccess::authSetup($db, $authcode);
-				if($userinfo['usertype'] != 1)
-					throw new AuthException();
+				$userid = DataAccess::authSetup($db, $authcode, self::T_CARE);
 
-				return call_user_func($realfunc, $db, $userinfo['userid']);
+				return call_user_func($realfunc, $db, $userid);
 			});
 		}
 
@@ -65,28 +67,63 @@
 			return self::run(function() use ($authcode, $funcname, $params) {
 				$realfunc = "DataAccess::POST_CARE_$funcname";
 				$db = self::getConnection();
-				$userinfo = DataAccess::authSetup($db, $authcode);
-				if($userinfo['usertype'] != 1)
-					throw new AuthException();
+				$userid = DataAccess::authSetup($db, $authcode, self::T_CARE);
 
-				return call_user_func($realfunc, $db, $userinfo['userid'], $params);
+				return call_user_func($realfunc, $db, $userid, $params);
 			});
 		}
 
 		public static function capaGET($authcode, $pid, $funcname) {
-				return self::run(function() use ($authcode, $pid, $funcname) {
+			return self::run(function() use ($authcode, $pid, $funcname) {
 				$realfunc = "DataAccess::GET_CAPA_$funcname";
 				$db = self::getConnection();
-				$userinfo = DataAccess::authSetup($db, $authcode);
-				if($userinfo['usertype'] != 1)
-					throw new AuthException();
-
-				$cid = $userinfo['userid'];
+				$cid = DataAccess::authSetup($db, $authcode, self::T_CARE);
 				$pid = self::checkRelation($db, $cid, $pid);
 
 				return call_user_func($realfunc, $db, $cid, $pid);
 			});
 		}
+
+		public static function capaPOST($authcode, $pid, $funcname, $params) {
+			return self::run(function() use ($authcode, $pid, $funcname, $params) {
+				$realfunc = "DataAccess::POST_CAPA_$funcname";
+				$db = self::getConnection();
+				$cid = DataAccess::authSetup($db, $authcode, self::T_CARE);
+				$pid = self::checkRelation($db, $cid, $pid);
+
+				return call_user_func($realfunc, $db, $cid, $pid, $params);
+			});
+		}
+
+		//Patient
+
+		public static function patiLINK($lcode) {
+			return self::run(function() use ($lcode) {
+				return DataAccess::PATI_link($lcode);
+			});
+		}
+
+		public static function patiGET($authcode, $funcname) {
+			return self::run(function() use ($authcode, $funcname) {
+				$realfunc = "DataAccess::GET_PATI_$funcname";
+				$db = self::getConnection();
+				$userid = DataAccess::authSetup($db, $authcode, self::T_PATI);
+
+				return call_user_func($realfunc, $db, $userid);
+			});
+		}
+
+		public static function patiPOST($authcode, $funcname, $params) {
+			return self::run(function() use ($authcode, $funcname, $params) {
+				$realfunc = "DataAccess::POST_PATI_$funcname";
+				$db = self::getConnection();
+				$userid = DataAccess::authSetup($db, $authcode, self::T_PATI);
+
+				return call_user_func($realfunc, $db, $userid, $params);
+			});
+		}
+
+
 
 		/*
 			Private methods
@@ -129,7 +166,7 @@
 			Helper functions that interface with the database
 		*/
 
-		private static function authSetup($db, $authcode) {
+		private static function authSetup($db, $authcode, $type) {
 			//Get userid from auth
 			$stmt = $db->prepare("SELECT userid FROM auth WHERE authcode=? AND NOW() < expire");
 			$stmt->bind_param('s', $authcode);
@@ -144,9 +181,12 @@
 			$userinfo = $db->query("SELECT * FROM users WHERE userid=$userid");
 			$userinfo = $userinfo->fetch_assoc();
 
+			if($userinfo['usertype'] != $type)
+				throw new AuthException();
+
 			//Update authcode expiration
 			self::updateAuthExpiration($db, $userid);
-			return $userinfo;
+			return $userid;
 		}
 
 		private static function checkRelation($db, $cid, $pid) {
@@ -364,6 +404,30 @@
 			$data = array("pid" => $pid, "lcode" => $lcode);
 			return Signal::success()->setData($data);
 		}
+
+		private static function registerDevice($db, $userid, $uiud) {
+			$stmt = $db->prepare('INSERT INTO devices VALUES (null, ?, ?)');
+			$stmt->bind_param('is', $userid, $uiud);
+			$stmt->execute();
+			$stmt->close();
+		}
+
+		private static function POST_CARE_registerDevice($db, $cid, $params) {
+			if(is_null($params['uiud']) || strlen($params['uiud']) != 64)
+				throw new Exception("Invalid POST data");
+
+			self::registerDevice($db, $cid, $params['uiud']);
+			return Signal::success();
+		}
+
+		private static function POST_PATI_registerDevice($db, $pid, $params) {
+			if(is_null($params['uiud']) || strlen($params['uiud']) != 64)
+				throw new Exception("Invalid POST data");
+
+			self::registerDevice($db, $pid, $params['uiud']);
+			return Signal::success();
+		}
+
 
 		private static function GET_CAPA_relink($db, $cid, $pid) {
 			$data = array();
