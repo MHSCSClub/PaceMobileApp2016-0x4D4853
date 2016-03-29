@@ -27,6 +27,10 @@
 		9F6A6D151C9B9236000DAFDA /* MedReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D141C9B9236000DAFDA /* MedReminder.swift */; };
 		9F6A6D171C9B93FC000DAFDA /* images.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6A6D161C9B93FC000DAFDA /* images.png */; };
 		9F6A6D191C9B941B000DAFDA /* images-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6A6D181C9B941B000DAFDA /* images-1.png */; };
+		9F6A6D1B1CA74587000DAFDA /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1A1CA74587000DAFDA /* PickerViewController.swift */; };
+		9F6A6D1D1CA74FD8000DAFDA /* PatientListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */; };
+		9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1F1CA75224000DAFDA /* Patient.swift */; };
+		9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D211CA75863000DAFDA /* PatientManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,10 @@
 		9F6A6D141C9B9236000DAFDA /* MedReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedReminder.swift; sourceTree = "<group>"; };
 		9F6A6D161C9B93FC000DAFDA /* images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = images.png; sourceTree = "<group>"; };
 		9F6A6D181C9B941B000DAFDA /* images-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "images-1.png"; sourceTree = "<group>"; };
+		9F6A6D1A1CA74587000DAFDA /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientListViewController.swift; sourceTree = "<group>"; };
+		9F6A6D1F1CA75224000DAFDA /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
+		9F6A6D211CA75863000DAFDA /* PatientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +114,7 @@
 				9F690D8E1C95DCBA009F918E /* Constants.swift */,
 				9F6A6D091C9B67E6000DAFDA /* MedHistory.swift */,
 				9F6A6D101C9B793A000DAFDA /* Medication.swift */,
+				9F6A6D231CA7587B000DAFDA /* Patient */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -134,15 +143,14 @@
 			isa = PBXGroup;
 			children = (
 				9F6A6D121C9B9115000DAFDA /* takemed.m4a */,
-				9F233C8A1C97ADD9001752EE /* Classes */,
 				9F690D8D1C95D12F009F918E /* api */,
+				9F233C8A1C97ADD9001752EE /* Classes */,
 				9F6A6D0B1C9B7752000DAFDA /* Caregiver */,
 				9F6A6D041C9B60E9000DAFDA /* Patient View */,
+				9F6A6D1E1CA75006000DAFDA /* Login/Setup */,
 				9F690D551C95D080009F918E /* AppDelegate.swift */,
 				9F690D611C95D080009F918E /* LaunchScreen.storyboard */,
-				9F690D571C95D080009F918E /* ViewController.swift */,
 				9F690D591C95D080009F918E /* Main.storyboard */,
-				9F6A6D141C9B9236000DAFDA /* MedReminder.swift */,
 				9F6A6D071C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg */,
 				9F6A6D161C9B93FC000DAFDA /* images.png */,
 				9F6A6D181C9B941B000DAFDA /* images-1.png */,
@@ -183,6 +191,7 @@
 		9F6A6D041C9B60E9000DAFDA /* Patient View */ = {
 			isa = PBXGroup;
 			children = (
+				9F6A6D141C9B9236000DAFDA /* MedReminder.swift */,
 			);
 			name = "Patient View";
 			sourceTree = "<group>";
@@ -190,10 +199,29 @@
 		9F6A6D0B1C9B7752000DAFDA /* Caregiver */ = {
 			isa = PBXGroup;
 			children = (
+				9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */,
 				9F6A6D0E1C9B77C2000DAFDA /* CareGiver_PatientMed.swift */,
 				9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */,
 			);
 			name = Caregiver;
+			sourceTree = "<group>";
+		};
+		9F6A6D1E1CA75006000DAFDA /* Login/Setup */ = {
+			isa = PBXGroup;
+			children = (
+				9F6A6D1A1CA74587000DAFDA /* PickerViewController.swift */,
+				9F690D571C95D080009F918E /* ViewController.swift */,
+			);
+			name = Login/Setup;
+			sourceTree = "<group>";
+		};
+		9F6A6D231CA7587B000DAFDA /* Patient */ = {
+			isa = PBXGroup;
+			children = (
+				9F6A6D1F1CA75224000DAFDA /* Patient.swift */,
+				9F6A6D211CA75863000DAFDA /* PatientManager.swift */,
+			);
+			name = Patient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,11 +371,15 @@
 				9F690D8B1C95D12B009F918E /* File.swift in Sources */,
 				9F6A6D0F1C9B77C2000DAFDA /* CareGiver_PatientMed.swift in Sources */,
 				9F6A6D0A1C9B67E6000DAFDA /* MedHistory.swift in Sources */,
+				9F6A6D1B1CA74587000DAFDA /* PickerViewController.swift in Sources */,
 				9F6A6D151C9B9236000DAFDA /* MedReminder.swift in Sources */,
 				9F690D5E1C95D080009F918E /* Mobile_App_2016.xcdatamodeld in Sources */,
 				9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */,
 				9F690D561C95D080009F918E /* AppDelegate.swift in Sources */,
+				9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */,
+				9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */,
 				9F690D8F1C95DCBA009F918E /* Constants.swift in Sources */,
+				9F6A6D1D1CA74FD8000DAFDA /* PatientListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

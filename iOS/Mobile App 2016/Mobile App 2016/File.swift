@@ -27,13 +27,16 @@ class File {
     
     static func readFile(filename: String) -> String {
         let filePath = getFilePath(filename);
-        
-        if(filePath != "ERROR"){
-            return try! String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+        do{
+            if(filePath != "ERROR"){
+                return try String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+            }
         }
+        catch{
         
+            return "";
+        }
         return "";
-        
         
     }
     static func writeFile(filename: String, data: String){
