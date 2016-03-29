@@ -49,7 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        print("Got token data! \(deviceToken))")
+        
+        print("Got token data! \(String(deviceToken)))")
         File.writeFile("UDID", data: deviceToken)
     }
     

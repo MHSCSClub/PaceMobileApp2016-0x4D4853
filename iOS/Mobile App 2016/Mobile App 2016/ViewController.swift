@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet var passwordInput: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let udid = File.readFile("UDID")
+        print(udid)
         //File.writeFile("jack.txt", data: "Jack is so cool")
        
         //ServerConnection.postFile(NSData(contentsOfURL: NSURL(fileURLWithPath: File.getFilePath("jack.txt")))!, url: "\(Constants.baseURL)filetest.php", completion: OnFinish);

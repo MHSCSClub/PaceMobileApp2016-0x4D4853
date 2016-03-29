@@ -12,16 +12,23 @@ class PickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print("hi")
         let type = Constants.getType()
         print(type)
+        let udid = File.readFile("UDID")
+        print(udid)
         if(type == "caregiver"){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc:UIViewController = storyboard.instantiateViewControllerWithIdentifier("PatientListViewController")
             self.presentViewController(vc, animated: false, completion: nil)
         }
-        
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     
