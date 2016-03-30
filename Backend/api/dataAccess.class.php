@@ -370,7 +370,7 @@
 		}
 
 		private static function GET_CARE_patients($db, $cid) {
-			$res = $db->query("SELECT cid, pid FROM relation WHERE cid=$cid");
+			$res = $db->query("SELECT relation.pid, name, active FROM relation INNER JOIN patients ON patients.pid = relation.pid WHERE cid=$cid");
 
 			return self::formatArrayResults($res);
 		}
