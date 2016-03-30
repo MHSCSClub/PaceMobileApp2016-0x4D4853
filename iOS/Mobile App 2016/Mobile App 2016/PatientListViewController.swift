@@ -42,6 +42,17 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         return patientList.count
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc:UITabBarController = (storyboard.instantiateViewControllerWithIdentifier("PatientView") as? UITabBarController)!
+        let viewcontroller1 = vc.viewControllers![0] as? Caregiver_PatientOverview;
+        viewcontroller1?.patient = patientList[indexPath.row]
+        let viewcontroller2 = vc.viewControllers![1] as? CareGiver_PatientMed;
+        viewcontroller2?.patient = patientList[indexPath.row]
+        
+        self.presentViewController(vc, animated: false, completion: nil)
+
+    }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

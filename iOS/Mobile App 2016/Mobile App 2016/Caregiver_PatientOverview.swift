@@ -19,6 +19,8 @@ class Caregiver_PatientOverview: UIViewController, UITableViewDataSource, UITabl
     
     let textCellIdentifier = "TextCell"
     
+    var patient:Patient!
+    
     var history = [MedHistory(date: "3/17/16 10 AM", med: "Lipitor"), MedHistory(date: "3/16/16 10 AM", med: "Lipitor")]
 
     override func viewDidLoad() {
@@ -44,6 +46,11 @@ class Caregiver_PatientOverview: UIViewController, UITableViewDataSource, UITabl
         tableView.dataSource = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.rowHeight = 70;
+        
+        if(patient != nil){
+            patientName.text = patient.name
+            
+        }
 
         // Do any additional setup after loading the view.
     }

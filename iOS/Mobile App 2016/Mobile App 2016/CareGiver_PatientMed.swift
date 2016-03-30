@@ -19,6 +19,8 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     
     let textCellIdentifier = "TextCell"
     
+    var patient:Patient!
+    
     var medication = [Medication(med: "Lipitor", amountLeft: 10, dose: 1), Medication(med: "Med2", amountLeft: 1, dose: 1)]
     
     override func viewDidLoad() {
@@ -54,6 +56,10 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         notification.category = "INVITE_CATEGORY";
         notification.userInfo = ["Medication": "Lipitor"]
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        
+        if(patient != nil){
+            patientName.text = patient.name
+        }
     }
     
     override func didReceiveMemoryWarning() {
