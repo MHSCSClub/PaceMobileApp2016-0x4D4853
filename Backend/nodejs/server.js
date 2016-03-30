@@ -24,7 +24,7 @@ function pushNotify(uiud, medid, message) {
 	note.alert = message;
 
 	apnConnection.pushNotification(note, device);
-	console.log('Push notification with message + "' + message + '" delivered!');
+	console.log('Push notification with message: "' + message + '" delivered!');
 }
 
 //Schedule object that holds all scheduled tasks

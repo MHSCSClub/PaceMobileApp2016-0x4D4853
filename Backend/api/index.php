@@ -70,6 +70,34 @@
 		curl_close($curl);
 		return Signal::success()->setMessage(array("res" => $res));
 	});
+	// test/notify
+	$RH->F("test", "notify", function() {
+		$url = "http://localhost:6969/api/notify";
+
+		$parameters = array();
+		$parameters['medid'] = array(1);
+		$parameters['uiud'] = @$_POST['uiud'];
+		$parameters['message'] = @$_POST['message'];
+		$parameters = json_encode($parameters);
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_URL => $url,
+			CURLOPT_POST => 1,
+			CURLOPT_POSTFIELDS => $parameters,
+			CURLOPT_HTTPHEADER => array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($parameters)
+			)
+		));
+
+		$res = curl_exec($curl);
+		curl_close($curl);
+		return Signal::success()->setMessage(array("Server response" => $res));
+
+	});
 
 	$RH->D("", "caretaker");
 
