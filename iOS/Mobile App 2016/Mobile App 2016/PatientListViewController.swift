@@ -50,7 +50,11 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         
         let row = indexPath.row
         cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 25)
-        cell.textLabel?.text = "\(patientList[row].pid)"
+        cell.textLabel?.text = "\(patientList[row].name)"
+        
+        if(patientList[row].active == 1){
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        }
         
         return cell
     }

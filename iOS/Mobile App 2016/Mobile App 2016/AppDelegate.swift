@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notificationActionCancel.activationMode = UIUserNotificationActivationMode.Background
         
         let notificationCategory:UIMutableUserNotificationCategory = UIMutableUserNotificationCategory()
-        notificationCategory.identifier = "INVITE_CATEGORY"
+        notificationCategory.identifier = "MED_CATEGORY"
         notificationCategory .setActions([notificationActionOk,notificationActionCancel], forContext: UIUserNotificationActionContext.Default)
         notificationCategory .setActions([notificationActionOk,notificationActionCancel], forContext: UIUserNotificationActionContext.Minimal)
         
@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?,forLocalNotification notification: UILocalNotification,completionHandler: () -> Void) {
-        if notification.category == "INVITE_CATEGORY" {
+        if notification.category == "MED_CATEGORY" {
             let action = "\(identifier)"
             print(action)
             switch action {
@@ -85,6 +85,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         completionHandler()
     }
     
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?,forRemoteNotification userInfo: [NSObject : AnyObject],completionHandler: () ->Void){
+        if let info = userInfo["aps"] {
+            if (info["category"] as? String == "MED_CATEGORY") {
+                let action = "\(identifier)"
+                switch action {
+                    case "Optional(\"ACCEPT_IDENTIFIER\")":
+                        if let med = userInfo["medid"] as? [Int] {
+                            let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let initialViewControlleripad : MedReminder = mainStoryboardIpad.instantiateViewControllerWithIdentifier("MedReminder") as! MedReminder
+                            initialViewControlleripad.medText = "\(med[0])"
+                            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                            self.window?.rootViewController = initialViewControlleripad
+                            self.window?.makeKeyAndVisible()
+                            
+                        }
+                    break;
+                    
+                    case "Optional(\"NOT_NOW_IDENTIFIER\")":
+                        print("hhh");
+                            
+                    default:
+                        print("jjjjj")
+
+                    
+            
+                }
+            }
+        }
+        completionHandler()
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]){
+        if let info = userInfo["aps"] {
+            if (info["category"] as? String == "MED_CATEGORY") {
+                if let med = userInfo["medid"] as? [Int] {
+                    let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let initialViewControlleripad : MedReminder = mainStoryboardIpad.instantiateViewControllerWithIdentifier("MedReminder") as! MedReminder
+                    initialViewControlleripad.medText = "\(med[0])"
+                    self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                    self.window?.rootViewController = initialViewControlleripad
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+        }
+        
+        
+    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
