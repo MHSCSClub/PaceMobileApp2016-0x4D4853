@@ -59,10 +59,10 @@ class ServerConnection {
         
     }
     
-    static func postFile(data: NSData, url: String, completion: ((data: NSData) -> Void)!) -> Void {
+    static func postFile(params: [String: String], data: NSData, url: String, completion: ((data: NSData) -> Void)!) -> Void {
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         let session = NSURLSession.sharedSession()
-        
+        print("Here")
         request.HTTPMethod = "POST"
         
         let boundary = NSString(format: "---------------------------14737809831466499882746641449")
@@ -72,9 +72,14 @@ class ServerConnection {
         
         let body = NSMutableData()
         
+        for (name, value) in params{
+            body.appendData(NSString(format: "\r\n--%@\r\n",boundary).dataUsingEncoding(NSUTF8StringEncoding)!)
+            body.appendData(NSString(format:"Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
+            body.appendData("\(value)".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        }
         
         body.appendData(NSString(format: "\r\n--%@\r\n", boundary).dataUsingEncoding(NSUTF8StringEncoding)!)
-        body.appendData(NSString(format:"Content-Disposition: form-data; name=\"file\"; filename=\"test.m4a\"\\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
+        body.appendData(NSString(format:"Content-Disposition: form-data; name=\"picture\"; filename=\"test.jpeg\"\\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
         body.appendData(NSString(format: "Content-Type: application/octet-stream\r\n\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
         body.appendData(data)
         body.appendData(NSString(format: "\r\n--%@\r\n", boundary).dataUsingEncoding(NSUTF8StringEncoding)!)

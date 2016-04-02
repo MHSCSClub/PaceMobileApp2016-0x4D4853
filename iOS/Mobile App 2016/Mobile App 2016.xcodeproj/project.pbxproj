@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F084C621CAE0F0F000970F9 /* Patient_ConectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F084C611CAE0F0F000970F9 /* Patient_ConectionController.swift */; };
+		9F084C641CAE1753000970F9 /* AddPatinetCaregiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */; };
+		9F3AD3041CAF6D810030CED1 /* MedicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */; };
+		9F3AD3071CAF794E0030CED1 /* CreateMedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */; };
 		9F690D561C95D080009F918E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D551C95D080009F918E /* AppDelegate.swift */; };
 		9F690D581C95D080009F918E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D571C95D080009F918E /* ViewController.swift */; };
 		9F690D5B1C95D080009F918E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F690D591C95D080009F918E /* Main.storyboard */; };
@@ -31,6 +35,7 @@
 		9F6A6D1D1CA74FD8000DAFDA /* PatientListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */; };
 		9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1F1CA75224000DAFDA /* Patient.swift */; };
 		9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D211CA75863000DAFDA /* PatientManager.swift */; };
+		9F75D7F31CAF569600D4CF9C /* Patient_MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F084C611CAE0F0F000970F9 /* Patient_ConectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient_ConectionController.swift; sourceTree = "<group>"; };
+		9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPatinetCaregiver.swift; sourceTree = "<group>"; };
+		9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
+		9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMedViewController.swift; sourceTree = "<group>"; };
 		9F690D521C95D080009F918E /* Mobile App 2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile App 2016.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F690D551C95D080009F918E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F690D571C95D080009F918E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +90,7 @@
 		9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientListViewController.swift; sourceTree = "<group>"; };
 		9F6A6D1F1CA75224000DAFDA /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		9F6A6D211CA75863000DAFDA /* PatientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientManager.swift; sourceTree = "<group>"; };
+		9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient_MainController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +123,19 @@
 			children = (
 				9F690D8E1C95DCBA009F918E /* Constants.swift */,
 				9F6A6D091C9B67E6000DAFDA /* MedHistory.swift */,
-				9F6A6D101C9B793A000DAFDA /* Medication.swift */,
+				9F3AD3051CAF6D8C0030CED1 /* Medication */,
 				9F6A6D231CA7587B000DAFDA /* Patient */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		9F3AD3051CAF6D8C0030CED1 /* Medication */ = {
+			isa = PBXGroup;
+			children = (
+				9F6A6D101C9B793A000DAFDA /* Medication.swift */,
+				9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */,
+			);
+			name = Medication;
 			sourceTree = "<group>";
 		};
 		9F690D491C95D080009F918E = {
@@ -191,6 +210,7 @@
 		9F6A6D041C9B60E9000DAFDA /* Patient View */ = {
 			isa = PBXGroup;
 			children = (
+				9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */,
 				9F6A6D141C9B9236000DAFDA /* MedReminder.swift */,
 			);
 			name = "Patient View";
@@ -199,9 +219,11 @@
 		9F6A6D0B1C9B7752000DAFDA /* Caregiver */ = {
 			isa = PBXGroup;
 			children = (
+				9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */,
 				9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */,
 				9F6A6D0E1C9B77C2000DAFDA /* CareGiver_PatientMed.swift */,
 				9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */,
+				9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */,
 			);
 			name = Caregiver;
 			sourceTree = "<group>";
@@ -209,6 +231,7 @@
 		9F6A6D1E1CA75006000DAFDA /* Login/Setup */ = {
 			isa = PBXGroup;
 			children = (
+				9F084C611CAE0F0F000970F9 /* Patient_ConectionController.swift */,
 				9F6A6D1A1CA74587000DAFDA /* PickerViewController.swift */,
 				9F690D571C95D080009F918E /* ViewController.swift */,
 			);
@@ -367,19 +390,24 @@
 			files = (
 				9F6A6D111C9B793A000DAFDA /* Medication.swift in Sources */,
 				9F6A6D061C9B618C000DAFDA /* Caregiver_PatientOverview.swift in Sources */,
+				9F084C621CAE0F0F000970F9 /* Patient_ConectionController.swift in Sources */,
 				9F690D581C95D080009F918E /* ViewController.swift in Sources */,
+				9F75D7F31CAF569600D4CF9C /* Patient_MainController.swift in Sources */,
 				9F690D8B1C95D12B009F918E /* File.swift in Sources */,
 				9F6A6D0F1C9B77C2000DAFDA /* CareGiver_PatientMed.swift in Sources */,
 				9F6A6D0A1C9B67E6000DAFDA /* MedHistory.swift in Sources */,
 				9F6A6D1B1CA74587000DAFDA /* PickerViewController.swift in Sources */,
+				9F3AD3071CAF794E0030CED1 /* CreateMedViewController.swift in Sources */,
 				9F6A6D151C9B9236000DAFDA /* MedReminder.swift in Sources */,
 				9F690D5E1C95D080009F918E /* Mobile_App_2016.xcdatamodeld in Sources */,
 				9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */,
 				9F690D561C95D080009F918E /* AppDelegate.swift in Sources */,
 				9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */,
+				9F3AD3041CAF6D810030CED1 /* MedicationManager.swift in Sources */,
 				9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */,
 				9F690D8F1C95DCBA009F918E /* Constants.swift in Sources */,
 				9F6A6D1D1CA74FD8000DAFDA /* PatientListViewController.swift in Sources */,
+				9F084C641CAE1753000970F9 /* AddPatinetCaregiver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,8 +552,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mobile App 2016/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = PaceApp.PaceApp;
+				PRODUCT_BUNDLE_IDENTIFIER = PaceApp1.PaceApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -538,8 +567,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Mobile App 2016/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = PaceApp.PaceApp;
+				PRODUCT_BUNDLE_IDENTIFIER = PaceApp1.PaceApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

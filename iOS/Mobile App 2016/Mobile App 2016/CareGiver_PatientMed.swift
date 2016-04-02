@@ -15,13 +15,15 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var patientName: UILabel!
     @IBOutlet var med_invitory: UILabel!
     @IBOutlet var tableView: UITableView!
+    
 
     
     let textCellIdentifier = "TextCell"
     
     var patient:Patient!
     
-    var medication = [Medication(med: "Lipitor", amountLeft: 10, dose: 1), Medication(med: "Med2", amountLeft: 1, dose: 1)]
+    var medication = [Medication]()
+    var medicationManager = MedicationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         tableView.rowHeight = 70;
         // Do any additional setup after loading the view.
         
+        /*
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 5)
         notification.alertBody = "Take Lipitor 3 Pills"
@@ -56,9 +59,18 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         notification.category = "INVITE_CATEGORY";
         notification.userInfo = ["Medication": "Lipitor"]
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        */
         
         if(patient != nil){
             patientName.text = patient.name
+            medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: updateView)
+        }
+    }
+    
+    func updateView() {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.medication = self.medicationManager.medications
+            self.tableView.reloadData()
         }
     }
     
@@ -79,20 +91,27 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         
         let row = indexPath.row
         cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 25)
-        cell.textLabel?.text = "\(medication[row].amountLeft) \(medication[row].med) Left"
+        cell.textLabel?.text = "\(medication[row].remain) \(medication[row].name) Left"
         
         cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue", size: 15)
-        cell.detailTextLabel?.text = "Dose: \(medication[row].dose)"
+        cell.detailTextLabel?.text = "Dose: \(medication[row].dosage)"
         
-        cell.detailTextLabel?.textColor = UIColor.greenColor()
-        cell.textLabel?.textColor = UIColor.greenColor()
+        cell.detailTextLabel?.textColor = UIColor.blueColor()
+        cell.textLabel?.textColor = UIColor.blueColor()
         
-        if(medication[row].dose >= medication[row].amountLeft){
+        if(medication[row].dosage >= medication[row].remain){
             cell.detailTextLabel?.textColor = UIColor.redColor()
             cell.textLabel?.textColor = UIColor.redColor()
         }
         
         return cell
+    }
+    
+    @IBAction func addMed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc:CreateMedViewController = (storyboard.instantiateViewControllerWithIdentifier("CreateMedViewController") as? CreateMedViewController)!
+        vc.patient = patient
+        self.presentViewController(vc, animated: false, completion: nil)
     }
     
     /*

@@ -28,6 +28,12 @@ class PickerViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc:UIViewController = storyboard.instantiateViewControllerWithIdentifier("PatientListViewController")
             self.presentViewController(vc, animated: false, completion: nil)
+        }else if(type == "patient"){
+            print(type)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc:UIViewController = storyboard.instantiateViewControllerWithIdentifier("PatientInterface")
+            self.presentViewController(vc, animated: false, completion: nil)
+
         }
     }
     

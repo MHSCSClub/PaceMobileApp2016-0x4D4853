@@ -9,14 +9,23 @@
 import Foundation
 
 class Medication {
-    var med:String
-    var amountLeft:Int
-    var dose:Int
+    var medid:Int
+    var name:String
+    var dosage:Int
+    var remain:Int
+    var info: String
     
-    init(med: String, amountLeft:Int, dose:Int){
-        self.med = med;
-        self.amountLeft = amountLeft;
-        self.dose = dose;
-        
+    
+    init(medid:String, name:String, dosage:String, remain:String, info: String){
+        self.medid = Int(medid)!
+        self.name = name
+        self.dosage = Int(dosage)!
+        self.remain = Int(remain)!
+        self.info = info
+    }
+    func createMedication(data:NSData, authcode: String, pid: String, completion: ((NSData) -> Void)!){
+        let params = ["name" :name, "dosage": "\(dosage)", "remain": "\(remain)", "info": info]
+        print("Here")
+        ServerConnection.postFile(params, data: data, url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/medications?authcode=\(authcode)", completion: completion)
     }
 }

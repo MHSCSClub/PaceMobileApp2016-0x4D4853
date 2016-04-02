@@ -70,6 +70,7 @@ class ViewController: UIViewController {
                         if let authcode = data["authcode"] as? String {
                             Constants.saveAuthCode(authcode)
                             Constants.saveType("caregiver")
+                            ServerConnection.postRequest(["uiud": File.readFile("UDID")], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/device?authcode=\(authcode)", completion: OnFinish)
                             print(authcode)
                             NSOperationQueue.mainQueue().addOperationWithBlock {
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

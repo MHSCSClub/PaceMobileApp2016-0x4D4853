@@ -49,9 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        
-        print("Got token data! \(String(deviceToken)))")
-        File.writeFile("UDID", data: deviceToken)
+        var device = String(deviceToken).stringByReplacingOccurrencesOfString("<", withString: "")
+        device = device.stringByReplacingOccurrencesOfString(">", withString: "")
+        device = device.stringByReplacingOccurrencesOfString(" ", withString: "")
+        print("Got token data! \(String(device))")
+        File.writeFile("UDID", data: device)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
