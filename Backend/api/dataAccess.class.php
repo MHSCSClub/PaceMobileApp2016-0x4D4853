@@ -485,14 +485,25 @@
 			return self::formatArrayResults($res);
 		}
 
-		private static function POST_CAPA_getMedication($db, $cid, $pid, $params) {
-			if(is_null($params['medid']))
-				throw new IMGException("Invalid medid");
-
-			$stmt = $db->prepare("SELECT pic FROM medication WHERE medid=? AND pid=$pid");
-			$stmt->bind_param('i', $params['medid']);
+		private static function validateMedid($db, $pid, $medid) {
+			$stmt = $db->prepare("SELECT medid FROM medication WHERE medid=? AND pid=$pid");
+			$stmt->bind_param('i', $medid);
 			$stmt->execute();
 			$res = $stmt->get_result();
+
+			if($res->num_rows != 1)
+				throw new Exception("Invalid medid");
+			return $res->fetch_assoc()['medid'];
+		}
+
+		private static function POST_CAPA_getMedication($db, $cid, $pid, $params) {
+			try {
+				$medid = self::validateMedid($db, $pid, $params['medid']);
+			} catch(Exception $e) {
+				throw new IMGException($e->getMessage());
+			}
+			
+			$res = $db->query("SELECT pic FROM medication WHERE medid=$medid AND pid=$pid");
 
 			if($res->num_rows != 1)
 				throw new IMGException("Invalid medid or image not found");
@@ -521,20 +532,51 @@
 
 			$meds = explode(',', $params['medication']);
 			for($i = 0; $i < count($meds); ++$i) {
-				$stmt = $db->prepare("SELECT medid FROM medication WHERE medid=? AND pid=$pid");
-				$stmt->bind_param('i', $meds[$i]);
-				$stmt->execute();
-				$res = $stmt->get_result();
-
-				if($res->num_rows != 1)
-					throw new IMGException("Invalid medid");
-
-				$medid = $res->fetch_assoc()['medid'];
-
-				$db->query("INSERT INTO medsche VALUES (null, $schid, $medid, null)");
+				$medid = self::validateMedid($db, $pid, $meds[$i]);
+				$db->query("INSERT IGNORE INTO medsche VALUES (null, $schid, $medid, null)");
 			}
 
 			return Signal::success()->setData(array("schid" => $schid));
+		}
+
+		private static function GET_CAPA_listSchedule($db, $cid, $pid) {
+			$res = $db->query("SELECT schid, HOUR(take) AS hours, MINUTE(take) AS minutes FROM schedule");
+			return self::formatArrayResults($res);
+		}
+
+		private static function validateSchid($db, $pid, $schid) {
+			$stmt = $db->prepare("SELECT schid FROM schedule WHERE schid=? AND pid=$pid");
+			$stmt->bind_param('i', $schid);
+			$stmt->execute();
+			$res = $stmt->get_result();
+
+			if($res->num_rows != 1)
+				throw new IMGException("Invalid schid");
+			return $res->fetch_assoc()['schid'];
+		}
+
+		private static function POST_CAPA_detailSchedule($db, $cid, $pid, $params) {
+			$schid = self::validateSchid($db, $pid, $params['schid']);
+			$res = $db->query("SELECT medid, taken FROM medsche WHERE schid=$schid");
+			return self::formatArrayResults($res);
+		}
+
+		private static function POST_CAPA_modifySchedule($db, $cid, $pid, $params) {
+			$schid = self::validateSchid($db, $pid, $params['schid']);
+			$db->query("DELETE FROM medsche WHERE schid=$schid");
+			$meds = explode(',', $params['medication']);
+			for($i = 0; $i < count($meds); ++$i) {
+				$medid = self::validateMedid($db, $pid, $meds[$i]);
+				$db->query("INSERT IGNORE INTO medsche VALUES (null, $schid, $medid, null)");
+			}
+			return Signal::success();
+		}
+
+		private static function POST_CAPA_deleteSchedule($db, $cid, $pid, $params) {
+			$schid = self::validateSchid($db, $pid, $params['schid']);
+			$db->query("DELETE FROM medsche WHERE schid=$schid");
+			$db->query("DELETE FROM schedule WHERE schid=$schid");
+			return Signal::success();
 		}
 	}
 ?>

@@ -71,7 +71,7 @@ CREATE TABLE schedule
 	schid int unsigned not null auto_increment primary key,
 	pid int unsigned not null,
 	take DATETIME not null,
-	ptuq (pid, take) not null unique
+	UNIQUE index ptuq (pid, take)
 );
 
 CREATE TABLE medsche
@@ -79,5 +79,6 @@ CREATE TABLE medsche
 	msid int unsigned not null auto_increment primary key,
 	schid int unsigned not null,
 	medid int unsigned not null,
-	taken DATETIME
+	taken DATETIME,
+	UNIQUE index smuq (schid, medid)
 );

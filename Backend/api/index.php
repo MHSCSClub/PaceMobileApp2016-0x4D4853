@@ -214,7 +214,7 @@
 	});
 
 	// caretaker/patients/{pid}/schedules/{schid}
-	$RH->F("caretaker/patients/$WC/schedule", "$WC", function($trace) {
+	$RH->F("caretaker/patients/$WC/schedules", "$WC", function($trace) {
 		$params = array();
 		$params['schid'] = $trace[4];
 
@@ -222,7 +222,8 @@
 			case 'GET':
 				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "detailSchedule", $params);
 
-			case 'PUT':
+			case 'POST':
+				$params['medication'] = @$_POST['medication'];
 				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "modifySchedule", $params);
 			
 			case 'DELETE':
@@ -230,8 +231,6 @@
 		}
 		return Signal::error()->setMessage("Invalid request type");
 	});
-
-
 
 	$RH->D("", "patient");
 	// patient/link
