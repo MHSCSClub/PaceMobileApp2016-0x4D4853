@@ -245,9 +245,40 @@
 
 		return DataAccess::patiPOST(@$_GET['authcode'], "registerDevice", $params);
 	});
-	//patient/info
+	// patient/info
 	$RH->F("patient", "info", function() {
 		return DataAccess::patiGET(@$_GET['authcode'], "info");
+	});
+
+	$RH->D("patient", "medications");
+	$RH->D("patient/medications", $WC);
+
+	// patient/medications
+	$RH->F("patient", "medications", function() {
+		return DataAccess::patiGET(@$_GET['authcode'], "listMedication");
+	});
+	// patient/medications/{medid}
+	$RH->F("patient/medications", "$WC", function($trace) {
+		$params = array();
+		$params['medid'] = $trace[2];
+		return DataAccess::patiPOST(@$_GET['authcode'], "getMedication", $params);
+	});
+	// patient/medications/{medid}/take
+	$RH->F("patient/medications/$WC", "take", function($trace) {
+		$params = array();
+		$params['medid'] = $trace[2];
+		return DataAccess::patiPOST(@$_GET['authcode'], "takeMedication", $params);
+	});
+
+	$RH->D("patient", "schedules");
+
+	$RH->F("patient", "schedules", function() {
+		return DataAccess::patiGET(@$_GET['authcode'], "listSchedule");
+	});
+	$RH->F("patient/schedules", "$WC", function($trace) {
+		$params = array();
+		$params['schid'] = $trace[2];
+		return DataAccess::patiPOST(@$_GET['authcode'], "detailSchedule", $params);
 	});
 
 
