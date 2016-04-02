@@ -516,6 +516,9 @@
 			$res = $db->query("SELECT LAST_INSERT_ID()");
 			$schid = $res->fetch_assoc()['LAST_INSERT_ID()'];
 
+			if($schid == 0)
+				throw new Exception("Time already exists");
+
 			$meds = explode(',', $params['medication']);
 			for($i = 0; $i < count($meds); ++$i) {
 				$stmt = $db->prepare("SELECT medid FROM medication WHERE medid=? AND pid=$pid");

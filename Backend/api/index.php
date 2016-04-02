@@ -128,72 +128,109 @@
 
 		return DataAccess::carePOST(@$_GET['authcode'], "registerDevice", $params);
 	});
+
+	//Patient handling
+
+	$RH->D("caretaker", "patients");
+	$RH->D("caretaker/patients", $WC);
+
 	// caretaker/patients
 	$RH->F("caretaker", "patients", function() {
-		return DataAccess::careGet(@$_GET['authcode'], "patients");
+		switch ($_SERVER['REQUEST_METHOD']) {
+			case 'GET':
+				return DataAccess::careGet(@$_GET['authcode'], "patients");
+			
+			case 'POST':
+				$params = array();
+				$params['name'] = @$_POST['name'];
+				$params['usability'] = @$_POST['usability'];
+				return DataAccess::carePOST(@$_GET['authcode'], "createPatient", $params);
+
+		}
+		return Signal::error()->setMessage("Invalid request type");
 	});
-
-	$RH->D("caretaker", "patient");
-
-	// caretaker/patient/new
-	$RH->F("caretaker/patient", "new", function() {
-		$params = array();
-		$params['name'] = @$_POST['name'];
-		$params['usability'] = @$_POST['usability'];
-
-		return DataAccess::carePOST(@$_GET['authcode'], "createPatient", $params);
-	});
-
-	$RH->D("caretaker/patient", $WC);
-
-	// caretaker/patient/{pid}/relink
-	$RH->F("caretaker/patient/$WC", "relink", function($trace) {
-		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "relink");
-	});
-	// caretaker/patient/{pid}/share
-	$RH->F("caretaker/patient/$WC", "share", function($trace) {
-		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "share");
-	});
-	// caretaker/patient/{pid}/info
-	$RH->F("caretaker/patient/$WC", "info", function($trace) {
+	// caretaker/patients/{pid}/info
+	$RH->F("caretaker/patients", "$WC", function($trace) {
 		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "info");
 	});
+	// caretaker/patients/{pid}/relink
+	$RH->F("caretaker/patients/$WC", "relink", function($trace) {
+		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "relink");
+	});
+	// caretaker/patients/{pid}/share
+	$RH->F("caretaker/patients/$WC", "share", function($trace) {
+		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "share");
+	});
 
-	$RH->D("caretaker/patient/$WC", "medication");
+	//Medication handling
+
+	$RH->D("caretaker/patients/$WC", "medications");
 	
-	// caretaker/patient/{pid}/medication/new
-	$RH->F("caretaker/patient/$WC/medication", "new", function($trace) {
-		$params = array();
-		$params['name'] = @$_POST['name'];
-		$params['dosage'] = @$_POST['dosage'];
-		$params['remain'] = @$_POST['remain'];
-		if(isset($_FILES['picture'])) {
-			$params['pic'] = file_get_contents($_FILES['picture']['tmp_name']);
+	// caretaker/patients/{pid}/medications
+	$RH->F("caretaker/patients/$WC", "medications", function($trace) {
+		switch ($_SERVER['REQUEST_METHOD']) {
+			case 'GET':
+				return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "listMedication");
+			
+			case 'POST':
+				$params = array();
+				$params['name'] = @$_POST['name'];
+				$params['dosage'] = @$_POST['dosage'];
+				$params['remain'] = @$_POST['remain'];
+				if(isset($_FILES['picture']))
+					$params['pic'] = file_get_contents($_FILES['picture']['tmp_name']);
+				$params['info'] = @$_POST['info'];
+				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "createMedication", $params);
+	
 		}
-		$params['info'] = @$_POST['info'];
-		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "createMedication", $params);
+		return Signal::error()->setMessage("Invalid request type");
+		
 	});
-	// caretaker/patient/{pid}/medications
-	$RH->F("caretaker/patient/$WC", "medications", function($trace) {
-		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "listMedication");
-	});
-	// caretaker/patient/{pid}/medication/{medid}
-	$RH->F("caretaker/patient/$WC/medication", "$WC", function($trace) {
+	// caretaker/patients/{pid}/medication/{medid}
+	$RH->F("caretaker/patients/$WC/medications", "$WC", function($trace) {
 		$params = array();
 		$params['medid'] = $trace[4];
 		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "getMedication", $params);
 	});
 
-	$RH->D("caretaker/patient/$WC", "schedule");
+	//Schedule handling
 
-	// caretaker/patient/{pid}/schedule/new
-	$RH->F("caretaker/patient/{pid}/schedule", "new", function($trace) {
-		$params = array();
-		$params['hours'] = @$_POST['hours'];
-		$params['minutes'] = @$_POST['minutes'];
-		$params['medication'] = @$_POST['medication'];
-		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "createSchedule", $params);
+	$RH->D("caretaker/patients/$WC", "schedules");
+
+	// caretaker/patients/{pid}/schedules
+	$RH->F("caretaker/patients/$WC", "schedules", function($trace) {
+		switch ($_SERVER['REQUEST_METHOD']) {
+			case 'GET':
+				return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "listSchedule");
+			
+			case 'POST':
+				$params = array();
+				$params['hours'] = @$_POST['hours'];
+				$params['minutes'] = @$_POST['minutes'];
+				$params['medication'] = @$_POST['medication'];
+				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "createSchedule", $params);
+		}
+		return Signal::error()->setMessage("Invalid request type");
 	});
+
+	// caretaker/patients/{pid}/schedules/{schid}
+	$RH->F("caretaker/patients/$WC/schedule", "$WC", function($trace) {
+		$params = array();
+		$params['schid'] = $trace[4];
+
+		switch ($_SERVER['REQUEST_METHOD']) {
+			case 'GET':
+				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "detailSchedule", $params);
+
+			case 'PUT':
+				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "modifySchedule", $params);
+			
+			case 'DELETE':
+				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "deleteSchedule", $params);
+		}
+		return Signal::error()->setMessage("Invalid request type");
+	});
+
 
 
 	$RH->D("", "patient");
