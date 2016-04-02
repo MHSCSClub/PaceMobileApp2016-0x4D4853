@@ -501,5 +501,37 @@
 			return Signal::success()->setType("IMG")->setData($imgdata);
 		}
 
+		private static function POST_CAPA_createSchedule($db, $cid, $pid, $params) {
+			if(is_null($params['hours']) || is_null($params['minutes']) || is_null($params['medication']))
+				throw new Exception("Invalid POST data");
+
+			$date = new DateTime('2001-09-11');
+			$date->setTime($params['hours'], $params['minutes']);
+			$date = $date->format('Y-m-d H:i:s');
+
+			$stmt = $db->prepare("INSERT IGNORE INTO schedule VALUES (null, $pid, ?)");
+			$stmt->bind_param('s', $date);
+			$stmt->execute();
+
+			$res = $db->query("SELECT LAST_INSERT_ID()");
+			$schid = $res->fetch_assoc()['LAST_INSERT_ID()'];
+
+			$meds = explode(',', $params['medication']);
+			for($i = 0; $i < count($meds); ++$i) {
+				$stmt = $db->prepare("SELECT medid FROM medication WHERE medid=? AND pid=$pid");
+				$stmt->bind_param('i', $meds[$i]);
+				$stmt->execute();
+				$res = $stmt->get_result();
+
+				if($res->num_rows != 1)
+					throw new IMGException("Invalid medid");
+
+				$medid = $res->fetch_assoc()['medid'];
+
+				$db->query("INSERT INTO medsche VALUES (null, $schid, $medid, null)");
+			}
+
+			return Signal::success()->setData(array("schid" => $schid));
+		}
 	}
 ?>

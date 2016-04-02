@@ -59,7 +59,7 @@ router.route('/schedule')
 		var medid = req.body.medid;
 		var message = req.body.message;
 	
-		if(schid == null || medtime == null || uiud == null || medid == null || message == null  )
+		if(schid == null || medtime == null || uiud == null || medid == null || message == null)
 			throw "Invalid POST data";
 		else if(schid in fullSchedule)
 			throw "Key already exists!";

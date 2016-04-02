@@ -70,7 +70,8 @@ CREATE TABLE schedule
 (
 	schid int unsigned not null auto_increment primary key,
 	pid int unsigned not null,
-	take DATETIME not null
+	take DATETIME not null,
+	ptuq (pid, take) not null unique
 );
 
 CREATE TABLE medsche

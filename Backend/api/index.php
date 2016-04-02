@@ -184,6 +184,17 @@
 		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "getMedication", $params);
 	});
 
+	$RH->D("caretaker/patient/$WC", "schedule");
+
+	// caretaker/patient/{pid}/schedule/new
+	$RH->F("caretaker/patient/{pid}/schedule", "new", function($trace) {
+		$params = array();
+		$params['hours'] = @$_POST['hours'];
+		$params['minutes'] = @$_POST['minutes'];
+		$params['medication'] = @$_POST['medication'];
+		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "createSchedule", $params);
+	});
+
 
 	$RH->D("", "patient");
 	// patient/link
