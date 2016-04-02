@@ -55,11 +55,13 @@ CREATE TABLE link
 	open BOOL not null
 );
 
-CREATE TABLE medicine
+CREATE TABLE medication
 (
 	medid int unsigned not null auto_increment primary key,
+	pid int unsigned not null,
 	name char(50) not null,
 	dosage int unsigned not null,
+	remain int unsigned not null,
 	pic MEDIUMBLOB,
 	info varchar(800)
 );
@@ -77,4 +79,4 @@ CREATE TABLE medsche
 	schid int unsigned not null,
 	medid int unsigned not null,
 	taken DATETIME
-)
+);

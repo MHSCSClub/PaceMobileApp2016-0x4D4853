@@ -140,6 +140,8 @@
 				return Signal::dbConnectionError();
 			} catch(AuthException $e) {
 				return Signal::authError();
+			} catch(IMGException $e) {
+				return Signal::imgError()->setMessage($e->getMessage());
 			} catch(Exception $e) {
 				return Signal::error()->setMessage($e->getMessage());
 			}
@@ -428,6 +430,11 @@
 			return Signal::success();
 		}
 
+		private static function GET_PATI_info($db, $pid) {
+			$res = $db->query("SELECT name, usability FROM patients WHERE pid=$pid");
+			return Signal::success()->setData($res->fetch_assoc());
+		}
+
 		private static function GET_CAPA_relink($db, $cid, $pid) {
 			$data = array();
 			//Look for existing open link
@@ -446,13 +453,52 @@
 			return Signal::success()->setData($data);
 		}
 
-		private static function GET_CAPA_share($db, $cid, $pid, $params) {
+		private static function GET_CAPA_share($db, $cid, $pid) {
 			$username = $params['username'];
 			$ncid = self::getIdFromUsername($username);
 
 			//Create relation
 			$db->query("INSERT INTO relation VALUES (null, $cid, $pid, 1)");
 			return Signal::success();
+		}
+
+		private static function GET_CAPA_info($db, $cid, $pid) {
+			return self::GET_PATI_info($db, $pid);
+		}
+
+		private static function POST_CAPA_createMedication($db, $cid, $pid, $params) {
+			if(is_null($params['name']) || is_null($params['dosage']) || is_null($params['remain']))
+				throw new Exception("Invalid POST data");
+			$stmt = $db->prepare("INSERT INTO medication VALUES (null, $pid, ?, ?, ?, ?, ?)");
+			$stmt->bind_param('siiss', $params['name'], $params['dosage'], $params['remain'], $params['pic'], $params['info']);
+			$stmt->execute();
+			$stmt->close();
+
+			$res = $db->query("SELECT LAST_INSERT_ID()");
+			$medid = $res->fetch_assoc()['LAST_INSERT_ID()'];
+
+			return Signal::success()->setData(array("medid" => $medid));
+		}
+
+		private static function GET_CAPA_listMedication($db, $cid, $pid) {
+			$res = $db->query("SELECT medid, name, dosage, remain, info FROM medication WHERE pid=$pid");
+			return self::formatArrayResults($res);
+		}
+
+		private static function POST_CAPA_getMedication($db, $cid, $pid, $params) {
+			if(is_null($params['medid']))
+				throw new IMGException("Invalid medid");
+
+			$stmt = $db->prepare("SELECT pic FROM medication WHERE medid=? AND pid=$pid");
+			$stmt->bind_param('i', $params['medid']);
+			$stmt->execute();
+			$res = $stmt->get_result();
+
+			if($res->num_rows != 1)
+				throw new IMGException("Invalid medid or image not found");
+
+			$imgdata = $res->fetch_assoc()['pic'];
+			return Signal::success()->setType("IMG")->setData($imgdata);
 		}
 
 	}

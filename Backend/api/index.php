@@ -148,13 +148,40 @@
 
 	// caretaker/patient/{pid}/relink
 	$RH->F("caretaker/patient/$WC", "relink", function($trace) {
-		$pid = $trace[2];
-		return DataAccess::capaGET(@$_GET['authcode'], $pid, "relink");
+		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "relink");
 	});
 	// caretaker/patient/{pid}/share
 	$RH->F("caretaker/patient/$WC", "share", function($trace) {
-		$pid = $trace[2];
-		//return DataAccess::capaGET(@$_GET['authcode'], $pid, "share");
+		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "share");
+	});
+	// caretaker/patient/{pid}/info
+	$RH->F("caretaker/patient/$WC", "info", function($trace) {
+		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "info");
+	});
+
+	$RH->D("caretaker/patient/$WC", "medication");
+	
+	// caretaker/patient/{pid}/medication/new
+	$RH->F("caretaker/patient/$WC/medication", "new", function($trace) {
+		$params = array();
+		$params['name'] = @$_POST['name'];
+		$params['dosage'] = @$_POST['dosage'];
+		$params['remain'] = @$_POST['remain'];
+		if(isset($_FILES['picture'])) {
+			$params['pic'] = file_get_contents($_FILES['picture']['tmp_name']);
+		}
+		$params['info'] = @$_POST['info'];
+		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "createMedication", $params);
+	});
+	// caretaker/patient/{pid}/medications
+	$RH->F("caretaker/patient/$WC", "medications", function($trace) {
+		return DataAccess::capaGET(@$_GET['authcode'], $trace[2], "listMedication");
+	});
+	// caretaker/patient/{pid}/medication/{medid}
+	$RH->F("caretaker/patient/$WC/medication", "$WC", function($trace) {
+		$params = array();
+		$params['medid'] = $trace[4];
+		return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "getMedication", $params);
 	});
 
 
@@ -165,12 +192,17 @@
 		return DataAccess::patiLINK($lcode);
 	});
 	// patient/device
-	$RH->F("pateint", "device", function() {
+	$RH->F("patient", "device", function() {
 		$params = array();
 		$params['uiud'] = @$_POST['uiud'];
 
-		return DataAccess::carePOST(@$_GET['authcode'], "registerDevice", $params);
+		return DataAccess::patiPOST(@$_GET['authcode'], "registerDevice", $params);
 	});
+	//patient/info
+	$RH->F("patient", "info", function() {
+		return DataAccess::patiGET(@$_GET['authcode'], "info");
+	});
+
 
 	try {
 		$response = $RH->call($user_request);
@@ -179,6 +211,16 @@
 			case 'JSON':
 				header('Content-Type: application/json');
 				echo json_encode($response->toArray());
+				break;
+
+			case 'IMG':
+
+				//Return not found in case of error
+				if($response->isError())
+					notFound();
+				ob_clean(); //Prevent stray new lines
+				header('Content-Type: image/jpeg');
+				echo $response->getData();
 				break;
 			
 			default:
