@@ -76,9 +76,7 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
         }
     }
     @IBAction func done(sender: AnyObject) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc:UIViewController = storyboard.instantiateViewControllerWithIdentifier("PatientListViewController")
-        self.presentViewController(vc, animated: false, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     

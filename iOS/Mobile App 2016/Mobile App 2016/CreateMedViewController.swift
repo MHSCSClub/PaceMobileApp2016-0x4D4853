@@ -83,13 +83,7 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
         backToScreen()
     }
     func backToScreen () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc:UITabBarController = (storyboard.instantiateViewControllerWithIdentifier("PatientView") as? UITabBarController)!
-        let viewcontroller1 = vc.viewControllers![0] as? Caregiver_PatientOverview;
-        viewcontroller1?.patient = patient
-        let viewcontroller2 = vc.viewControllers![1] as? CareGiver_PatientMed;
-        viewcontroller2?.patient = patient
-        self.presentViewController(vc, animated: false, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     /*

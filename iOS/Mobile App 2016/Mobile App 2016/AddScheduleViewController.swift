@@ -13,20 +13,20 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
     var patient: Patient!
     var medicationList: MedicationManager!
     
+    @IBOutlet var navBar: UINavigationItem!
     @IBOutlet var time: UIDatePicker!
     var tableView = UITableView()
     
     var selected = [Bool]()
     
     @IBOutlet var doneMedication: UIButton!
-    @IBOutlet var titleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         var frame: CGRect = self.view.frame
-        frame.origin.y += 100
+        frame.origin.y += 50
         frame.size.height = frame.size.height - 150
         
         tableView.frame = frame
@@ -43,14 +43,14 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func addMedication(sender: AnyObject) {
         tableView.hidden = false;
         doneMedication.hidden = false;
-        titleLabel.text = "Pick Medications:"
+        navBar.title = "Pick Medications:"
         
         
     }
     @IBAction func doneMedication(sender: AnyObject) {
         tableView.hidden = true;
         doneMedication.hidden = true;
-        titleLabel.text = "Add Schedule"
+        navBar.title = "Add Schedule"
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,12 +84,15 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func done(sender: AnyObject) {
         var meds = ""
-        for i in 0 ... selected.count-1 {
-            if(selected[i]){
-                meds += "\(medicationList.medications[i].medid),"
+        if(selected.count > 0){
+            for i in 0 ... selected.count-1 {
+                if(selected[i]){
+                    meds += "\(medicationList.medications[i].medid),"
+                }
             }
+            meds.removeAtIndex(meds.endIndex.predecessor())
         }
-        meds.removeAtIndex(meds.endIndex.predecessor())
+        
         let components = time.calendar.components([.Hour, .Minute],fromDate: time.date);
         let params = ["hours": "\(components.hour)", "minutes": "\(components.minute)", "medication": meds]
         ServerConnection.postRequest(params, url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/schedules?authcode=\(Constants.getAuthCode())", completion: complete)
@@ -112,20 +115,16 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
         catch {
             print("error serializing JSON: \(error)")
         }
+        
     }
     
     @IBAction func cancel(sender: AnyObject) {
         backToScreen()
     }
     func backToScreen () {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc:UITabBarController = (storyboard.instantiateViewControllerWithIdentifier("PatientView") as? UITabBarController)!
-        let viewcontroller1 = vc.viewControllers![0] as? Caregiver_PatientOverview;
-        viewcontroller1?.patient = patient
-        let viewcontroller2 = vc.viewControllers![1] as? CareGiver_PatientMed;
-        viewcontroller2?.patient = patient
-        self.presentViewController(vc, animated: false, completion: nil)
+       navigationController?.popViewControllerAnimated(true)
     }
+    
     
     
     /*

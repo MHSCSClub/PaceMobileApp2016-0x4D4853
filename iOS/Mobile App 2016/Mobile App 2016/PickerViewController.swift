@@ -25,9 +25,7 @@ class PickerViewController: UIViewController {
         let udid = File.readFile("UDID")
         print(udid)
         if(type == "caregiver"){
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc:UIViewController = storyboard.instantiateViewControllerWithIdentifier("PatientListViewController")
-            self.presentViewController(vc, animated: false, completion: nil)
+            self.performSegueWithIdentifier("goToMainScreen", sender: self)
         }else if(type == "patient"){
             print(type)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

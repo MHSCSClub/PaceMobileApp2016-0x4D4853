@@ -16,6 +16,7 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     var patientmanager = PatientManager()
     
     var patientList: [Patient] = []
+    var selected = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,9 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     func updateView() {
         NSOperationQueue.mainQueue().addOperationWithBlock {
             self.patientList = self.patientmanager.patients
+            self.patientList.append(Patient(pid: "7", name: "jack", active: "1"))
+            self.patientList.append(Patient(pid: "7", name: "jack", active: "1"))
+            self.patientList.append(Patient(pid: "7", name: "jack", active: "1"))
             self.tableView.reloadData()
         }
     }
@@ -43,15 +47,9 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc:UITabBarController = (storyboard.instantiateViewControllerWithIdentifier("PatientView") as? UITabBarController)!
-        let viewcontroller1 = vc.viewControllers![0] as? Caregiver_PatientOverview;
-        viewcontroller1?.patient = patientList[indexPath.row]
-        let viewcontroller2 = vc.viewControllers![1] as? CareGiver_PatientMed;
-        viewcontroller2?.patient = patientList[indexPath.row]
+        selected = indexPath.row
         
-        self.presentViewController(vc, animated: false, completion: nil)
-
+        self.performSegueWithIdentifier("PatientMeds", sender: self)
     }
     
     
@@ -77,6 +75,16 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+        if (segue.identifier == "PatientMeds") {
+
+            let viewController = segue.destinationViewController as? CareGiver_PatientMed
+            viewController?.patient = patientList[selected]
+        }
+        
+        
+        
+    }
     
     
 }

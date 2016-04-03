@@ -8,11 +8,11 @@
 
 import UIKit
 
-class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
     
    
-    @IBOutlet var profilePic: UIImageView!
-    @IBOutlet var patientName: UILabel!
+    
+    @IBOutlet var navBar: UINavigationItem!
     @IBOutlet var med_invitory: UILabel!
     @IBOutlet var tableView: UITableView!
     
@@ -21,8 +21,10 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     let textCellIdentifier = "TextCell"
     let dateFormatter = NSDateFormatter()
     
+    @IBOutlet var labelForPresent: UILabel!
     var patient:Patient!
     
+    @IBOutlet var addButton: UIButton!
     
     var medicationManager = MedicationManager()
     var scheduleManager = ScheduleManager()
@@ -47,7 +49,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         topBorder.backgroundColor = UIColor.grayColor().CGColor
         
         //med_invitory.layer.addSublayer(border)
-        med_invitory.layer.addSublayer(topBorder)
+        med_invitory.layer.addSublayer(border)
         med_invitory.layer.masksToBounds = true;
         
         //table view
@@ -73,7 +75,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         
         
         if(patient != nil){
-            patientName.text = patient.name
+            navBar.title = patient.name
             medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
         }
         
@@ -144,22 +146,65 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func addMed(sender: AnyObject) {
+        let popoverContent = self.storyboard?.instantiateViewControllerWithIdentifier("Menu")
+        let nav = UINavigationController(rootViewController: popoverContent!)
+        nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popover = nav.popoverPresentationController
+        popoverContent!.preferredContentSize = CGSizeMake(500,600)
+        popover!.delegate = self
+        popover!.sourceView = self.view
+        popover!.sourceRect = CGRectMake(100,100,0,0)
+        
+        self.presentViewController(nav, animated: true, completion: nil)
+        
+        /*
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc:CreateMedViewController = (storyboard.instantiateViewControllerWithIdentifier("CreateMedViewController") as? CreateMedViewController)!
         vc.patient = patient
-        self.presentViewController(vc, animated: false, completion: nil)
+        self.presentViewController(vc, animated: false, completion: nil)*/
     }
     @IBAction func addTime(sender: AnyObject) {
+        
+        
+        /*self.presentViewController(nav, animated: true, completion: nil)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc:AddScheduleViewController = (storyboard.instantiateViewControllerWithIdentifier("AddScheduleViewController") as? AddScheduleViewController)!
         vc.patient = patient
         vc.medicationList = medicationManager
-        self.presentViewController(vc, animated: false, completion: nil)
+        self.presentViewController(vc, animated: false, completion: nil)*/
     }
-   
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "popoverSegue"){
+            let popoverViewController = segue.destinationViewController as? Popup
+            popoverViewController!.modalPresentationStyle = UIModalPresentationStyle.Popover
+            //popoverViewController.popoverPresentationController?.sourceView = labelForPresent as UIView
+            popoverViewController!.popoverPresentationController!.delegate = self
+            popoverViewController?.addMedCall = addMedication
+            popoverViewController?.addScheduleCall = addSchedule
+            
+        }
+        else if(segue.identifier == "addMedication"){
+            let controller = segue.destinationViewController as? CreateMedViewController
+            controller?.patient = patient
+        }
+        else if (segue.identifier == "addSchedule"){
+            let controller = segue.destinationViewController as? AddScheduleViewController
+            controller?.patient = patient
+            controller?.medicationList = medicationManager
+        }
+    }
+    func addMedication(){
+        self.performSegueWithIdentifier("addMedication", sender: self)
+    }
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
+    }
+    func addSchedule(){
+        self.performSegueWithIdentifier("addSchedule", sender: self)
+    }
     
     /*
-    // MARK: - Navigation
+    // MARK: - Navigation addSchedule
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

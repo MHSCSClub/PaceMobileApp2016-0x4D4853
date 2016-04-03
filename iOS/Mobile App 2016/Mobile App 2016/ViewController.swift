@@ -52,6 +52,7 @@ class ViewController: UIViewController {
             if let status = json["status"] as? String {
                 if (status == "success"){
                     print("success")
+                    ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/login", completion: finishLogin)
                 }
             }
         }
@@ -73,9 +74,7 @@ class ViewController: UIViewController {
                             ServerConnection.postRequest(["uiud": File.readFile("UDID")], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/device?authcode=\(authcode)", completion: OnFinish)
                             print(authcode)
                             NSOperationQueue.mainQueue().addOperationWithBlock {
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let vc:UIViewController = storyboard.instantiateViewControllerWithIdentifier("PatientListViewController")
-                                self.presentViewController(vc, animated: false, completion: nil)
+                                self.performSegueWithIdentifier("goToMain", sender: self)
                             }
                             
                         }
