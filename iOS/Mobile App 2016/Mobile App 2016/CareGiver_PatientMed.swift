@@ -105,7 +105,8 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
-        return "\(scheduleManager.schedules[section].hours % 12):\(scheduleManager.schedules[section].minutes)\(ampm)"
+        let min = scheduleManager.schedules[section].minutes < 10 ? "0\(scheduleManager.schedules[section].minutes)" : "\(scheduleManager.schedules[section].minutes)"
+        return "\(scheduleManager.schedules[section].hours % 12):\(min)\(ampm)"
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,6 +148,14 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         vc.patient = patient
         self.presentViewController(vc, animated: false, completion: nil)
     }
+    @IBAction func addTime(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc:AddScheduleViewController = (storyboard.instantiateViewControllerWithIdentifier("AddScheduleViewController") as? AddScheduleViewController)!
+        vc.patient = patient
+        vc.medicationList = medicationManager
+        self.presentViewController(vc, animated: false, completion: nil)
+    }
+   
     
     /*
     // MARK: - Navigation
