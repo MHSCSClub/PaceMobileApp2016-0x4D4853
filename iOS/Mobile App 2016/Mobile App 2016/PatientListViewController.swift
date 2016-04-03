@@ -35,9 +35,6 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     func updateView() {
         NSOperationQueue.mainQueue().addOperationWithBlock {
             self.patientList = self.patientmanager.patients
-            self.patientList.append(Patient(pid: "7", name: "jack", active: "1"))
-            self.patientList.append(Patient(pid: "7", name: "jack", active: "1"))
-            self.patientList.append(Patient(pid: "7", name: "jack", active: "1"))
             self.tableView.reloadData()
         }
     }
