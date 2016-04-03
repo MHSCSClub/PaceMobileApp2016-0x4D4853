@@ -11,6 +11,7 @@ import UIKit
 class Patient_MainController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var takeNowLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
     
     var tableTakeNow = UITableView()
     let textCellIdentifier = "TextCell"
@@ -22,13 +23,13 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         //add line seperaters
         let border = CALayer()
         let width = CGFloat(1.0)
-        border.borderColor = UIColor.darkGrayColor().CGColor
+        border.borderColor = UIColor.blackColor().CGColor
         border.frame = CGRect(x: 0, y: takeNowLabel.frame.size.height - width, width:  takeNowLabel.frame.size.width, height: takeNowLabel.frame.size.height)
         border.borderWidth = width
         
         let topBorder = CALayer()
         topBorder.frame = CGRectMake(0, 0, timeLabel.frame.size.width, width)
-        topBorder.backgroundColor = UIColor.grayColor().CGColor
+        topBorder.backgroundColor = UIColor.blackColor().CGColor
         
         //med_invitory.layer.addSublayer(border)
         takeNowLabel.layer.addSublayer(topBorder)
@@ -46,11 +47,19 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         tableTakeNow.rowHeight = 70;
         tableTakeNow.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
+        //timeLabel.backgroundColor = UIColor.clearColor()
+        imageView.image = UIImage(named: "sandiegodusk.png")
+        
+        
+        
+        
+        
+        
         updateTime()
         NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(Patient_MainController.updateTime), userInfo: nil, repeats: true)
         
         
-        self.view.addSubview(tableTakeNow)
+        //self.view.addSubview(tableTakeNow)
         
     }
     

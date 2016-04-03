@@ -49,7 +49,7 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
     
     @IBAction func create(sender: AnyObject) {
         let usability = usablity.selectedRowInComponent(0)
-        ServerConnection.postRequest(["name":name.text!, "usability": "\(usability)"], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patient/new?authcode=\(Constants.getAuthCode())", completion: createDone)
+        ServerConnection.postRequest(["name":name.text!, "usability": "\(usability)"], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients?authcode=\(Constants.getAuthCode())", completion: createDone)
     }
     func createDone (data: NSData) {
          print(NSString(data: data, encoding: NSUTF8StringEncoding));

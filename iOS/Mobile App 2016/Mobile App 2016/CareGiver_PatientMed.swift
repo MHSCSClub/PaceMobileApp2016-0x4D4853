@@ -133,7 +133,8 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         
         let takeDate = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(scheduleManager.schedules[section].hours):\(scheduleManager.schedules[section].minutes)")
         
-        if (takeDate?.compare(scheduleManager.schedules[section].medications[row].taken) == NSComparisonResult.OrderedDescending){
+        
+        if (NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: scheduleManager.schedules[section].medications[row].taken, toDate: takeDate! , options: []).day >= 1){
             cell.detailTextLabel?.textColor = UIColor.whiteColor()
             cell.textLabel?.textColor = UIColor.whiteColor()
             cell.backgroundColor = UIColor(red:250/255 , green: 87/255 , blue: 87/255, alpha: 1)
