@@ -14,6 +14,7 @@ class Medication {
     var dosage:Int
     var remain:Int
     var info: String
+    var taken: NSDate = NSDate()
     
     
     init(medid:String, name:String, dosage:String, remain:String, info: String){

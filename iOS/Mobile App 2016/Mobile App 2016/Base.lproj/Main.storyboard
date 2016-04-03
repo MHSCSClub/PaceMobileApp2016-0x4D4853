@@ -553,17 +553,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication Inventory:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-Ug-wCT">
-                                <rect key="frame" x="20" y="178" width="335" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="fYx-DY-n0m"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-Ug-wCT">
+                                <rect key="frame" x="20" y="125" width="335" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5my-RM-y1A">
-                                <rect key="frame" x="0.0" y="225" width="375" height="393"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="446"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydi-mA-q4P">
@@ -574,35 +571,54 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nz8-lO-xfp">
-                                <rect key="frame" x="20" y="28" width="335" height="142"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="142" id="T7W-kE-pMU"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="38" width="335" height="79"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvu-Cd-XH5">
-                                <rect key="frame" x="32" y="187" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvu-Cd-XH5">
+                                <rect key="frame" x="20" y="133" width="90" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="8as-ok-fem"/>
+                                    <constraint firstAttribute="width" constant="90" id="Nkb-qa-wjt"/>
+                                </constraints>
+                                <state key="normal" title="Add Med">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="addMed:" destination="zqR-9Z-UgD" eventType="touchUpInside" id="kag-5t-t56"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSp-cE-PAa">
+                                <rect key="frame" x="265" y="127" width="90" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="efS-Tb-dku"/>
+                                </constraints>
+                                <state key="normal" title="Add Time">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5my-RM-y1A" firstAttribute="bottom" secondItem="w0c-Ud-1iJ" secondAttribute="top" id="0c5-vA-5e0"/>
-                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="top" secondItem="Nz8-lO-xfp" secondAttribute="bottom" constant="8" symbolic="YES" id="0p4-qv-oD3"/>
-                            <constraint firstAttribute="trailing" secondItem="5my-RM-y1A" secondAttribute="trailing" id="1Tr-Nf-MWz"/>
-                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="centerX" secondItem="5my-RM-y1A" secondAttribute="centerX" id="4Zi-jp-3wa"/>
-                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" constant="8" symbolic="YES" id="7Pv-Dz-6LU"/>
-                            <constraint firstItem="5my-RM-y1A" firstAttribute="top" secondItem="f4d-Ug-wCT" secondAttribute="bottom" constant="8" symbolic="YES" id="Hof-cp-15c"/>
-                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="4" id="L4C-w1-HAR"/>
-                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="trailing" secondItem="f4d-Ug-wCT" secondAttribute="trailing" id="LfL-cm-dMv"/>
-                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" id="ULb-V4-XbE"/>
-                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="10" id="ujR-Pd-tf2"/>
-                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="leading" secondItem="f4d-Ug-wCT" secondAttribute="leading" id="wP9-4B-p07"/>
-                            <constraint firstItem="5my-RM-y1A" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leading" id="xgG-r9-tDx"/>
+                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="centerX" secondItem="5my-RM-y1A" secondAttribute="centerX" id="7x1-Af-PcM"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leading" id="AQ6-v1-6uv"/>
+                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" constant="18" id="DVu-7v-hdW"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="bottom" secondItem="w0c-Ud-1iJ" secondAttribute="top" id="GEJ-Mn-8eF"/>
+                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="top" secondItem="Nz8-lO-xfp" secondAttribute="bottom" constant="8" symbolic="YES" id="UEc-ro-75n"/>
+                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="trailing" secondItem="zSp-cE-PAa" secondAttribute="trailing" id="alI-eq-0aT"/>
+                            <constraint firstItem="zSp-cE-PAa" firstAttribute="top" secondItem="Nz8-lO-xfp" secondAttribute="bottom" constant="10" id="cFf-af-EGM"/>
+                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="trailing" secondItem="zSp-cE-PAa" secondAttribute="trailing" id="dQ3-oa-dKg"/>
+                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="top" secondItem="Ydi-mA-q4P" secondAttribute="bottom" constant="75" id="fsu-tD-KFY"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="top" secondItem="f4d-Ug-wCT" secondAttribute="bottom" constant="8" symbolic="YES" id="hPc-PF-GSz"/>
+                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="4" id="hgU-dq-whD"/>
+                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="centerY" secondItem="zSp-cE-PAa" secondAttribute="centerY" id="pAi-23-g0Q"/>
+                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" id="qW3-uV-Ol7"/>
+                            <constraint firstItem="Nz8-lO-xfp" firstAttribute="leading" secondItem="vvu-Cd-XH5" secondAttribute="leading" id="rME-7g-TbT"/>
+                            <constraint firstItem="vvu-Cd-XH5" firstAttribute="centerY" secondItem="zSp-cE-PAa" secondAttribute="centerY" id="rfQ-be-S3c"/>
+                            <constraint firstAttribute="trailing" secondItem="5my-RM-y1A" secondAttribute="trailing" id="uNK-bp-vUK"/>
+                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="10" id="weH-uM-yr6"/>
+                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="leading" secondItem="vvu-Cd-XH5" secondAttribute="leading" id="zPQ-gb-oIu"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Medication" id="G4y-qz-MmL" userLabel="Medication"/>
@@ -615,6 +631,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9a-50-EsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2240.5" y="-2007.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="yS5-Re-2vU">
+            <objects>
+                <viewController id="K5y-gz-zhH" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tT9-1z-SFp"/>
+                        <viewControllerLayoutGuide type="bottom" id="CsK-Ci-cnl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZDy-Lt-vQ8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="rh7-ce-xnf">
+                                <rect key="frame" x="0.0" y="165" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="481341946.27584702">
+                                    <!--2016-04-03 02:05:46 +0000-->
+                                </date>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gka-cG-MJI">
+                                <rect key="frame" x="20" y="112" width="124" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4f1-vO-IvP">
+                                <rect key="frame" x="122" y="397" width="131" height="33"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add Medications">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txm-BL-5uX">
+                                <rect key="frame" x="20" y="479" width="335" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Schedule" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdq-TT-dtw">
+                                <rect key="frame" x="20" y="34" width="335" height="59"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPn-Jr-7wV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1778.5" y="-2215.5"/>
         </scene>
         <!--Create Med View Controller-->
         <scene sceneID="DGx-VT-1xK">
@@ -737,7 +807,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R8N-XV-ilo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1808.5" y="-2007.5"/>
+            <point key="canvasLocation" x="-1778.5" y="-1467.5"/>
         </scene>
         <!--Med Reminder-->
         <scene sceneID="Quy-6g-Gh7">

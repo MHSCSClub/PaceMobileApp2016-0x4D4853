@@ -44,4 +44,12 @@ class MedicationManager {
         completion()
         
     }
+    func getMedFromID(id: Int) -> Medication{
+        for med in medications {
+            if(med.medid == id){
+                return med
+            }
+        }
+        return medications[0]
+    }
 }

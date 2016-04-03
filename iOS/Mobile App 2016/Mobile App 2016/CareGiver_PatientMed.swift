@@ -19,11 +19,18 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
 
     
     let textCellIdentifier = "TextCell"
+    let dateFormatter = NSDateFormatter()
     
     var patient:Patient!
     
-    var medication = [Medication]()
+    
     var medicationManager = MedicationManager()
+    var scheduleManager = ScheduleManager()
+    
+    let date = NSDate()
+    let calendar = NSCalendar.currentCalendar()
+    
+    var components:NSDateComponents!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,17 +68,29 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         */
         
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        components = calendar.components([.Month, .Year, .Day],fromDate: date);
+        
+        
         if(patient != nil){
             patientName.text = patient.name
-            medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: updateView)
+            medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
         }
+        
     }
+    
     
     func updateView() {
         NSOperationQueue.mainQueue().addOperationWithBlock {
-            self.medication = self.medicationManager.medications
+            //self.medication = self.medicationManager.medications
             self.tableView.reloadData()
         }
+    }
+    func getschedule() {
+        scheduleManager.getMedsPatient(Constants.getAuthCode(), pid: "\(patient.pid)", completion: connectMeds)
+    }
+    func connectMeds() {
+        scheduleManager.getSceduleDate(Constants.getAuthCode(), pid: "\(patient.pid)", medManager: medicationManager, completion: updateView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,8 +98,18 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return scheduleManager.schedules.count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
+        return "\(scheduleManager.schedules[section].hours % 12):\(scheduleManager.schedules[section].minutes)\(ampm)"
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return medication.count
+        return scheduleManager.schedules[section].medications.count
     }
     
     
@@ -89,19 +118,24 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle,
             reuseIdentifier: "cell")
         
+        let section = indexPath.section
         let row = indexPath.row
+        
         cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 25)
-        cell.textLabel?.text = "\(medication[row].remain) \(medication[row].name) Left"
+        cell.textLabel?.text = "\(scheduleManager.schedules[section].medications[row].name)"
         
         cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue", size: 15)
-        cell.detailTextLabel?.text = "Dose: \(medication[row].dosage)"
+        cell.detailTextLabel?.text = "Late Taken: \(scheduleManager.schedules[section].medications[row].taken)"
         
-        cell.detailTextLabel?.textColor = UIColor.blueColor()
-        cell.textLabel?.textColor = UIColor.blueColor()
+        cell.detailTextLabel?.textColor = UIColor.blackColor()
+        cell.textLabel?.textColor = UIColor.blackColor()
         
-        if(medication[row].dosage >= medication[row].remain){
-            cell.detailTextLabel?.textColor = UIColor.redColor()
-            cell.textLabel?.textColor = UIColor.redColor()
+        let takeDate = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(scheduleManager.schedules[section].hours):\(scheduleManager.schedules[section].minutes)")
+        
+        if (takeDate?.compare(scheduleManager.schedules[section].medications[row].taken) == NSComparisonResult.OrderedDescending){
+            cell.detailTextLabel?.textColor = UIColor.whiteColor()
+            cell.textLabel?.textColor = UIColor.whiteColor()
+            cell.backgroundColor = UIColor(red:250/255 , green: 87/255 , blue: 87/255, alpha: 1)
         }
         
         return cell
