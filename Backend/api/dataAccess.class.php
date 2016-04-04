@@ -356,6 +356,8 @@
 			return Signal::success()->setData($data);
 		}
 
+		//Caretaker auxillary actions
+
 		private static function GET_CARE_verify($db, $cid) {
 			//If userid exists, it means that authcode is valid already
 			return Signal::success();
@@ -370,6 +372,40 @@
 			$data = array("username" => $username);
 			return Signal::success()->setData($data);
 		}
+
+		//Patient auxillary actions
+
+		private static function GET_PATI_info($db, $pid) {
+			$res = $db->query("SELECT name, usability FROM patients WHERE pid=$pid");
+			return Signal::success()->setData($res->fetch_assoc());
+		}
+
+		//Register Device
+
+		private static function registerDevice($db, $userid, $uiud) {
+			$stmt = $db->prepare('INSERT INTO devices VALUES (null, ?, ?) ON DUPLICATE KEY UPDATE uiud=?');
+			$stmt->bind_param('iss', $userid, $uiud, $uiud);
+			$stmt->execute();
+			$stmt->close();
+		}
+
+		private static function POST_CARE_registerDevice($db, $cid, $params) {
+			if(is_null($params['uiud']) || strlen($params['uiud']) != 64)
+				throw new Exception("Invalid POST data");
+
+			self::registerDevice($db, $cid, $params['uiud']);
+			return Signal::success();
+		}
+
+		private static function POST_PATI_registerDevice($db, $pid, $params) {
+			if(is_null($params['uiud']) || strlen($params['uiud']) != 64)
+				throw new Exception("Invalid POST data");
+
+			self::registerDevice($db, $pid, $params['uiud']);
+			return Signal::success();
+		}
+
+		//Caretaker Patient Interaction 
 
 		private static function GET_CARE_patients($db, $cid) {
 			$res = $db->query("SELECT relation.pid, name, active FROM relation INNER JOIN patients ON patients.pid = relation.pid WHERE cid=$cid");
@@ -407,81 +443,8 @@
 			return Signal::success()->setData($data);
 		}
 
-		private static function registerDevice($db, $userid, $uiud) {
-			$stmt = $db->prepare('INSERT INTO devices VALUES (null, ?, ?) ON DUPLICATE KEY UPDATE uiud=?');
-			$stmt->bind_param('iss', $userid, $uiud, $uiud);
-			$stmt->execute();
-			$stmt->close();
-		}
-
-		private static function POST_CARE_registerDevice($db, $cid, $params) {
-			if(is_null($params['uiud']) || strlen($params['uiud']) != 64)
-				throw new Exception("Invalid POST data");
-
-			self::registerDevice($db, $cid, $params['uiud']);
-			return Signal::success();
-		}
-
-		private static function POST_PATI_registerDevice($db, $pid, $params) {
-			if(is_null($params['uiud']) || strlen($params['uiud']) != 64)
-				throw new Exception("Invalid POST data");
-
-			self::registerDevice($db, $pid, $params['uiud']);
-			return Signal::success();
-		}
-
-		private static function GET_PATI_info($db, $pid) {
-			$res = $db->query("SELECT name, usability FROM patients WHERE pid=$pid");
-			return Signal::success()->setData($res->fetch_assoc());
-		}
-
-		private static function validateMedid($db, $pid, $medid) {
-			$stmt = $db->prepare("SELECT medid FROM medication WHERE medid=? AND pid=$pid");
-			$stmt->bind_param('i', $medid);
-			$stmt->execute();
-			$res = $stmt->get_result();
-
-			if($res->num_rows != 1)
-				throw new Exception("Invalid medid");
-			return $res->fetch_assoc()['medid'];
-		}
-
-		private static function GET_PATI_listMedication($db, $pid) {
-			$res = $db->query("SELECT medid, name, dosage, remain, info FROM medication WHERE pid=$pid");
-			return self::formatArrayResults($res);
-		}
-
-		private static function POST_PATI_getMedication($db, $pid, $params) {
-			try {
-				$medid = self::validateMedid($db, $pid, $params['medid']);
-			} catch(Exception $e) {
-				throw new IMGException($e->getMessage());
-			}
-			
-			$res = $db->query("SELECT pic FROM medication WHERE medid=$medid AND pid=$pid");
-			$imgdata = $res->fetch_assoc()['pic'];
-
-			if(is_null($imgdata))
-				throw new IMGException("No image");
-			return Signal::success()->setType("IMG")->setData($imgdata);
-		}
-
-		private static function POST_PATI_takeMedication($db, $pid, $params) {
-			$medid = self::validateMedid($db, $pid, $params['medid']);
-			$db->query("UPDATE medsche SET taken=NOW() WHERE medid=$medid");
-			$db->query("UPDATE medication SET remain=remain-dosage WHERE medid=$medid");
-			return Signal::success();
-		}
-
-		private static function GET_PATI_listSchedule($db, $pid) {
-			$res = $db->query("SELECT schid, HOUR(take) AS hours, MINUTE(take) AS minutes FROM schedule");
-			return self::formatArrayResults($res);
-		}
-
-		private static function POST_PATI_detailSchedule($db, $pid, $params) {
-			$schid = self::validateSchid($db, $pid, $params['schid']);
-			$res = $db->query("SELECT medid, taken FROM medsche WHERE schid=$schid");
-			return self::formatArrayResults($res);
+		private static function GET_CAPA_info($db, $cid, $pid) {
+			return self::GET_PATI_info($db, $pid);
 		}
 
 		private static function GET_CAPA_relink($db, $cid, $pid) {
@@ -511,9 +474,20 @@
 			return Signal::success();
 		}
 
-		private static function GET_CAPA_info($db, $cid, $pid) {
-			return self::GET_PATI_info($db, $pid);
+		//Medication
+
+		private static function validateMedid($db, $pid, $medid) {
+			$stmt = $db->prepare("SELECT medid FROM medication WHERE medid=? AND pid=$pid");
+			$stmt->bind_param('i', $medid);
+			$stmt->execute();
+			$res = $stmt->get_result();
+
+			if($res->num_rows != 1)
+				throw new Exception("Invalid medid");
+			return $res->fetch_assoc()['medid'];
 		}
+
+		//Caretaker
 
 		private static function POST_CAPA_createMedication($db, $cid, $pid, $params) {
 			if(is_null($params['name']) || is_null($params['dosage']) || is_null($params['remain']))
@@ -536,6 +510,50 @@
 		private static function POST_CAPA_getMedication($db, $cid, $pid, $params) {
 			return self::POST_PATI_getMedication($db, $pid, $params);
 		}
+
+		//Patient
+
+		private static function POST_PATI_takeMedication($db, $pid, $params) {
+			$medid = self::validateMedid($db, $pid, $params['medid']);
+			$db->query("UPDATE medsche SET taken=NOW() WHERE medid=$medid");
+			$db->query("UPDATE medication SET remain=remain-dosage WHERE medid=$medid");
+			return Signal::success();
+		}
+
+		private static function GET_PATI_listMedication($db, $pid) {
+			$res = $db->query("SELECT medid, name, dosage, remain, info FROM medication WHERE pid=$pid");
+			return self::formatArrayResults($res);
+		}
+
+		private static function POST_PATI_getMedication($db, $pid, $params) {
+			try {
+				$medid = self::validateMedid($db, $pid, $params['medid']);
+			} catch(Exception $e) {
+				throw new IMGException($e->getMessage());
+			}
+			
+			$res = $db->query("SELECT pic FROM medication WHERE medid=$medid AND pid=$pid");
+			$imgdata = $res->fetch_assoc()['pic'];
+
+			if(is_null($imgdata))
+				throw new IMGException("No image");
+			return Signal::success()->setType("IMG")->setData($imgdata);
+		}
+
+		//Schedule
+
+		private static function validateSchid($db, $pid, $schid) {
+			$stmt = $db->prepare("SELECT schid FROM schedule WHERE schid=? AND pid=$pid");
+			$stmt->bind_param('i', $schid);
+			$stmt->execute();
+			$res = $stmt->get_result();
+
+			if($res->num_rows != 1)
+				throw new IMGException("Invalid schid");
+			return $res->fetch_assoc()['schid'];
+		}
+
+		//Caretaker
 
 		private static function POST_CAPA_createSchedule($db, $cid, $pid, $params) {
 			if(is_null($params['hours']) || is_null($params['minutes']) || is_null($params['medication']))
@@ -568,17 +586,6 @@
 			return self::GET_PATI_listSchedule($db, $pid);
 		}
 
-		private static function validateSchid($db, $pid, $schid) {
-			$stmt = $db->prepare("SELECT schid FROM schedule WHERE schid=? AND pid=$pid");
-			$stmt->bind_param('i', $schid);
-			$stmt->execute();
-			$res = $stmt->get_result();
-
-			if($res->num_rows != 1)
-				throw new IMGException("Invalid schid");
-			return $res->fetch_assoc()['schid'];
-		}
-
 		private static function POST_CAPA_detailSchedule($db, $cid, $pid, $params) {
 			return self::POST_PATI_detailSchedule($db, $pid, $params);
 		}
@@ -599,6 +606,19 @@
 			$db->query("DELETE FROM medsche WHERE schid=$schid");
 			$db->query("DELETE FROM schedule WHERE schid=$schid");
 			return Signal::success();
+		}
+
+		//Patient
+
+		private static function GET_PATI_listSchedule($db, $pid) {
+			$res = $db->query("SELECT schid, HOUR(take) AS hours, MINUTE(take) AS minutes FROM schedule WHERE pid=$pid");
+			return self::formatArrayResults($res);
+		}
+
+		private static function POST_PATI_detailSchedule($db, $pid, $params) {
+			$schid = self::validateSchid($db, $pid, $params['schid']);
+			$res = $db->query("SELECT medid, taken FROM medsche WHERE schid=$schid");
+			return self::formatArrayResults($res);
 		}
 	}
 ?>
