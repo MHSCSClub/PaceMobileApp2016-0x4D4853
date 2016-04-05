@@ -15,6 +15,7 @@ class Schedule {
     var medications = [Medication]()
     private var completion: (() -> Void)!
     var mendicationManager:MedicationManager!
+    var taken = [NSDate]()
     
     init(schid: String, hours:String, minutes:String){
         self.schid = Int(schid)!
@@ -29,6 +30,7 @@ class Schedule {
     }
     
     func populateMeds(data: NSData){
+        
         print(NSString(data: data, encoding: NSUTF8StringEncoding));
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -38,6 +40,7 @@ class Schedule {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             if let status = json["status"] as? String {
                 if (status == "success"){
+                    medications = []
                     if let data = json["data"] as? [[String: AnyObject]]{
                         for meds in data{
                             let medication = mendicationManager.getMedFromID(Int(meds["medid"] as! String)!)

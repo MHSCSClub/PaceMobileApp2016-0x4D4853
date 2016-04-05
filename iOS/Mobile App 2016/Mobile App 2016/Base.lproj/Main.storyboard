@@ -554,15 +554,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-Ug-wCT">
-                                <rect key="frame" x="20" y="72" width="335" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="klt-RA-Xgo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydi-mA-q4P">
                                 <rect key="frame" x="26" y="20" width="34" height="30"/>
                                 <state key="normal" title="Back"/>
@@ -574,23 +565,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5my-RM-y1A">
-                                <rect key="frame" x="0.0" y="119" width="375" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5my-RM-y1A" firstAttribute="bottom" secondItem="w0c-Ud-1iJ" secondAttribute="top" id="MWj-jJ-U3T"/>
-                            <constraint firstItem="Qy3-bS-JU0" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" id="OrV-HD-YyW"/>
-                            <constraint firstItem="5my-RM-y1A" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leading" id="Pb8-87-ssC"/>
-                            <constraint firstItem="5my-RM-y1A" firstAttribute="top" secondItem="f4d-Ug-wCT" secondAttribute="bottom" constant="8" symbolic="YES" id="Uq5-zQ-9Nz"/>
-                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" constant="8" symbolic="YES" id="VaW-ee-ais"/>
-                            <constraint firstAttribute="trailing" secondItem="5my-RM-y1A" secondAttribute="trailing" id="WSp-ia-XQR"/>
-                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="4" id="ZH0-ue-pE8"/>
-                            <constraint firstItem="f4d-Ug-wCT" firstAttribute="centerX" secondItem="5my-RM-y1A" secondAttribute="centerX" id="eQT-il-Xh3"/>
-                            <constraint firstItem="Qy3-bS-JU0" firstAttribute="trailing" secondItem="f4d-Ug-wCT" secondAttribute="trailing" id="ski-1B-xQr"/>
-                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="10" id="v6n-Sz-tPh"/>
-                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="top" secondItem="LVt-5C-qEk" secondAttribute="top" constant="20" symbolic="YES" id="wUv-3X-6ah"/>
+                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="top" secondItem="LVt-5C-qEk" secondAttribute="top" constant="20" symbolic="YES" id="05o-jh-6O3"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="bottom" secondItem="w0c-Ud-1iJ" secondAttribute="top" id="Evq-Vg-GY7"/>
+                            <constraint firstAttribute="trailing" secondItem="5my-RM-y1A" secondAttribute="trailing" id="cPF-hb-dDj"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leading" id="h0U-Ob-eKr"/>
+                            <constraint firstItem="Ydi-mA-q4P" firstAttribute="leading" secondItem="LVt-5C-qEk" secondAttribute="leadingMargin" constant="10" id="hKA-ex-3sO"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="top" secondItem="Ac0-ju-Lzc" secondAttribute="bottom" id="och-fe-dcN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qy3-bS-JU0" secondAttribute="trailing" constant="4" id="qJJ-sI-dOG"/>
+                            <constraint firstItem="5my-RM-y1A" firstAttribute="top" secondItem="Qy3-bS-JU0" secondAttribute="top" id="vFe-sF-JPC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Medication" id="G4y-qz-MmL" userLabel="Medication"/>
@@ -607,7 +595,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="labelForPresent" destination="Qy3-bS-JU0" id="K9u-Bm-bnm"/>
-                        <outlet property="med_invitory" destination="f4d-Ug-wCT" id="2HD-HD-sBY"/>
                         <outlet property="navBar" destination="VdC-BO-Z1A" id="vtU-oX-Gji"/>
                         <outlet property="tableView" destination="5my-RM-y1A" id="rcs-9y-cW4"/>
                         <segue destination="1yY-ml-Bqp" kind="show" identifier="addMedication" id="AhP-Tu-Qxo"/>

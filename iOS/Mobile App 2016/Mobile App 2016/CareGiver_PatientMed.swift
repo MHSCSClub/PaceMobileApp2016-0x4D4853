@@ -13,7 +13,6 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
    
     
     @IBOutlet var navBar: UINavigationItem!
-    @IBOutlet var med_invitory: UILabel!
     @IBOutlet var tableView: UITableView!
     
 
@@ -37,20 +36,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //add line seperaters
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderColor = UIColor.darkGrayColor().CGColor
-        border.frame = CGRect(x: 0, y: med_invitory.frame.size.height - width, width:  med_invitory.frame.size.width, height: med_invitory.frame.size.height)
-        border.borderWidth = width
-        
-        let topBorder = CALayer()
-        topBorder.frame = CGRectMake(0, 0, med_invitory.frame.size.width, width)
-        topBorder.backgroundColor = UIColor.grayColor().CGColor
-        
-        //med_invitory.layer.addSublayer(border)
-        med_invitory.layer.addSublayer(border)
-        med_invitory.layer.masksToBounds = true;
+       
         
         //table view
         tableView.delegate = self
@@ -77,10 +63,13 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         if(patient != nil){
             navBar.title = patient.name
             medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
+            NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         }
         
     }
-    
+    func update() {
+        medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
+    }
     
     func updateView() {
         NSOperationQueue.mainQueue().addOperationWithBlock {

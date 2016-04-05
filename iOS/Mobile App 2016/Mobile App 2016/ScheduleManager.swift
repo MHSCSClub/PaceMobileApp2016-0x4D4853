@@ -18,11 +18,13 @@ class ScheduleManager {
     }
     
     func populateMeds(data: NSData){
+        
         print(NSString(data: data, encoding: NSUTF8StringEncoding));
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             if let status = json["status"] as? String {
                 if (status == "success"){
+                    schedules = []
                     if let data = json["data"] as? [[String: AnyObject]]{
                         for schedule in data{
                             schedules.append(Schedule(schid: schedule["schid"] as! String, hours: schedule["hours"] as! String, minutes: schedule["minutes"] as! String))

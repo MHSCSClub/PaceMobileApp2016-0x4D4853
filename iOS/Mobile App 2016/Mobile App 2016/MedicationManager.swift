@@ -21,11 +21,13 @@ class MedicationManager {
         ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/medications?authcode=\(authcode)", completion: populateMeds)
     }
     func populateMeds(data: NSData){
+        
         print(NSString(data: data, encoding: NSUTF8StringEncoding));
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             if let status = json["status"] as? String {
                 if (status == "success"){
+                    medications = []
                     if let data = json["data"] as? [[String: AnyObject]]{
                         for patinet in data{
                             var info = patinet["info"] as? String
