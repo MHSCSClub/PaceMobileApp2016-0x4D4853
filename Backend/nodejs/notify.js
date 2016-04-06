@@ -39,7 +39,7 @@ module.exports = {
 		n.note.category = 'C_TAKEN';
 		n.note.sound = "ping.aiff";
 		n.note.payload = {'pid': pid};
-		n.note.alert = name + " just took their medication";
+		n.note.alert = name + " just took all their medication";
 		return n;
 	},
 	C_LATE: function(uiud, name, pid) {

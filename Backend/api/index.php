@@ -251,7 +251,6 @@
 	});
 
 	$RH->D("patient", "medications");
-	$RH->D("patient/medications", $WC);
 
 	// patient/medications
 	$RH->F("patient", "medications", function() {
@@ -263,14 +262,9 @@
 		$params['medid'] = $trace[2];
 		return DataAccess::patiPOST(@$_GET['authcode'], "getMedication", $params);
 	});
-	// patient/medications/{medid}/take
-	$RH->F("patient/medications/$WC", "take", function($trace) {
-		$params = array();
-		$params['medid'] = $trace[2];
-		return DataAccess::patiPOST(@$_GET['authcode'], "takeMedication", $params);
-	});
 
 	$RH->D("patient", "schedules");
+	$RH->D("patient/schedules", $WC);
 
 	$RH->F("patient", "schedules", function() {
 		return DataAccess::patiGET(@$_GET['authcode'], "listSchedule");
@@ -280,7 +274,12 @@
 		$params['schid'] = $trace[2];
 		return DataAccess::patiPOST(@$_GET['authcode'], "detailSchedule", $params);
 	});
-
+	$RH->F("patient/schedules/$WC", "take", function($trace) {
+		$params = array();
+		$params['schid'] = $trace[2];
+		$params['medid'] = @$_POST['medid'];
+		return DataAccess::patiPOST(@$_GET['authcode'], "takeMedication", $params);
+	});
 
 	try {
 		$response = $RH->call($user_request);

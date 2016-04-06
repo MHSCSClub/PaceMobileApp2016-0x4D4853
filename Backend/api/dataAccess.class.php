@@ -514,8 +514,9 @@
 		//Patient
 
 		private static function POST_PATI_takeMedication($db, $pid, $params) {
+			$schid = self::validateSchid($db, $pid, $params['schid']);
 			$medid = self::validateMedid($db, $pid, $params['medid']);
-			$db->query("UPDATE medsche SET taken=NOW() WHERE medid=$medid");
+			$db->query("UPDATE medsche SET taken=NOW() WHERE schid=$schid AND medid=$medid");
 			$db->query("UPDATE medication SET remain=remain-dosage WHERE medid=$medid");
 			return Signal::success();
 		}
