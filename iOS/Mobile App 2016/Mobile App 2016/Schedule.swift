@@ -46,7 +46,9 @@ class Schedule {
                             let medication = mendicationManager.getMedFromID(Int(meds["medid"] as! String)!)
                             let taken = meds["taken"] as? String
                             if(taken != nil){
-                                medication.taken = dateFormatter.dateFromString(meds["taken"] as! String)!
+                                self.taken.append(dateFormatter.dateFromString(taken!)!)
+                            }else{
+                                self.taken.append(NSDate())
                             }
                             medications.append(medication)
                         }
