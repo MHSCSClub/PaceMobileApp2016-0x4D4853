@@ -55,30 +55,27 @@ router.route('/schedule')
 
 		//Push note requirements
 		var p_uiud = NC(req.body.patient.uiud);
-		var medid = NC(req.body.patient.medid);
+		var name = NC(req.body.patient.name);
+		var pid = NC(req.body.patient.pid);
 
 		var c_uiud = NC(req.body.caretaker.uiud);
-		var name = NC(req.body.caretaker.name);
-		var pid = NC(req.body.caretaker.pid);
 	
 		if(schid in fullSchedule)
 			throw "Key already exists!";
 
 		var mrule = new schedule.RecurrenceRule();
-		//mrule.hour = medtime.getHours();
-		//mrule.minute = medtime.getMinutes();
-		mrule.second = medtime.getSeconds();
+		mrule.hour = medtime.getHours();
+		mrule.minute = medtime.getMinutes();
 
 		var lrule = new schedule.RecurrenceRule();
-		//lrule.hour = medtime.getHours() + 1;
-		//lrule.minute = medtime.getMinutes();
-		lrule.second = medtime.getSeconds() + 30;
+		lrule.hour = medtime.getHours();
+		lrule.minute = medtime.getMinutes() + 5;
 	
 		fullSchedule[schid] = {
 
 			medsche: schedule.scheduleJob(mrule, function(){
 				var cur = fullSchedule[schid];
-				notify.P_REMIND(p_uiud, medid).send();
+				notify.P_REMIND(p_uiud).send();
 				cur.take = false;
 				cur.send = true;
 			}),
@@ -86,7 +83,7 @@ router.route('/schedule')
 			late: schedule.scheduleJob(lrule, function() {
 				var cur = fullSchedule[schid];
 				if(!cur.take && cur.send) {
-					notify.P_REMIND(p_uiud, medid).send();
+					notify.P_REMIND(p_uiud).send();
 					notify.C_LATE(c_uiud, name, pid).send();
 					cur.send = false;
 				}
@@ -104,38 +101,42 @@ router.route('/schedule')
 // task modification / deletion
 router.route('/schedule/:schid')
 
-	.post(function(req, req) {
+	.post(function(req, res) {
 		//TODO
 		throw "todo";
-	});
+	})
 
 	.delete(function(req, res) {
 		var schid = NC(req.params.schid);
+		var cur = fullSchedule[schid];
 		
 		if(!(schid in fullSchedule))
 			throw "Invalid schid";
 
-		fullSchedule[schid].medsche.cancel();
-		fullSchedule[schid].late.cancel();
-		fullSchedule.splice(schid, 1);
+		console.log(fullSchedule);
+		cur.medsche.cancel();
+		cur.late.cancel();
+		delete fullSchedule[schid];
+
 		res.json(SUCCESS);
 	});
 
 // api/schedule/{schid}/take
 router.route('/schedule/:schid/take')
 
-	.post(function(req, req) {
+	.post(function(req, res) {
 		var schid = NC(req.params.schid);
 
 		var c_uiud = NC(req.body.caretaker.uiud);
-		var name = NC(req.body.caretaker.name);
-		var pid = NC(req.body.caretaker.pid);
+		var name = NC(req.body.patient.name);
+		var pid = NC(req.body.patient.pid);
 
 		if(!(schid in fullSchedule))
 			throw "Invalid schid";
 
 		fullSchedule[schid].take = true;
-		notify.C_TAKEN(c_uiud, name, pid);
+		notify.C_TAKEN(c_uiud, name, pid).send();
+		res.json(SUCCESS);
 	});
 
 

@@ -301,7 +301,7 @@
 				break;
 			
 			default:
-				throw new Exception();
+				throw new Exception("Invalid return type");
 				break;
 		}
 	} catch(Exception $e) {

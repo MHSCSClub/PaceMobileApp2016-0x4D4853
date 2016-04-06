@@ -3,6 +3,7 @@
 	require_once("secret.class.php");
 	require_once("signal.class.php");
 	require_once("exception.class.php");
+	require_once("nodeAPI.class.php");
 
 	/*
 		Database interface
@@ -513,11 +514,39 @@
 
 		//Patient
 
+		private static function packagePatient($db, $pid) {
+			$res = $db->query("SELECT uiud, name, patients.pid FROM patients INNER JOIN devices ON patients.pid=devices.userid WHERE patients.pid=$pid");
+			$package = array('patient' => $res->fetch_assoc());
+			return $package;
+		}
+
 		private static function POST_PATI_takeMedication($db, $pid, $params) {
 			$schid = self::validateSchid($db, $pid, $params['schid']);
 			$medid = self::validateMedid($db, $pid, $params['medid']);
+
+			$res = $db->query("SELECT msid FROM medsche WHERE medid=$medid AND schid=$schid");
+			if($res->num_rows != 1)
+				throw new Exception("Invalid medid");
+				
 			$db->query("UPDATE medsche SET taken=NOW() WHERE schid=$schid AND medid=$medid");
 			$db->query("UPDATE medication SET remain=remain-dosage WHERE medid=$medid");
+
+			//Send a success notification if all medication has been taken on time
+			$res = $db->query("SELECT msid FROM medsche WHERE (CURDATE()<>DATE(taken) OR taken IS NULL) AND schid=$schid");
+			if($res->num_rows == 0) {
+				//All medication has been taken
+
+				$package = self::packagePatient($db, $pid);
+				$package['schid'] = $schid;
+
+				$res = $db->query("SELECT cid FROM relation WHERE pid=$pid");
+				$cid = $res->fetch_assoc()['cid'];
+				$package = array_merge($package, self::packageCaretaker($db, $cid));
+
+				$res = NodeAPI::POST("schedule/$schid/take", $package);
+				if($res->isError())
+					throw new Exception($res->getMessage());
+			}
 			return Signal::success();
 		}
 
@@ -556,6 +585,12 @@
 
 		//Caretaker
 
+		private static function packageCaretaker($db, $cid) {
+			$res = $db->query("SELECT uiud FROM devices WHERE userid=$cid");
+			$package = array('caretaker' => $res->fetch_assoc());
+			return $package;
+		}
+
 		private static function POST_CAPA_createSchedule($db, $cid, $pid, $params) {
 			if(is_null($params['hours']) || is_null($params['minutes']) || is_null($params['medication']))
 				throw new Exception("Invalid POST data");
@@ -579,6 +614,15 @@
 				$medid = self::validateMedid($db, $pid, $meds[$i]);
 				$db->query("INSERT IGNORE INTO medsche VALUES (null, $schid, $medid, null)");
 			}
+
+			//Create notification
+			$package = array_merge(self::packageCaretaker($db, $cid), self::packagePatient($db, $pid));
+			$package['time'] = $date;
+			$package['schid'] = $schid;
+
+			$res = NodeAPI::POST('schedule', $package);
+			if($res->isError())
+				throw new Exception($res->getMessage());
 
 			return Signal::success()->setData(array("schid" => $schid));
 		}
@@ -606,6 +650,11 @@
 			$schid = self::validateSchid($db, $pid, $params['schid']);
 			$db->query("DELETE FROM medsche WHERE schid=$schid");
 			$db->query("DELETE FROM schedule WHERE schid=$schid");
+
+			//Delete from notifications
+			$res = NodeAPI::DELETE("schedule/$schid");
+			if($res->isError())
+				throw new Exception($res->getMessage());
 			return Signal::success();
 		}
 
@@ -622,4 +671,5 @@
 			return self::formatArrayResults($res);
 		}
 	}
+
 ?>

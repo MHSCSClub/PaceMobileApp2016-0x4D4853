@@ -24,11 +24,10 @@ Notify.prototype = {
 module.exports = {
 
 	// For patients
-	P_REMIND: function(uiud, medid) {
+	P_REMIND: function(uiud) {
 		var n = new Notify(uiud);
 		n.note.category = 'P_REMIND';
 		n.note.sound = 'takemed.m4a';
-		n.note.payload = {'medid': medid};
 		n.note.alert = "It's time to take your medication!";
 		return n;
 	},
@@ -39,7 +38,7 @@ module.exports = {
 		n.note.category = 'C_TAKEN';
 		n.note.sound = "ping.aiff";
 		n.note.payload = {'pid': pid};
-		n.note.alert = name + " just took all their medication";
+		n.note.alert = name + " just took all his medication";
 		return n;
 	},
 	C_LATE: function(uiud, name, pid) {

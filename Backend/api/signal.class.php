@@ -45,7 +45,7 @@
 		}
 
 		public function getMessage() {
-			return $this->message();
+			return $this->message;
 		}
 
 		public function setType($type) {
