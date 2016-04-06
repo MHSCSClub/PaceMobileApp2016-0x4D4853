@@ -41,9 +41,10 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         //table view
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        //tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.rowHeight = 70;
         // Do any additional setup after loading the view.
+        
         
         /*
         let notification = UILocalNotification()
@@ -63,7 +64,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         if(patient != nil){
             navBar.title = patient.name
             medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
-            NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+            //NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         }
         
     }
@@ -107,28 +108,31 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle,
-            reuseIdentifier: "cell")
+       let cell = tableView.dequeueReusableCellWithIdentifier("Meds") as! MedCell
+        
         
         let section = indexPath.section
         let row = indexPath.row
+        cell.title.text = "\(scheduleManager.schedules[section].medications[row].name)"
+        cell.subtitle.text = "Last taken: 10 hours ago"
+        cell.remaining.text = "\(scheduleManager.schedules[section].medications[row].remain)"
+        cell.remaining.layer.cornerRadius = 8
+        cell.remaining.layer.borderWidth =  1
+        cell.remaining.layer.borderColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90).CGColor
+        cell.remaining.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
         
-        cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 25)
-        cell.textLabel?.text = "\(scheduleManager.schedules[section].medications[row].name)"
-        
-        cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue", size: 15)
-        cell.detailTextLabel?.text = "Late Taken: \(scheduleManager.schedules[section].medications[row].taken)"
-        
-        cell.detailTextLabel?.textColor = UIColor.blackColor()
-        cell.textLabel?.textColor = UIColor.blackColor()
         
         let takeDate = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(scheduleManager.schedules[section].hours):\(scheduleManager.schedules[section].minutes)")
         
         
-        if (NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: scheduleManager.schedules[section].medications[row].taken, toDate: takeDate! , options: []).day >= 1){
-            cell.detailTextLabel?.textColor = UIColor.whiteColor()
-            cell.textLabel?.textColor = UIColor.whiteColor()
-            cell.backgroundColor = UIColor(red:250/255 , green: 87/255 , blue: 87/255, alpha: 1)
+        if (NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: scheduleManager.schedules[section].taken[row], toDate: takeDate! , options: []).day >= 1){
+            //cell.redDot.image = UIImage(named: "red-button2.png")
+        }
+        if(scheduleManager.schedules[section].medications[row].remain < 10 ){
+            cell.remaining.backgroundColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.80)
+            cell.remaining.layer.masksToBounds = true
+            cell.remaining.textColor = UIColor.whiteColor()
+            cell.remaining.layer.borderColor = UIColor.clearColor().CGColor
         }
         
         return cell

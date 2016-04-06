@@ -19,6 +19,15 @@ class Popup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        addMed.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        addSchedule.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        
+        let topBorder = CALayer()
+        topBorder.frame = CGRectMake(0, -1, addMed.frame.size.width, 1.0)
+        topBorder.backgroundColor = UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 1.0).CGColor
+        
+        //med_invitory.layer.addSublayer(border)
+        addSchedule.layer.addSublayer(topBorder)
         
         
     }

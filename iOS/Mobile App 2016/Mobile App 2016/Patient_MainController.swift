@@ -20,6 +20,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.sharedApplication().statusBarHidden = true
         //add line seperaters
         let border = CALayer()
         let width = CGFloat(1.0)
@@ -46,9 +47,9 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         tableTakeNow.dataSource = self
         tableTakeNow.rowHeight = 70;
         tableTakeNow.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
+        self.setNeedsStatusBarAppearanceUpdate()
         //timeLabel.backgroundColor = UIColor.clearColor()
-        imageView.image = UIImage(named: "sandiegodusk.png")
+        //imageView.image = UIImage(named: "Night2.png")
         
         
         
@@ -56,6 +57,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         
         
         updateTime()
+        self.view.bringSubviewToFront(timeLabel)
         NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(Patient_MainController.updateTime), userInfo: nil, repeats: true)
         
         
@@ -67,8 +69,11 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([.Hour, .Minute],fromDate: date);
-        let ampm = (components.hour >= 12 ? " PM" : " AM")
-        timeLabel.text = "\(components.hour % 12):\(components.minute)\(ampm)"
+        
+        let hour = components.hour % 12 == 0 ? "12" : "\(components.hour % 12)"
+        let minute = components.minute < 10 ? "0\(components.minute)" : "\(components.minute)"
+        timeLabel.text = "\(hour):\(minute)"
+        print("\(hour):\(minute)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,7 +100,9 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.text = "Hi"
         return cell;
     }
-        
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
         
     
     /*

@@ -18,6 +18,8 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     var patientList: [Patient] = []
     var selected = 0;
     
+    var refreshController = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,17 +28,36 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.dataSource = self
         tableView.rowHeight = 70;
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        refreshController.addTarget(self, action: #selector(PatientListViewController.update), forControlEvents: UIControlEvents.ValueChanged)
+        //self.refreshControl = refreshController
+        
+        navigationController!.navigationBar.barTintColor = UIColor.init(red: 0.96, green: 0.26 , blue: 0.21, alpha: 1.0)
+        navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController!.navigationBar.tintColor = UIColor.whiteColor();
+        tableView.addSubview(refreshController)
+        setNeedsStatusBarAppearanceUpdate()
+        
+        //nava
         
         patientmanager.getpatients(Constants.getAuthCode(), completion: updateView)
         
         
+    }
+    func update() {
+        patientmanager.patients = []
+        patientmanager.getpatients(Constants.getAuthCode(), completion: updateView)
+    }
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     func updateView() {
         NSOperationQueue.mainQueue().addOperationWithBlock {
             self.patientList = self.patientmanager.patients
             self.tableView.reloadData()
+            self.refreshController.endRefreshing()
         }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,7 +80,7 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         cell.textLabel?.text = "\(patientList[row].name)"
         
         if(patientList[row].active == 1){
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         
         return cell

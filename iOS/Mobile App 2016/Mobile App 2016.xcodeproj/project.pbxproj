@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9F084C621CAE0F0F000970F9 /* Patient_ConectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F084C611CAE0F0F000970F9 /* Patient_ConectionController.swift */; };
 		9F084C641CAE1753000970F9 /* AddPatinetCaregiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */; };
+		9F33A1051CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */; };
+		9F33A1071CB46709007E88FD /* MedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33A1061CB46709007E88FD /* MedCell.swift */; };
 		9F3AD3041CAF6D810030CED1 /* MedicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */; };
 		9F3AD3071CAF794E0030CED1 /* CreateMedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */; };
 		9F3AD30A1CB0911E0030CED1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3091CB0911E0030CED1 /* Schedule.swift */; };
@@ -17,6 +19,18 @@
 		9F3AD3101CB0CAF30030CED1 /* safe_image.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD30F1CB0CAF30030CED1 /* safe_image.jpeg */; };
 		9F3AD3121CB0D0B20030CED1 /* sandiegodusk.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3111CB0D0B20030CED1 /* sandiegodusk.png */; };
 		9F3AD3171CB1A61B0030CED1 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3161CB1A61B0030CED1 /* Popup.swift */; };
+		9F3AD31D1CB351230030CED1 /* Dawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3191CB351230030CED1 /* Dawn.png */; };
+		9F3AD31E1CB351230030CED1 /* Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD31A1CB351230030CED1 /* Day.png */; };
+		9F3AD31F1CB351230030CED1 /* Dusk.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD31B1CB351230030CED1 /* Dusk.png */; };
+		9F3AD3201CB351230030CED1 /* Night.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD31C1CB351230030CED1 /* Night.png */; };
+		9F3AD3221CB354DC0030CED1 /* Dawn2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3211CB354DC0030CED1 /* Dawn2.png */; };
+		9F3AD3241CB355D00030CED1 /* Night2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3231CB355D00030CED1 /* Night2.png */; };
+		9F3AD3261CB357480030CED1 /* day2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3251CB357480030CED1 /* day2.png */; };
+		9F3AD3281CB359250030CED1 /* Day3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3271CB359250030CED1 /* Day3.png */; };
+		9F3AD32C1CB36ABD0030CED1 /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD32B1CB36ABD0030CED1 /* reddot.png */; };
+		9F3AD32E1CB36E660030CED1 /* red-button2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD32D1CB36E660030CED1 /* red-button2.png */; };
+		9F3AD3301CB45CE00030CED1 /* 006_-_Drug-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD32F1CB45CE00030CED1 /* 006_-_Drug-512.png */; };
+		9F3AD3321CB45E750030CED1 /* calendar-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3AD3311CB45E750030CED1 /* calendar-icon.png */; };
 		9F690D561C95D080009F918E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D551C95D080009F918E /* AppDelegate.swift */; };
 		9F690D581C95D080009F918E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F690D571C95D080009F918E /* ViewController.swift */; };
 		9F690D5B1C95D080009F918E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F690D591C95D080009F918E /* Main.storyboard */; };
@@ -64,6 +78,8 @@
 /* Begin PBXFileReference section */
 		9F084C611CAE0F0F000970F9 /* Patient_ConectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient_ConectionController.swift; sourceTree = "<group>"; };
 		9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPatinetCaregiver.swift; sourceTree = "<group>"; };
+		9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainicon.com-50108-128px-eb1.png"; sourceTree = "<group>"; };
+		9F33A1061CB46709007E88FD /* MedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedCell.swift; sourceTree = "<group>"; };
 		9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
 		9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMedViewController.swift; sourceTree = "<group>"; };
 		9F3AD3091CB0911E0030CED1 /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -72,6 +88,18 @@
 		9F3AD30F1CB0CAF30030CED1 /* safe_image.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = safe_image.jpeg; sourceTree = "<group>"; };
 		9F3AD3111CB0D0B20030CED1 /* sandiegodusk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sandiegodusk.png; sourceTree = "<group>"; };
 		9F3AD3161CB1A61B0030CED1 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		9F3AD3191CB351230030CED1 /* Dawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dawn.png; sourceTree = "<group>"; };
+		9F3AD31A1CB351230030CED1 /* Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Day.png; sourceTree = "<group>"; };
+		9F3AD31B1CB351230030CED1 /* Dusk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dusk.png; sourceTree = "<group>"; };
+		9F3AD31C1CB351230030CED1 /* Night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Night.png; sourceTree = "<group>"; };
+		9F3AD3211CB354DC0030CED1 /* Dawn2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dawn2.png; sourceTree = "<group>"; };
+		9F3AD3231CB355D00030CED1 /* Night2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Night2.png; sourceTree = "<group>"; };
+		9F3AD3251CB357480030CED1 /* day2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day2.png; sourceTree = "<group>"; };
+		9F3AD3271CB359250030CED1 /* Day3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Day3.png; sourceTree = "<group>"; };
+		9F3AD32B1CB36ABD0030CED1 /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
+		9F3AD32D1CB36E660030CED1 /* red-button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-button2.png"; sourceTree = "<group>"; };
+		9F3AD32F1CB45CE00030CED1 /* 006_-_Drug-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "006_-_Drug-512.png"; sourceTree = "<group>"; };
+		9F3AD3311CB45E750030CED1 /* calendar-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar-icon.png"; sourceTree = "<group>"; };
 		9F690D521C95D080009F918E /* Mobile App 2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile App 2016.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F690D551C95D080009F918E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F690D571C95D080009F918E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,13 +192,34 @@
 			isa = PBXGroup;
 			children = (
 				9F3AD3161CB1A61B0030CED1 /* Popup.swift */,
+				9F3AD3311CB45E750030CED1 /* calendar-icon.png */,
+				9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */,
+				9F3AD32F1CB45CE00030CED1 /* 006_-_Drug-512.png */,
 				9F6A6D071C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg */,
 				9F3AD3111CB0D0B20030CED1 /* sandiegodusk.png */,
 				9F6A6D161C9B93FC000DAFDA /* images.png */,
 				9F6A6D181C9B941B000DAFDA /* images-1.png */,
 				9F3AD30F1CB0CAF30030CED1 /* safe_image.jpeg */,
+				9F3AD3181CB3510A0030CED1 /* Headings */,
 			);
 			name = Additional;
+			sourceTree = "<group>";
+		};
+		9F3AD3181CB3510A0030CED1 /* Headings */ = {
+			isa = PBXGroup;
+			children = (
+				9F3AD32D1CB36E660030CED1 /* red-button2.png */,
+				9F3AD32B1CB36ABD0030CED1 /* reddot.png */,
+				9F3AD3191CB351230030CED1 /* Dawn.png */,
+				9F3AD31A1CB351230030CED1 /* Day.png */,
+				9F3AD31B1CB351230030CED1 /* Dusk.png */,
+				9F3AD31C1CB351230030CED1 /* Night.png */,
+				9F3AD3211CB354DC0030CED1 /* Dawn2.png */,
+				9F3AD3231CB355D00030CED1 /* Night2.png */,
+				9F3AD3251CB357480030CED1 /* day2.png */,
+				9F3AD3271CB359250030CED1 /* Day3.png */,
+			);
+			name = Headings;
 			sourceTree = "<group>";
 		};
 		9F690D491C95D080009F918E = {
@@ -206,6 +255,7 @@
 				9F690D551C95D080009F918E /* AppDelegate.swift */,
 				9F690D611C95D080009F918E /* LaunchScreen.storyboard */,
 				9F690D591C95D080009F918E /* Main.storyboard */,
+				9F33A1061CB46709007E88FD /* MedCell.swift */,
 				9F690D5F1C95D080009F918E /* Assets.xcassets */,
 				9F690D641C95D080009F918E /* Info.plist */,
 				9F690D5C1C95D080009F918E /* Mobile_App_2016.xcdatamodeld */,
@@ -391,14 +441,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F33A1051CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png in Resources */,
 				9F6A6D081C9B65D8000DAFDA /* cute-moustache-mustache-pikachu-pikarar-pokemon-Favimcom-44200_large-1.jpg in Resources */,
+				9F3AD3321CB45E750030CED1 /* calendar-icon.png in Resources */,
 				9F6A6D131C9B9115000DAFDA /* takemed.m4a in Resources */,
+				9F3AD3201CB351230030CED1 /* Night.png in Resources */,
 				9F6A6D191C9B941B000DAFDA /* images-1.png in Resources */,
 				9F690D631C95D080009F918E /* LaunchScreen.storyboard in Resources */,
 				9F3AD3101CB0CAF30030CED1 /* safe_image.jpeg in Resources */,
 				9F3AD3121CB0D0B20030CED1 /* sandiegodusk.png in Resources */,
+				9F3AD31F1CB351230030CED1 /* Dusk.png in Resources */,
+				9F3AD32C1CB36ABD0030CED1 /* reddot.png in Resources */,
+				9F3AD3281CB359250030CED1 /* Day3.png in Resources */,
+				9F3AD32E1CB36E660030CED1 /* red-button2.png in Resources */,
+				9F3AD3221CB354DC0030CED1 /* Dawn2.png in Resources */,
+				9F3AD3241CB355D00030CED1 /* Night2.png in Resources */,
 				9F6A6D171C9B93FC000DAFDA /* images.png in Resources */,
+				9F3AD3261CB357480030CED1 /* day2.png in Resources */,
+				9F3AD31D1CB351230030CED1 /* Dawn.png in Resources */,
 				9F690D601C95D080009F918E /* Assets.xcassets in Resources */,
+				9F3AD3301CB45CE00030CED1 /* 006_-_Drug-512.png in Resources */,
+				9F3AD31E1CB351230030CED1 /* Day.png in Resources */,
 				9F690D5B1C95D080009F918E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F6A6D111C9B793A000DAFDA /* Medication.swift in Sources */,
+				9F33A1071CB46709007E88FD /* MedCell.swift in Sources */,
 				9F6A6D061C9B618C000DAFDA /* Caregiver_PatientOverview.swift in Sources */,
 				9F084C621CAE0F0F000970F9 /* Patient_ConectionController.swift in Sources */,
 				9F690D581C95D080009F918E /* ViewController.swift in Sources */,
