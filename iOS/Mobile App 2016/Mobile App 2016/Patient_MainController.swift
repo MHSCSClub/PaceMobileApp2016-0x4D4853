@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import AVFoundation
 
 class Patient_MainController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var takeNowLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     
-    var tableTakeNow = UITableView()
+    //var tableTakeNow = UITableView()
+    @IBOutlet var tableTakeNow: UITableView!
     let textCellIdentifier = "TextCell"
     
+    var task:NSTimer!
+    
+    var counter = 0;
+    
+    
+    var medicationManager = MedicationManager()
+    var scheduleManager = ScheduleManager()
+    var heightofSection:CGFloat = 40
+    var fontofSection:CGFloat = 25
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +50,13 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         
         
         var frame: CGRect = self.view.frame
-        frame.origin.y += 150
-        frame.size.height = frame.size.height * 0.25
+        frame.origin.y += 130
+        frame.size.height = frame.size.height - 130
         
         tableTakeNow.frame = frame
         tableTakeNow.delegate = self
         tableTakeNow.dataSource = self
-        tableTakeNow.rowHeight = 70;
+        tableTakeNow.rowHeight = 80;
         tableTakeNow.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.setNeedsStatusBarAppearanceUpdate()
         //timeLabel.backgroundColor = UIColor.clearColor()
@@ -55,14 +66,57 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         
         
         
-        
         updateTime()
+        update()
         self.view.bringSubviewToFront(timeLabel)
-        NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(Patient_MainController.updateTime), userInfo: nil, repeats: true)
+        task = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(Patient_MainController.updateTime), userInfo: nil, repeats: true)
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()){
+            [unowned self] notification in
+            self.update()
+            self.counter = 0
+        }
         
         
-        //self.view.addSubview(tableTakeNow)
+        self.view.addSubview(tableTakeNow)
         
+    }
+   
+    func update(not:NSNotificationCenter) -> Void{
+        medicationManager.getMedsPatient(Constants.getAuthCode(), completion: getschedule)
+    }
+    func update() -> Void{
+        medicationManager.getMedsPatient(Constants.getAuthCode(), completion: getschedule)
+    }
+    
+    func updateView() {
+        print(scheduleManager.schedules.count)
+        counter += 1;
+        
+        if(counter == scheduleManager.schedules.count){
+            print("Here")
+            let late = scheduleManager.getLateMeds()
+            if(late.count != 0){
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc:MedReminder = storyboard.instantiateViewControllerWithIdentifier("MedReminder") as! MedReminder
+                    vc.meds = late
+                    self.presentViewController(vc, animated: true, completion: nil)
+                    self.task.invalidate()
+                    
+                }
+            }
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                //self.medication = self.medicationManager.medications
+                self.tableTakeNow.reloadData()
+            }
+
+        }
+    }
+    func getschedule() {
+        scheduleManager.getSchedulePatient(Constants.getAuthCode(), completion: connectMeds)
+    }
+    func connectMeds() {
+        scheduleManager.getSceduleDate(Constants.getAuthCode(), medManager: medicationManager, completion: updateView)
     }
     
     func updateTime(){
@@ -81,23 +135,63 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return scheduleManager.schedules.count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
+        let min = scheduleManager.schedules[section].minutes < 10 ? "0\(scheduleManager.schedules[section].minutes)" : "\(scheduleManager.schedules[section].minutes)"
+        let hour = scheduleManager.schedules[section].hours % 12 == 0 ? "12" : "\(scheduleManager.schedules[section].hours % 12)"
+        
+        
+        return "\(hour):\(min)\(ampm)"
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return scheduleManager.schedules[section].medications.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnedView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, heightofSection)) //set these values as necessary
+        returnedView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1.0)
         
+        let label = UILabel(frame: CGRectMake(10, 0, self.view.frame.width - 20, heightofSection))
         
+        label.font = UIFont.boldSystemFontOfSize(fontofSection)
+        let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
+        let min = scheduleManager.schedules[section].minutes < 10 ? "0\(scheduleManager.schedules[section].minutes)" : "\(scheduleManager.schedules[section].minutes)"
+        let hour = scheduleManager.schedules[section].hours % 12 == 0 ? "12" : "\(scheduleManager.schedules[section].hours % 12)"
+        
+        label.text = "\(hour):\(min)\(ampm)"
+        returnedView.addSubview(label)
+        
+        return returnedView
     }
-    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return heightofSection
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle,
-                                                   reuseIdentifier: "cell")
+        let section = indexPath.section
+        let row = indexPath.row
+        let cell = tableView.dequeueReusableCellWithIdentifier("PatientCell") as! PatientCell
+        cell.amount.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        cell.amount.layer.cornerRadius = 8
+        cell.amount.layer.masksToBounds = true
+        cell.amount.textColor = UIColor.whiteColor()
+        cell.amount.layer.borderColor = UIColor.clearColor().CGColor
+        cell.amount.text = "Take \(scheduleManager.schedules[section].medications[row].dosage)"
+        /*
+        cell.amount.layer.cornerRadius = 8
+        cell.amount.layer.borderWidth =  1
+        cell.amount.backgroundColor = UIColor.whiteColor()
+        cell.amount.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
+        cell.amount.textColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        cell.amount.text = "Take \(scheduleManager.schedules[section].medications[row].dosage)"*/
         
-        //let row = indexPath.row
-        cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 25)
-        cell.textLabel?.text = "Hi"
+        
+        cell.medName.text = "\(scheduleManager.schedules[section].medications[row].name)"
         return cell;
     }
     override func prefersStatusBarHidden() -> Bool {

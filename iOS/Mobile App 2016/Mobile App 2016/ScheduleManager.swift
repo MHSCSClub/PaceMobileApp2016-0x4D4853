@@ -44,5 +44,25 @@ class ScheduleManager {
             schedule.getMeds(authcode, pid: pid, medManager: medManager, completion: completion)
         }
     }
+    func getSceduleDate(authcode: String, medManager:MedicationManager, completion: (() -> Void)!) {
+        for schedule in schedules {
+            schedule.getMeds(authcode, medManager: medManager, completion: completion)
+        }
+    }
+    
+    func getSchedulePatient(authcode: String, completion: (() -> Void)!) {
+        self.completion = completion
+        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/schedules?authcode=\(authcode)", completion: populateMeds)
+    }
+    func getLateMeds() -> [Schedule]{
+        var late = [Schedule]()
+        for schedule in schedules {
+            let new = schedule.isLate(NSDate())
+            if(new.medications.count != 0){
+                late.append(new)
+            }
+        }
+        return late
+    }
     
 }

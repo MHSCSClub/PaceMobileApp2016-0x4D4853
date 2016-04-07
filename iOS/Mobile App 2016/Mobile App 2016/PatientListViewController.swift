@@ -31,7 +31,7 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         refreshController.addTarget(self, action: #selector(PatientListViewController.update), forControlEvents: UIControlEvents.ValueChanged)
         //self.refreshControl = refreshController
         
-        navigationController!.navigationBar.barTintColor = UIColor.init(red: 0.96, green: 0.26 , blue: 0.21, alpha: 1.0)
+        navigationController!.navigationBar.barTintColor = UIColor.init(red: 0.13, green: 0.59 , blue: 0.95, alpha: 1.0)
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         navigationController!.navigationBar.tintColor = UIColor.whiteColor();
         tableView.addSubview(refreshController)

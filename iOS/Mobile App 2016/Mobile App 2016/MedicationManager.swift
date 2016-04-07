@@ -18,7 +18,7 @@ class MedicationManager {
     }
     func getMedsPatient(authcode: String, completion: (() -> Void)!) {
         self.completion = completion
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/medications?authcode=\(authcode)", completion: populateMeds)
+        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/medications?authcode=\(authcode)", completion: populateMeds)
     }
     func populateMeds(data: NSData){
         

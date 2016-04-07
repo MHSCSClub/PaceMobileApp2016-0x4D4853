@@ -29,4 +29,10 @@ class Medication {
         print("Here")
         ServerConnection.postFile(params, data: data, url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/medications?authcode=\(authcode)", completion: completion)
     }
+    func takeMedication(){
+        
+    }
+    func getImage(authcode: String, completion: ((NSData) -> Void)){
+        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/medications/\(medid)?authcode=\(authcode)", completion: completion)
+    }
 }

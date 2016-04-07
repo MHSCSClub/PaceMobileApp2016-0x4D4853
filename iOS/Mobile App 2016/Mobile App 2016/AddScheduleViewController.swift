@@ -39,6 +39,8 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.hidden = true;
         doneMedication.hidden = true;
         
+        
+        
     }
     @IBAction func addMedication(sender: AnyObject) {
         tableView.hidden = false;

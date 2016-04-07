@@ -48,7 +48,10 @@ class Schedule {
                             if(taken != nil){
                                 self.taken.append(dateFormatter.dateFromString(taken!)!)
                             }else{
-                                self.taken.append(NSDate())
+                                let date = NSDate()
+                                let date2 = date.dateByAddingTimeInterval(-60*60*24)
+                                self.taken.append(date2)
+                                
                             }
                             medications.append(medication)
                         }
@@ -61,6 +64,34 @@ class Schedule {
         }
         completion()
         
+    }
+    
+    func getMeds(authcode: String, medManager: MedicationManager, completion: (() -> Void)!) {
+        self.completion = completion
+        self.mendicationManager = medManager
+        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/schedules/\(schid)?authcode=\(authcode)", completion: populateMeds)
+    }
+    func isLate(today: NSDate) -> Schedule {
+        let newSchedule = Schedule(schid: "\(schid)", hours: "\(hours)", minutes: "\(minutes)")
+        let dateFormatter = NSDateFormatter()
+        let calendar = NSCalendar.currentCalendar()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let components = calendar.components([.Month, .Year, .Day],fromDate: today);
+        let takeDate = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(hours):\(minutes)")
+        print(takeDate)
+        if(medications.count != 0){
+            for i in 0...medications.count - 1{
+                let calendar = NSCalendar.currentCalendar()
+                let components2 = calendar.components([.Day], fromDate: taken[i])
+                let day = components2.day
+                if(takeDate?.compare(today) == NSComparisonResult.OrderedDescending){
+                }else if(day != components.day){
+                    print("true")
+                    newSchedule.medications.append(medications[i])
+                }
+            }
+        }
+        return newSchedule
     }
     
 }

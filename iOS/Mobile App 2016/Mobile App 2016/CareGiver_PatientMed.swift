@@ -33,18 +33,20 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     
     var components:NSDateComponents!
     
+    var refreshController = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
        
-        
+        refreshController.addTarget(self, action: #selector(self.update), forControlEvents: UIControlEvents.ValueChanged)
         //table view
         tableView.delegate = self
         tableView.dataSource = self
         //tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.rowHeight = 70;
         // Do any additional setup after loading the view.
-        
+        tableView.addSubview(refreshController)
         
         /*
         let notification = UILocalNotification()
@@ -69,13 +71,16 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         
     }
     func update() {
+        
         medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
+        
     }
     
     func updateView() {
         NSOperationQueue.mainQueue().addOperationWithBlock {
             //self.medication = self.medicationManager.medications
             self.tableView.reloadData()
+            self.refreshController.endRefreshing()
         }
     }
     func getschedule() {
@@ -98,7 +103,10 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
         let min = scheduleManager.schedules[section].minutes < 10 ? "0\(scheduleManager.schedules[section].minutes)" : "\(scheduleManager.schedules[section].minutes)"
-        return "\(scheduleManager.schedules[section].hours % 12):\(min)\(ampm)"
+        let hour = scheduleManager.schedules[section].hours % 12 == 0 ? "12" : "\(scheduleManager.schedules[section].hours % 12)"
+        
+        
+        return "\(hour):\(min)\(ampm)"
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,25 +122,46 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         let section = indexPath.section
         let row = indexPath.row
         cell.title.text = "\(scheduleManager.schedules[section].medications[row].name)"
-        cell.subtitle.text = "Last taken: 10 hours ago"
-        cell.remaining.text = "\(scheduleManager.schedules[section].medications[row].remain)"
-        cell.remaining.layer.cornerRadius = 8
-        cell.remaining.layer.borderWidth =  1
-        cell.remaining.layer.borderColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90).CGColor
-        cell.remaining.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
+        cell.subtitle.textColor = UIColor.blackColor()
+        cell.subtitle.text = "\(scheduleManager.schedules[section].medications[row].remain) pills left"
+        
         
         
         let takeDate = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(scheduleManager.schedules[section].hours):\(scheduleManager.schedules[section].minutes)")
         
         
-        if (NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: scheduleManager.schedules[section].taken[row], toDate: takeDate! , options: []).day >= 1){
-            //cell.redDot.image = UIImage(named: "red-button2.png")
-        }
-        if(scheduleManager.schedules[section].medications[row].remain < 10 ){
+        
+        let calendar = NSCalendar.currentCalendar()
+        let components2 = calendar.components([.Day], fromDate: scheduleManager.schedules[section].taken[row])
+        let day = components2.day
+        
+        
+        if(takeDate?.compare(NSDate()) == NSComparisonResult.OrderedDescending){
+            cell.remaining.layer.cornerRadius = 8
+            cell.remaining.layer.borderWidth =  1
+            cell.remaining.backgroundColor = UIColor.whiteColor()
+            cell.remaining.layer.borderColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90).CGColor
+            cell.remaining.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
+            cell.remaining.text = "Pending"
+        }else if(components.day != day){
             cell.remaining.backgroundColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.80)
+            cell.remaining.layer.cornerRadius = 8
             cell.remaining.layer.masksToBounds = true
             cell.remaining.textColor = UIColor.whiteColor()
             cell.remaining.layer.borderColor = UIColor.clearColor().CGColor
+            cell.remaining.text = "Missed"
+        }else{
+            cell.remaining.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+            cell.remaining.layer.cornerRadius = 8
+            cell.remaining.layer.masksToBounds = true
+            cell.remaining.textColor = UIColor.whiteColor()
+            cell.remaining.layer.borderColor = UIColor.clearColor().CGColor
+            cell.remaining.text = "Taken"
+        }
+       
+        if(scheduleManager.schedules[section].medications[row].remain < scheduleManager.schedules[section].medications[row].dosage){
+            cell.subtitle.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
+            
         }
         
         return cell

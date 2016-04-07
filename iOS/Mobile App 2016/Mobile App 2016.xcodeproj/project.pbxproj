@@ -11,6 +11,7 @@
 		9F084C641CAE1753000970F9 /* AddPatinetCaregiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */; };
 		9F33A1051CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */; };
 		9F33A1071CB46709007E88FD /* MedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33A1061CB46709007E88FD /* MedCell.swift */; };
+		9F33A1091CB57242007E88FD /* PatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33A1081CB57242007E88FD /* PatientCell.swift */; };
 		9F3AD3041CAF6D810030CED1 /* MedicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */; };
 		9F3AD3071CAF794E0030CED1 /* CreateMedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */; };
 		9F3AD30A1CB0911E0030CED1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3091CB0911E0030CED1 /* Schedule.swift */; };
@@ -80,6 +81,7 @@
 		9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPatinetCaregiver.swift; sourceTree = "<group>"; };
 		9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainicon.com-50108-128px-eb1.png"; sourceTree = "<group>"; };
 		9F33A1061CB46709007E88FD /* MedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedCell.swift; sourceTree = "<group>"; };
+		9F33A1081CB57242007E88FD /* PatientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientCell.swift; sourceTree = "<group>"; };
 		9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
 		9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMedViewController.swift; sourceTree = "<group>"; };
 		9F3AD3091CB0911E0030CED1 /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				9F690D551C95D080009F918E /* AppDelegate.swift */,
 				9F690D611C95D080009F918E /* LaunchScreen.storyboard */,
 				9F690D591C95D080009F918E /* Main.storyboard */,
+				9F33A1081CB57242007E88FD /* PatientCell.swift */,
 				9F33A1061CB46709007E88FD /* MedCell.swift */,
 				9F690D5F1C95D080009F918E /* Assets.xcassets */,
 				9F690D641C95D080009F918E /* Info.plist */,
@@ -504,6 +507,7 @@
 				9F690D8C1C95D12B009F918E /* ServerConnection.swift in Sources */,
 				9F690D561C95D080009F918E /* AppDelegate.swift in Sources */,
 				9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */,
+				9F33A1091CB57242007E88FD /* PatientCell.swift in Sources */,
 				9F3AD3041CAF6D810030CED1 /* MedicationManager.swift in Sources */,
 				9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */,
 				9F3AD3171CB1A61B0030CED1 /* Popup.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
     
     var patient:Patient!
     
@@ -17,7 +17,8 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet var medName: UITextField!
     @IBOutlet var dosage: UITextField!
     @IBOutlet var remain: UITextField!
-    @IBOutlet var info: UITextField!
+    @IBOutlet var info: UITextView!
+    
     
     
     var picker = UIImagePickerController()
@@ -26,11 +27,38 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
         super.viewDidLoad()
         picker.delegate = self
         // Do any additional setup after loading the view.
+        medName.delegate = self
+        dosage.delegate = self
+        remain.delegate = self
+        info.delegate = self
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(CreateMedViewController.getRideOfKeyboard(_:)))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.Down
+        self.view.addGestureRecognizer(swipeDown)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textViewDidBeginEditing(textView: UITextView) {
+        self.view.frame.origin.y -= 200
+    }
+    func getRideOfKeyboard(gesture: UIGestureRecognizer) {
+        if(info.isFirstResponder()){
+            self.view.frame.origin.y += 200
+            info.resignFirstResponder()
+        }else if(medName.isFirstResponder()){
+            medName.resignFirstResponder()
+        }else if(dosage.isFirstResponder()){
+            dosage.resignFirstResponder()
+        }else if(remain.isFirstResponder()){
+            remain.resignFirstResponder()
+        }
     }
     
     @IBAction func photoFromLibrary(sender: AnyObject) {
@@ -40,7 +68,7 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
         presentViewController(picker, animated: true, completion: nil)
     }
     @IBAction func done () {
-        info.resignFirstResponder()
+        self.resignFirstResponder()
     }
     //delagates
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {

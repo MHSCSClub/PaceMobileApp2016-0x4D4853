@@ -26,8 +26,17 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
         usablity.delegate = self
         self.connectionView.hidden = true
         
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(AddPatinetCaregiver.getRidOfKeyBoard))
+    
+        swipeDown.direction = UISwipeGestureRecognizerDirection.Down
+        
+        self.view.addGestureRecognizer(swipeDown)
+        
     }
     @IBAction func nameDone(sender: AnyObject) {
+        name.resignFirstResponder()
+    }
+    func getRidOfKeyBoard(gesture: UIGestureRecognizer){
         name.resignFirstResponder()
     }
     
