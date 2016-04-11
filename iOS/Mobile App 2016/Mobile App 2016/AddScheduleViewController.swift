@@ -19,6 +19,8 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
     
     var selected = [Bool]()
     
+    var callback: (() -> Void)!
+    
     @IBOutlet var doneMedication: UIButton!
     
     override func viewDidLoad() {
@@ -26,7 +28,9 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
         // Do any additional setup after loading the view.
         
         var frame: CGRect = self.view.frame
-        frame.origin.y += 50
+        print(navigationController?.navigationBar.frame.size.height)
+        frame.origin.y += (navigationController?.navigationBar.frame.size.height)!
+        frame.origin.y += 35
         frame.size.height = frame.size.height - 150
         
         tableView.frame = frame
@@ -97,7 +101,7 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
         
         let components = time.calendar.components([.Hour, .Minute],fromDate: time.date);
         let params = ["hours": "\(components.hour)", "minutes": "\(components.minute)", "medication": meds]
-        ServerConnection.postRequest(params, url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/schedules?authcode=\(Constants.getAuthCode())", completion: complete)
+        ServerConnection.postRequest(params, url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/schedules?authcode=\(Constants.getAuthCode())", completion: complete)
         
     }
     
@@ -125,6 +129,9 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
     }
     func backToScreen () {
        navigationController?.popViewControllerAnimated(true)
+        if(callback != nil){
+            callback()
+        }
     }
     
     

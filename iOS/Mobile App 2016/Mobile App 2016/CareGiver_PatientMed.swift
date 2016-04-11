@@ -208,10 +208,12 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         else if(segue.identifier == "addMedication"){
             let controller = segue.destinationViewController as? CreateMedViewController
             controller?.patient = patient
+            controller?.callback = update
         }
         else if (segue.identifier == "addSchedule"){
             let controller = segue.destinationViewController as? AddScheduleViewController
             controller?.patient = patient
+            controller?.callback = update
             controller?.medicationList = medicationManager
         }
     }

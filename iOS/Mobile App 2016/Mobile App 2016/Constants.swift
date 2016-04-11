@@ -9,7 +9,8 @@
 import Foundation
 
 class Constants{
-    static let baseURL = "http://garlandphillips.net/testConn/"
+    //http://108.30.55.167
+    static let baseURL = "http://ec2-54-213-18-197.us-west-2.compute.amazonaws.com"
     
     static func getAuthCode() -> String{
         return File.readFile("authcode");

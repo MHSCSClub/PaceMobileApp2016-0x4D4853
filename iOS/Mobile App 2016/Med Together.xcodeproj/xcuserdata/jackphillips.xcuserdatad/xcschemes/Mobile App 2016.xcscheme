@@ -17,7 +17,7 @@
                BlueprintIdentifier = "9F690D511C95D080009F918E"
                BuildableName = "Mobile App 2016.app"
                BlueprintName = "Mobile App 2016"
-               ReferencedContainer = "container:Mobile App 2016.xcodeproj">
+               ReferencedContainer = "container:Med Together.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "9F690D681C95D081009F918E"
                BuildableName = "Mobile App 2016Tests.xctest"
                BlueprintName = "Mobile App 2016Tests"
-               ReferencedContainer = "container:Mobile App 2016.xcodeproj">
+               ReferencedContainer = "container:Med Together.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "9F690D731C95D081009F918E"
                BuildableName = "Mobile App 2016UITests.xctest"
                BlueprintName = "Mobile App 2016UITests"
-               ReferencedContainer = "container:Mobile App 2016.xcodeproj">
+               ReferencedContainer = "container:Med Together.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,7 +55,7 @@
             BlueprintIdentifier = "9F690D511C95D080009F918E"
             BuildableName = "Mobile App 2016.app"
             BlueprintName = "Mobile App 2016"
-            ReferencedContainer = "container:Mobile App 2016.xcodeproj">
+            ReferencedContainer = "container:Med Together.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "9F690D511C95D080009F918E"
             BuildableName = "Mobile App 2016.app"
             BlueprintName = "Mobile App 2016"
-            ReferencedContainer = "container:Mobile App 2016.xcodeproj">
+            ReferencedContainer = "container:Med Together.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,7 +97,7 @@
             BlueprintIdentifier = "9F690D511C95D080009F918E"
             BuildableName = "Mobile App 2016.app"
             BlueprintName = "Mobile App 2016"
-            ReferencedContainer = "container:Mobile App 2016.xcodeproj">
+            ReferencedContainer = "container:Med Together.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

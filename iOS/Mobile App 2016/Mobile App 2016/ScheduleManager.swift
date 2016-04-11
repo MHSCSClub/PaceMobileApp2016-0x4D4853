@@ -14,7 +14,7 @@ class ScheduleManager {
     
     func getMedsPatient(authcode: String, pid: String, completion: (() -> Void)!) {
         self.completion = completion
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/schedules?authcode=\(authcode)", completion: populateMeds)
+        ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/schedules?authcode=\(authcode)", completion: populateMeds)
     }
     
     func populateMeds(data: NSData){
@@ -52,7 +52,7 @@ class ScheduleManager {
     
     func getSchedulePatient(authcode: String, completion: (() -> Void)!) {
         self.completion = completion
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/schedules?authcode=\(authcode)", completion: populateMeds)
+        ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/patient/schedules?authcode=\(authcode)", completion: populateMeds)
     }
     func getLateMeds() -> [Schedule]{
         var late = [Schedule]()

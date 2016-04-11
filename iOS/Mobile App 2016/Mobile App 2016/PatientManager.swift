@@ -14,7 +14,7 @@ class PatientManager {
     
     func getpatients(authcode: String, completion: (() -> Void)!) {
         self.completion = completion
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients?authcode=\(authcode)", completion: populatePatients)
+        ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients?authcode=\(authcode)", completion: populatePatients)
     }
     func populatePatients(data: NSData){
         print(NSString(data: data, encoding: NSUTF8StringEncoding));

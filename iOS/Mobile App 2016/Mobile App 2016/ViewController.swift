@@ -29,11 +29,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func registerAccount(sender: AnyObject) {
-        ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/register", completion: finishRegister)
+        ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/register", completion: finishRegister)
     }
     
     @IBAction func login(sender: AnyObject) {
-        ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/login", completion: finishLogin)
+        ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/login", completion: finishLogin)
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
             if let status = json["status"] as? String {
                 if (status == "success"){
                     print("success")
-                    ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/login", completion: finishLogin)
+                    ServerConnection.postRequest(["username":userNameInput.text!, "password":passwordInput.text!], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/login", completion: finishLogin)
                 }
             }
         }
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
                         if let authcode = data["authcode"] as? String {
                             Constants.saveAuthCode(authcode)
                             Constants.saveType("caregiver")
-                            ServerConnection.postRequest(["uiud": File.readFile("UDID")], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/device?authcode=\(authcode)", completion: OnFinish)
+                            ServerConnection.postRequest(["uiud": File.readFile("UDID")], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/device?authcode=\(authcode)", completion: OnFinish)
                             print(authcode)
                             NSOperationQueue.mainQueue().addOperationWithBlock {
                                 self.performSegueWithIdentifier("goToMain", sender: self)

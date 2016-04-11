@@ -27,12 +27,12 @@ class Medication {
     func createMedication(data:NSData, authcode: String, pid: String, completion: ((NSData) -> Void)!){
         let params = ["name" :name, "dosage": "\(dosage)", "remain": "\(remain)", "info": info]
         print("Here")
-        ServerConnection.postFile(params, data: data, url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/medications?authcode=\(authcode)", completion: completion)
+        ServerConnection.postFile(params, data: data, url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/medications?authcode=\(authcode)", completion: completion)
     }
     func takeMedication(){
         
     }
     func getImage(authcode: String, completion: ((NSData) -> Void)){
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/medications/\(medid)?authcode=\(authcode)", completion: completion)
+        ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/patient/medications/\(medid)?authcode=\(authcode)", completion: completion)
     }
 }

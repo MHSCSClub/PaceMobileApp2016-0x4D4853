@@ -43,22 +43,25 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         topBorder.frame = CGRectMake(0, 0, timeLabel.frame.size.width, width)
         topBorder.backgroundColor = UIColor.blackColor().CGColor
         
+        
         //med_invitory.layer.addSublayer(border)
-        takeNowLabel.layer.addSublayer(topBorder)
-        takeNowLabel.layer.addSublayer(border)
-        takeNowLabel.layer.masksToBounds = true;
+        //takeNowLabel.layer.addSublayer(topBorder)
+        //takeNowLabel.layer.addSublayer(border)
+        //takeNowLabel.layer.masksToBounds = true;
         
         
-        var frame: CGRect = self.view.frame
-        frame.origin.y += 130
-        frame.size.height = frame.size.height - 130
+        //var frame: CGRect = self.view.frame
+        //frame.origin.y += 130
+        //frame.size.height = frame.size.height - 130
         
-        tableTakeNow.frame = frame
+        //tableTakeNow.frame = frame
         tableTakeNow.delegate = self
         tableTakeNow.dataSource = self
-        tableTakeNow.rowHeight = 80;
-        tableTakeNow.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableTakeNow.rowHeight = 75;
+        //tableTakeNow.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        
         //timeLabel.backgroundColor = UIColor.clearColor()
         //imageView.image = UIImage(named: "Night2.png")
         
@@ -77,7 +80,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         }
         
         
-        self.view.addSubview(tableTakeNow)
+        //self.view.addSubview(tableTakeNow)
         
     }
    
@@ -128,6 +131,20 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         let minute = components.minute < 10 ? "0\(components.minute)" : "\(components.minute)"
         timeLabel.text = "\(hour):\(minute)"
         print("\(hour):\(minute)")
+        if(components.hour < 6){
+            imageView.image = UIImage(named: "Night2.png")
+        }
+        else if(components.hour < 9){
+            imageView.image = UIImage(named: "Dawn2.png")
+        }
+        else if(components.hour < 13){
+            imageView.image = UIImage(named: "day2.png")
+        }else if(components.hour < 18){
+            imageView.image = UIImage(named: "Dusk.png")
+        }else{
+            imageView.image = UIImage(named: "Night2.png")
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -156,7 +173,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         let returnedView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, heightofSection)) //set these values as necessary
         returnedView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1.0)
         
-        let label = UILabel(frame: CGRectMake(10, 0, self.view.frame.width - 20, heightofSection))
+        let label = UILabel(frame: CGRectMake(15, 0, self.view.frame.width - 20, heightofSection))
         
         label.font = UIFont.boldSystemFontOfSize(fontofSection)
         let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
@@ -164,6 +181,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         let hour = scheduleManager.schedules[section].hours % 12 == 0 ? "12" : "\(scheduleManager.schedules[section].hours % 12)"
         
         label.text = "\(hour):\(min)\(ampm)"
+        label.textColor = UIColor(red: 58/255, green: 58/255, blue: 60/255, alpha: 0.80)
         returnedView.addSubview(label)
         
         return returnedView

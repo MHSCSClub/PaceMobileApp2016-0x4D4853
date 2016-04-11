@@ -18,6 +18,8 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
     @IBOutlet var connectionView: UIView!
     @IBOutlet var connectionCode: UILabel!
     
+    var callback: (() -> Void)!
+    
     var usablityOptions = ["1 - Limitied", "2 - Medium", "3 - Full"]
     
     override func viewDidLoad() {
@@ -58,7 +60,7 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
     
     @IBAction func create(sender: AnyObject) {
         let usability = usablity.selectedRowInComponent(0)
-        ServerConnection.postRequest(["name":name.text!, "usability": "\(usability)"], url: "http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients?authcode=\(Constants.getAuthCode())", completion: createDone)
+        ServerConnection.postRequest(["name":name.text!, "usability": "\(usability)"], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients?authcode=\(Constants.getAuthCode())", completion: createDone)
     }
     func createDone (data: NSData) {
          print(NSString(data: data, encoding: NSUTF8StringEncoding));
@@ -73,6 +75,7 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
                                 self.connectionCode.text = lcode
                                 self.connectionView.hidden = false
                                 
+                                
                             }
                             
                         }
@@ -86,6 +89,9 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
     }
     @IBAction func done(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
+        if(callback != nil){
+            callback()
+        }
     }
     
     

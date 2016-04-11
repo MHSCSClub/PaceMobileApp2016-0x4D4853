@@ -10,6 +10,7 @@ import UIKit
 
 class Popup: UIViewController {
     
+    @IBOutlet var pill: UIImageView!
     @IBOutlet var addMed: UIButton!
     @IBOutlet var addSchedule: UIButton!
     
@@ -19,6 +20,7 @@ class Popup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.view.bringSubviewToFront(pill)
         addMed.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         addSchedule.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         

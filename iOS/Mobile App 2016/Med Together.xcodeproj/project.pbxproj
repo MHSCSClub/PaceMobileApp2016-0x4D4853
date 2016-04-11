@@ -12,6 +12,7 @@
 		9F33A1051CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */; };
 		9F33A1071CB46709007E88FD /* MedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33A1061CB46709007E88FD /* MedCell.swift */; };
 		9F33A1091CB57242007E88FD /* PatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33A1081CB57242007E88FD /* PatientCell.swift */; };
+		9F33A10B1CB70B05007E88FD /* pills.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F33A10A1CB70B05007E88FD /* pills.png */; };
 		9F3AD3041CAF6D810030CED1 /* MedicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */; };
 		9F3AD3071CAF794E0030CED1 /* CreateMedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */; };
 		9F3AD30A1CB0911E0030CED1 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3AD3091CB0911E0030CED1 /* Schedule.swift */; };
@@ -82,6 +83,7 @@
 		9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plainicon.com-50108-128px-eb1.png"; sourceTree = "<group>"; };
 		9F33A1061CB46709007E88FD /* MedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedCell.swift; sourceTree = "<group>"; };
 		9F33A1081CB57242007E88FD /* PatientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientCell.swift; sourceTree = "<group>"; };
+		9F33A10A1CB70B05007E88FD /* pills.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pills.png; sourceTree = "<group>"; };
 		9F3AD3031CAF6D810030CED1 /* MedicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
 		9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMedViewController.swift; sourceTree = "<group>"; };
 		9F3AD3091CB0911E0030CED1 /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				9F3AD3231CB355D00030CED1 /* Night2.png */,
 				9F3AD3251CB357480030CED1 /* day2.png */,
 				9F3AD3271CB359250030CED1 /* Day3.png */,
+				9F33A10A1CB70B05007E88FD /* pills.png */,
 			);
 			name = Headings;
 			sourceTree = "<group>";
@@ -419,7 +422,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9F690D4D1C95D080009F918E /* Build configuration list for PBXProject "Mobile App 2016" */;
+			buildConfigurationList = 9F690D4D1C95D080009F918E /* Build configuration list for PBXProject "Med Together" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -464,6 +467,7 @@
 				9F3AD31D1CB351230030CED1 /* Dawn.png in Resources */,
 				9F690D601C95D080009F918E /* Assets.xcassets in Resources */,
 				9F3AD3301CB45CE00030CED1 /* 006_-_Drug-512.png in Resources */,
+				9F33A10B1CB70B05007E88FD /* pills.png in Resources */,
 				9F3AD31E1CB351230030CED1 /* Day.png in Resources */,
 				9F690D5B1C95D080009F918E /* Main.storyboard in Resources */,
 			);
@@ -734,7 +738,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9F690D4D1C95D080009F918E /* Build configuration list for PBXProject "Mobile App 2016" */ = {
+		9F690D4D1C95D080009F918E /* Build configuration list for PBXProject "Med Together" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9F690D7B1C95D081009F918E /* Debug */,

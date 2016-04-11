@@ -98,7 +98,13 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
 
             let viewController = segue.destinationViewController as? CareGiver_PatientMed
             viewController?.patient = patientList[selected]
+            
         }
+        else if(segue.identifier == "AddPatient"){
+            let viewController = segue.destinationViewController as? AddPatinetCaregiver
+            viewController?.callback = update
+        }
+        
         
         
         

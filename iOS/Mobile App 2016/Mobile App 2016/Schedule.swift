@@ -26,7 +26,7 @@ class Schedule {
     func getMeds(authcode: String, pid: String, medManager: MedicationManager, completion: (() -> Void)!) {
         self.completion = completion
         self.mendicationManager = medManager
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/schedules/\(schid)?authcode=\(authcode)", completion: populateMeds)
+        ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(pid)/schedules/\(schid)?authcode=\(authcode)", completion: populateMeds)
     }
     
     func populateMeds(data: NSData){
@@ -69,7 +69,7 @@ class Schedule {
     func getMeds(authcode: String, medManager: MedicationManager, completion: (() -> Void)!) {
         self.completion = completion
         self.mendicationManager = medManager
-        ServerConnection.getRequest("http://108.30.55.167/Pace_2016_0x4D4853/Backend/api/patient/schedules/\(schid)?authcode=\(authcode)", completion: populateMeds)
+        ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/patient/schedules/\(schid)?authcode=\(authcode)", completion: populateMeds)
     }
     func isLate(today: NSDate) -> Schedule {
         let newSchedule = Schedule(schid: "\(schid)", hours: "\(hours)", minutes: "\(minutes)")

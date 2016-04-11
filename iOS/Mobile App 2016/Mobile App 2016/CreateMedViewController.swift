@@ -19,7 +19,7 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet var remain: UITextField!
     @IBOutlet var info: UITextView!
     
-    
+    var callback: (() -> Void)!
     
     var picker = UIImagePickerController()
     
@@ -112,6 +112,9 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
     }
     func backToScreen () {
         navigationController?.popViewControllerAnimated(true)
+        if(callback != nil){
+            callback()
+        }
     }
     
     /*
