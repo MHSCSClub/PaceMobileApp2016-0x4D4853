@@ -64,5 +64,15 @@ class ScheduleManager {
         }
         return late
     }
+    func sort(){
+        let new = schedules.sort(sortFunc)
+        print(new[2].hours)
+        schedules = new
+        
+    }
+    func sortFunc(schedule1: Schedule, schedule2: Schedule) -> Bool {
+        return schedule1.getDate().compare(schedule2.getDate()) == NSComparisonResult.OrderedAscending
+    }
+    
     
 }

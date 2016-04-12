@@ -100,7 +100,8 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         let components = time.calendar.components([.Hour, .Minute],fromDate: time.date);
-        let params = ["hours": "\(components.hour)", "minutes": "\(components.minute)", "medication": meds]
+        let hours = (components.hour + 4) % 24
+        let params = ["hours": "\(hours)", "minutes": "\(components.minute)", "medication": meds]
         ServerConnection.postRequest(params, url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/schedules?authcode=\(Constants.getAuthCode())", completion: complete)
         
     }

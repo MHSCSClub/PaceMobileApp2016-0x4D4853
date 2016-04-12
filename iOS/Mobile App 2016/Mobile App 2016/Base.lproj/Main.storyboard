@@ -403,12 +403,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="cmh-do-opZ" id="23k-ke-kBp"/>
-                        <segue destination="zqR-9Z-UgD" kind="show" identifier="PatientMeds" id="U1t-sd-Tyg"/>
+                        <segue destination="UE7-f9-4gI" kind="show" identifier="PatientMeds" id="i1G-Nn-wDC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELm-ms-tde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2460.5" y="-826.5"/>
+            <point key="canvasLocation" x="-2968.5" y="-780.5"/>
         </scene>
         <!--Add Patient-->
         <scene sceneID="aMd-V1-G6I">
@@ -596,6 +596,24 @@
             </objects>
             <point key="canvasLocation" x="-3217" y="-2299"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="CuW-sJ-yze">
+            <objects>
+                <tabBarController id="UE7-f9-4gI" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="CnB-R4-hWE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="zqR-9Z-UgD" kind="relationship" relationship="viewControllers" id="WbR-sV-f8E"/>
+                        <segue destination="Bzg-Iv-os0" kind="relationship" relationship="viewControllers" id="2B0-QQ-3XQ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZLJ-RK-Boz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2357" y="-122"/>
+        </scene>
         <!--Patient Name-->
         <scene sceneID="Ebg-FQ-gjZ">
             <objects>
@@ -619,7 +637,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5my-RM-y1A">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Meds" id="AYU-Np-KNl" customClass="MedCell" customModule="Mobile_App_2016" customModuleProvider="target">
@@ -698,7 +716,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="labelForPresent" destination="Qy3-bS-JU0" id="K9u-Bm-bnm"/>
                         <outlet property="navBar" destination="VdC-BO-Z1A" id="vtU-oX-Gji"/>
@@ -770,6 +787,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FVu-fl-lrF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1379" y="-486.5"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="geb-SQ-GW9">
+            <objects>
+                <viewController id="Bzg-Iv-os0" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tOq-Kf-Qhf"/>
+                        <viewControllerLayoutGuide type="bottom" id="WmC-fV-A86"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S5A-Xe-Fnl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="PmD-Sn-da2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rzw-Vs-DSt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1838.5" y="434.5"/>
         </scene>
         <!--Add Schedule-->
         <scene sceneID="yS5-Re-2vU">
@@ -1167,7 +1203,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wjR-dH-MC8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3273" y="-827"/>
+            <point key="canvasLocation" x="-3581.5" y="-683.5"/>
         </scene>
     </scenes>
     <resources>

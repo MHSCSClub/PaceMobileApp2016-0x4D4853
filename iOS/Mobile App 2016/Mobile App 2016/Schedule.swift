@@ -21,6 +21,13 @@ class Schedule {
         self.schid = Int(schid)!
         self.hours = Int(hours)!
         self.minutes = Int(minutes)!
+        setToCorrectHour()
+    }
+    func setToCorrectHour(){
+        self.hours -= 4;
+        if(hours < 0){
+            hours += 24
+        }
     }
     
     func getMeds(authcode: String, pid: String, medManager: MedicationManager, completion: (() -> Void)!) {
@@ -70,6 +77,15 @@ class Schedule {
         self.completion = completion
         self.mendicationManager = medManager
         ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/patient/schedules/\(schid)?authcode=\(authcode)", completion: populateMeds)
+    }
+    func getDate() ->NSDate{
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Day, .Year, .Month], fromDate: NSDate())
+        let date = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(hours):\(minutes)")
+        return date!
+        
     }
     func isLate(today: NSDate) -> Schedule {
         let newSchedule = Schedule(schid: "\(schid)", hours: "\(hours)", minutes: "\(minutes)")

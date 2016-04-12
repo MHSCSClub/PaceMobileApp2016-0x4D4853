@@ -308,12 +308,10 @@
 		9F6A6D0B1C9B7752000DAFDA /* Caregiver */ = {
 			isa = PBXGroup;
 			children = (
-				9F3AD30D1CB0B45E0030CED1 /* AddScheduleViewController.swift */,
 				9F6A6D0E1C9B77C2000DAFDA /* CareGiver_PatientMed.swift */,
-				9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */,
 				9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */,
 				9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */,
-				9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */,
+				9FF03C891CBD8CB10030EFF8 /* Create/Add */,
 			);
 			name = Caregiver;
 			sourceTree = "<group>";
@@ -335,6 +333,16 @@
 				9F6A6D211CA75863000DAFDA /* PatientManager.swift */,
 			);
 			name = Patient;
+			sourceTree = "<group>";
+		};
+		9FF03C891CBD8CB10030EFF8 /* Create/Add */ = {
+			isa = PBXGroup;
+			children = (
+				9F3AD30D1CB0B45E0030CED1 /* AddScheduleViewController.swift */,
+				9F3AD3061CAF794E0030CED1 /* CreateMedViewController.swift */,
+				9F084C631CAE1753000970F9 /* AddPatinetCaregiver.swift */,
+			);
+			name = Create/Add;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

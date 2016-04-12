@@ -95,8 +95,8 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         if (segue.identifier == "PatientMeds") {
-
-            let viewController = segue.destinationViewController as? CareGiver_PatientMed
+            let tabviewController = segue.destinationViewController as? UITabBarController
+            let viewController = tabviewController?.childViewControllers[0] as? CareGiver_PatientMed
             viewController?.patient = patientList[selected]
             
         }

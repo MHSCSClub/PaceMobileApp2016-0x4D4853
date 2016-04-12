@@ -15,7 +15,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var navBar: UINavigationItem!
     @IBOutlet var tableView: UITableView!
     
-
+    var counter = 0
     
     let textCellIdentifier = "TextCell"
     let dateFormatter = NSDateFormatter()
@@ -71,16 +71,22 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         
     }
     func update() {
-        
+        counter = 0;
+        //self.refreshController.beginRefreshing()
         medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
         
     }
     
     func updateView() {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            //self.medication = self.medicationManager.medications
-            self.tableView.reloadData()
-            self.refreshController.endRefreshing()
+        counter += 1;
+        
+        if(counter == scheduleManager.schedules.count){
+            scheduleManager.sort()
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                //self.medication = self.medicationManager.medications
+                self.tableView.reloadData()
+                self.refreshController.endRefreshing()
+            }
         }
     }
     func getschedule() {
