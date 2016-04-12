@@ -44,6 +44,8 @@ function NC(p) {
 	return p;
 }
 
+var late_minutes = 5;
+
 // api/schedule
 // Creating a new task
 router.route('/schedule')
@@ -66,10 +68,11 @@ router.route('/schedule')
 		var mrule = new schedule.RecurrenceRule();
 		mrule.hour = medtime.getHours();
 		mrule.minute = medtime.getMinutes();
-
+		
+		medtime.setMinutes(medtime.getMinutes() + late_minutes);
 		var lrule = new schedule.RecurrenceRule();
 		lrule.hour = medtime.getHours();
-		lrule.minute = medtime.getMinutes() + 5;
+		lrule.minute = medtime.getMinutes();
 	
 		fullSchedule[schid] = {
 
