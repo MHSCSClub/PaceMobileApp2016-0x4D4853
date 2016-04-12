@@ -63,8 +63,8 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
     
     @IBAction func photoFromLibrary(sender: AnyObject) {
         picker.allowsEditing = false
-        picker.sourceType = UIImagePickerControllerSourceType.Camera
-        picker.cameraCaptureMode = .Photo
+        picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        //picker.cameraCaptureMode = .Photo
         presentViewController(picker, animated: true, completion: nil)
     }
     @IBAction func done () {

@@ -15,6 +15,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var navBar: UINavigationItem!
     @IBOutlet var tableView: UITableView!
     
+    @IBOutlet var addButton: UIBarButtonItem!
     var counter = 0
     
     let textCellIdentifier = "TextCell"
@@ -23,7 +24,8 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var labelForPresent: UILabel!
     var patient:Patient!
     
-    @IBOutlet var addButton: UIButton!
+    var medicationnot = [Medication]()
+    
     
     var medicationManager = MedicationManager()
     var scheduleManager = ScheduleManager()
@@ -66,12 +68,16 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         if(patient != nil){
             navBar.title = patient.name
             medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
+            tabBarController?.navigationItem.title = patient.name
+            
+            tabBarController?.navigationItem.rightBarButtonItem = addButton
             //NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         }
         
     }
     func update() {
         counter = 0;
+        medicationnot = []
         //self.refreshController.beginRefreshing()
         medicationManager.getMeds(Constants.getAuthCode(), pid: "\(patient.pid)", completion: getschedule)
         
@@ -81,7 +87,19 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         counter += 1;
         
         if(counter == scheduleManager.schedules.count){
+            var medsused = Set<Int>()
+            
             scheduleManager.sort()
+            for schedule in scheduleManager.schedules {
+                for meds in schedule.medications {
+                    medsused.insert(meds.medid)
+                }
+            }
+            for meds in medicationManager.medications {
+                if(!medsused.contains(meds.medid)){
+                    medicationnot.append(meds)
+                }
+            }
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 //self.medication = self.medicationManager.medications
                 self.tableView.reloadData()
@@ -103,10 +121,16 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if(medicationnot.count > 0){
+            return scheduleManager.schedules.count + 1
+        }
         return scheduleManager.schedules.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if(section == scheduleManager.schedules.count){
+            return "Unscheduled"
+        }
         let ampm = (scheduleManager.schedules[section].hours >= 12 ? " PM" : " AM")
         let min = scheduleManager.schedules[section].minutes < 10 ? "0\(scheduleManager.schedules[section].minutes)" : "\(scheduleManager.schedules[section].minutes)"
         let hour = scheduleManager.schedules[section].hours % 12 == 0 ? "12" : "\(scheduleManager.schedules[section].hours % 12)"
@@ -116,12 +140,30 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(section == scheduleManager.schedules.count){
+            return medicationnot.count
+        }
         return scheduleManager.schedules[section].medications.count
+        
     }
     
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if(indexPath.section == scheduleManager.schedules.count){
+            let row = indexPath.row
+            let cell = tableView.dequeueReusableCellWithIdentifier("Meds") as! MedCell
+            cell.title.text = "\(medicationnot[row].name)"
+            cell.subtitle.textColor = UIColor.blackColor()
+            cell.subtitle.text = "\(medicationnot[row].remain) pills left"
+            cell.remaining.hidden = true
+            if(medicationnot[row].remain < medicationnot[row].dosage){
+                cell.subtitle.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
+                
+            }
+            return cell;
+            
+        }
        let cell = tableView.dequeueReusableCellWithIdentifier("Meds") as! MedCell
         
         
@@ -130,7 +172,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         cell.title.text = "\(scheduleManager.schedules[section].medications[row].name)"
         cell.subtitle.textColor = UIColor.blackColor()
         cell.subtitle.text = "\(scheduleManager.schedules[section].medications[row].remain) pills left"
-        
+        cell.remaining.hidden = false
         
         
         let takeDate = dateFormatter.dateFromString("\(components.year)-\(components.month)-\(components.day) \(scheduleManager.schedules[section].hours):\(scheduleManager.schedules[section].minutes)")

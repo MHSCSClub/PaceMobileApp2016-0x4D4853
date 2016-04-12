@@ -58,6 +58,7 @@
 		9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1F1CA75224000DAFDA /* Patient.swift */; };
 		9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D211CA75863000DAFDA /* PatientManager.swift */; };
 		9F75D7F31CAF569600D4CF9C /* Patient_MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */; };
+		9FF03C8B1CBD9A2A0030EFF8 /* patientTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		9F6A6D1F1CA75224000DAFDA /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		9F6A6D211CA75863000DAFDA /* PatientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientManager.swift; sourceTree = "<group>"; };
 		9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient_MainController.swift; sourceTree = "<group>"; };
+		9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = patientTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 		9F6A6D0B1C9B7752000DAFDA /* Caregiver */ = {
 			isa = PBXGroup;
 			children = (
+				9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */,
 				9F6A6D0E1C9B77C2000DAFDA /* CareGiver_PatientMed.swift */,
 				9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */,
 				9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */,
@@ -504,6 +507,7 @@
 			files = (
 				9F6A6D111C9B793A000DAFDA /* Medication.swift in Sources */,
 				9F33A1071CB46709007E88FD /* MedCell.swift in Sources */,
+				9FF03C8B1CBD9A2A0030EFF8 /* patientTabBarController.swift in Sources */,
 				9F6A6D061C9B618C000DAFDA /* Caregiver_PatientOverview.swift in Sources */,
 				9F084C621CAE0F0F000970F9 /* Patient_ConectionController.swift in Sources */,
 				9F690D581C95D080009F918E /* ViewController.swift in Sources */,

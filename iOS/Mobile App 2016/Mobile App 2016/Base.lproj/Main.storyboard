@@ -596,10 +596,10 @@
             </objects>
             <point key="canvasLocation" x="-3217" y="-2299"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Patient Tab Bar Controller-->
         <scene sceneID="CuW-sJ-yze">
             <objects>
-                <tabBarController id="UE7-f9-4gI" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="patientTabBarController" id="UE7-f9-4gI" customClass="patientTabBarController" customModule="Mobile_App_2016" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="CnB-R4-hWE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -717,6 +717,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="D1G-Zr-yls" id="1pn-0B-JgK"/>
                         <outlet property="labelForPresent" destination="Qy3-bS-JU0" id="K9u-Bm-bnm"/>
                         <outlet property="navBar" destination="VdC-BO-Z1A" id="vtU-oX-Gji"/>
                         <outlet property="tableView" destination="5my-RM-y1A" id="rcs-9y-cW4"/>
@@ -966,7 +967,7 @@
                                 <rect key="frame" x="20" y="72" width="84" height="118"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZD-v8-IFV">
-                                <rect key="frame" x="20" y="550" width="335" height="46"/>
+                                <rect key="frame" x="20" y="545" width="335" height="46"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="Eyn-nF-IaX"/>
@@ -980,7 +981,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Info" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VW2-5G-Wsm">
-                                <rect key="frame" x="20" y="399" width="335" height="132"/>
+                                <rect key="frame" x="20" y="399" width="335" height="127"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
