@@ -504,6 +504,17 @@
 			return Signal::success()->setData(array("medid" => $medid));
 		}
 
+		private static function POST_CAPA_modifyMedication($db, $cid, $pid, $params) {
+			$medid = self::validateMedid($db, $pid, $params['medid']);
+			$stmt = $db->prepare("UPDATE medication SET name=COALESCE(?, name), dosage=COALESCE(?, dosage),".
+									"remain=COALESCE(?, remain), pic=COALESCE(?, pic), info=COALESCE(?, info) WHERE medid=$medid");
+			$stmt->bind_param('siiss', $params['name'], $params['dosage'], $params['remain'], $params['pic'], $params['info']);
+			$stmt->execute();
+			$stmt->close();
+
+			return Signal::success();
+		}
+
 		private static function GET_CAPA_listMedication($db, $cid, $pid) {
 			return self::GET_PATI_listMedication($db, $pid);
 		}
