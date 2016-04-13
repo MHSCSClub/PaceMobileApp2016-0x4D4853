@@ -378,6 +378,8 @@
 
 		private static function GET_PATI_info($db, $pid) {
 			$res = $db->query("SELECT name, usability FROM patients WHERE pid=$pid");
+			$ret = $res->fetch_assoc();
+			$ret['medstatus'] = self::medStatus($db, $pid);
 			return Signal::success()->setData($res->fetch_assoc());
 		}
 
@@ -529,6 +531,13 @@
 			$res = $db->query("SELECT uiud, name, patients.pid FROM patients INNER JOIN devices ON patients.pid=devices.userid WHERE patients.pid=$pid");
 			$package = array('patient' => $res->fetch_assoc());
 			return $package;
+		}
+
+		private static function medStatus($db, $pid) {
+			$res = $db->query("SELECT msid FROM schedule inner join medsche on schedule.schid=medsche.schid " . 
+								"WHERE TIME(take) < CURTIME() AND (CURDATE()<>DATE(taken) OR taken IS NULL) AND pid=2");
+
+			return ($res->num_rows == 0);
 		}
 
 		private static function POST_PATI_takeMedication($db, $pid, $params) {
