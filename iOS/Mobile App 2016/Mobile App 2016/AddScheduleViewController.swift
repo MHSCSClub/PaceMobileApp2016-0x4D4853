@@ -10,6 +10,9 @@ import UIKit
 
 class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet var doneButton2: UIButton!
+    @IBOutlet var doneButton: UIButton!
+    @IBOutlet var addMedication: UIButton!
     var patient: Patient!
     var medicationList: MedicationManager!
     
@@ -43,7 +46,20 @@ class AddScheduleViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.hidden = true;
         doneMedication.hidden = true;
         
+        doneButton2.layer.cornerRadius = 8
+        doneButton2.layer.masksToBounds = true
+        doneButton2.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        doneButton2.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
         
+        doneButton.layer.cornerRadius = 8
+        doneButton.layer.masksToBounds = true
+        doneButton.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        doneButton.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
+        
+        addMedication.layer.cornerRadius = 8
+        addMedication.layer.masksToBounds = true
+        addMedication.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        addMedication.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
         
     }
     @IBAction func addMedication(sender: AnyObject) {

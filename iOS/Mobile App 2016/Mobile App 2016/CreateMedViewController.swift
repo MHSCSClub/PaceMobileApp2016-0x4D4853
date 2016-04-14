@@ -15,8 +15,11 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet var button: UIButton!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var medName: UITextField!
-    @IBOutlet var dosage: UITextField!
+    
+    @IBOutlet var number: UILabel!
+    @IBOutlet var dosage: UISlider!
     @IBOutlet var remain: UITextField!
+    @IBOutlet var createButton: UIButton!
     @IBOutlet var info: UITextView!
     
     var callback: (() -> Void)!
@@ -28,13 +31,18 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
         picker.delegate = self
         // Do any additional setup after loading the view.
         medName.delegate = self
-        dosage.delegate = self
+        
         remain.delegate = self
         info.delegate = self
         
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(CreateMedViewController.getRideOfKeyboard(_:)))
         swipeDown.direction = UISwipeGestureRecognizerDirection.Down
         self.view.addGestureRecognizer(swipeDown)
+        
+        createButton.layer.cornerRadius = 8
+        createButton.layer.masksToBounds = true
+        createButton.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        createButton.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,13 +62,15 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
             info.resignFirstResponder()
         }else if(medName.isFirstResponder()){
             medName.resignFirstResponder()
-        }else if(dosage.isFirstResponder()){
-            dosage.resignFirstResponder()
         }else if(remain.isFirstResponder()){
             remain.resignFirstResponder()
         }
     }
     
+    @IBAction func valueChanged(sender: AnyObject) {
+        let cool:Int = Int(dosage.value)
+        number.text = "\(cool)"
+    }
     @IBAction func photoFromLibrary(sender: AnyObject) {
         picker.allowsEditing = false
         picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
@@ -83,9 +93,11 @@ class CreateMedViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     @IBAction func finished(sender: AnyObject) {
-        let data = UIImageJPEGRepresentation(imageView.image!, 0.25)
-        if(data != nil){
-            Medication(medid: "50", name: medName.text!, dosage: dosage.text!, remain: remain.text!, info: info.text!).createMedication(data!, authcode: Constants.getAuthCode(), pid: "\(patient.pid)", completion: complete)
+        if(imageView.image != nil){
+            let data = UIImageJPEGRepresentation(imageView.image!, 0.25)
+            if(data != nil){
+                Medication(medid: "50", name: medName.text!, dosage: number.text!, remain: remain.text!, info: info.text!).createMedication(data!, authcode: Constants.getAuthCode(), pid: "\(patient.pid)", completion: complete)
+            }
         }
     }
     

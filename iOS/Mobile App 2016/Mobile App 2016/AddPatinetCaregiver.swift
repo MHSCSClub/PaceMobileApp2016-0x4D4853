@@ -34,6 +34,12 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
         
         self.view.addGestureRecognizer(swipeDown)
         
+        createButton.layer.cornerRadius = 8
+        createButton.layer.masksToBounds = true
+        createButton.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        createButton.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
+
+        
     }
     @IBAction func nameDone(sender: AnyObject) {
         name.resignFirstResponder()

@@ -274,7 +274,12 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
         else if(segue.identifier == "ShowMedDetail"){
             let controller = segue.destinationViewController as? MedInfoViewController
             controller?.patient = patient
-            controller?.medication = scheduleManager.schedules[indexPath.section].medications[indexPath.row]
+            if(indexPath.section == scheduleManager.schedules.count){
+                controller?.medication = medicationnot[indexPath.row]
+            }else{
+                controller?.medication = scheduleManager.schedules[indexPath.section].medications[indexPath.row]
+            }
+            
             
         }
     }

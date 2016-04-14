@@ -11,9 +11,9 @@ import UIKit
 class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var share: UIButton!
     @IBOutlet var linkLabel: UILabel!
-    @IBOutlet var usernameShare: UITextField!
+    
     @IBOutlet var settingTable: UITableView!
-    var setting = ["Usability", "Status"]
+    var setting = ["Usability", "Medication"]
     var patient:Patient!
     
     override func viewDidLoad() {
@@ -48,13 +48,29 @@ class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITa
         
     }
     @IBAction func share(sender: AnyObject) {
-        shares()
+        let alert = UIAlertController(title: "Share User", message: "Username", preferredStyle: .Alert)
+        
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.placeholder = "Username"
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+            print("Bye")
+        }))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as UITextField
+            self.shares(textField.text!)
+        }))
+        
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     func update(){
         ServerConnection.getRequest("\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/relink?authcode=\(Constants.getAuthCode())", completion: createDone)
     }
-    func shares(){
-        ServerConnection.postRequest(["username": usernameShare.text!], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/share?authcode=\(Constants.getAuthCode())", completion: done)
+    func shares(user: String){
+        ServerConnection.postRequest(["username": user], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/caretaker/patients/\(patient.pid)/share?authcode=\(Constants.getAuthCode())", completion: done)
     }
     func done (data: NSData) {
         print(NSString(data: data, encoding: NSUTF8StringEncoding));
@@ -108,9 +124,10 @@ class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCellWithIdentifier("rightDetail")
         cell!.textLabel?.text = setting[row]
         cell!.detailTextLabel?.text = "\(patient.usability)"
-        cell?.imageView!.image = UIImage(named: "icon_10.png")
+        //cell?.imageView!.image = UIImage(named: "icon_10.png")
         if(row == 1){
-            cell!.detailTextLabel?.text = "\(patient.medstatus == 1 ? "Up To Date" : "Not Up to Date")"
+            cell!.detailTextLabel?.text = "\(patient.medstatus == 1 ? "All Taken" : "Missed")"
+           // cell?.imageView!.image = UIImage(named: "icon11.png")
         }
         
         return cell!

@@ -57,6 +57,7 @@
 		9F6A6D1D1CA74FD8000DAFDA /* PatientListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */; };
 		9F6A6D201CA75224000DAFDA /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D1F1CA75224000DAFDA /* Patient.swift */; };
 		9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D211CA75863000DAFDA /* PatientManager.swift */; };
+		9F747B4A1CC028880022DF5E /* icon11.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F747B491CC028880022DF5E /* icon11.png */; };
 		9F75D7F31CAF569600D4CF9C /* Patient_MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */; };
 		9FF03C8B1CBD9A2A0030EFF8 /* patientTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */; };
 		9FF03C8D1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */; };
@@ -140,6 +141,7 @@
 		9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientListViewController.swift; sourceTree = "<group>"; };
 		9F6A6D1F1CA75224000DAFDA /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		9F6A6D211CA75863000DAFDA /* PatientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientManager.swift; sourceTree = "<group>"; };
+		9F747B491CC028880022DF5E /* icon11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon11.png; sourceTree = "<group>"; };
 		9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient_MainController.swift; sourceTree = "<group>"; };
 		9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = patientTabBarController.swift; sourceTree = "<group>"; };
 		9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientSettingsViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				9F3AD32D1CB36E660030CED1 /* red-button2.png */,
+				9F747B491CC028880022DF5E /* icon11.png */,
 				9F3AD32B1CB36ABD0030CED1 /* reddot.png */,
 				9F3AD3191CB351230030CED1 /* Dawn.png */,
 				9F3AD31A1CB351230030CED1 /* Day.png */,
@@ -497,6 +500,7 @@
 				9F3AD3301CB45CE00030CED1 /* 006_-_Drug-512.png in Resources */,
 				9F33A10B1CB70B05007E88FD /* pills.png in Resources */,
 				9F3AD31E1CB351230030CED1 /* Day.png in Resources */,
+				9F747B4A1CC028880022DF5E /* icon11.png in Resources */,
 				9F690D5B1C95D080009F918E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
