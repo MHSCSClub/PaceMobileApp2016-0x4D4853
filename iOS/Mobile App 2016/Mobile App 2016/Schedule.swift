@@ -52,8 +52,12 @@ class Schedule {
                         for meds in data{
                             let medication = mendicationManager.getMedFromID(Int(meds["medid"] as! String)!)
                             let taken = meds["taken"] as? String
+                            
                             if(taken != nil){
-                                self.taken.append(dateFormatter.dateFromString(taken!)!)
+                                var take = dateFormatter.dateFromString(taken!)
+                                take = take!.dateByAddingTimeInterval(-60*60*4)
+                                self.taken.append(take!)
+                                
                             }else{
                                 let date = NSDate()
                                 let date2 = date.dateByAddingTimeInterval(-60*60*24)

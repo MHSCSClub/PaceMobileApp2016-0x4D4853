@@ -59,6 +59,8 @@
 		9F6A6D221CA75863000DAFDA /* PatientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6A6D211CA75863000DAFDA /* PatientManager.swift */; };
 		9F75D7F31CAF569600D4CF9C /* Patient_MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */; };
 		9FF03C8B1CBD9A2A0030EFF8 /* patientTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */; };
+		9FF03C8D1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */; };
+		9FF03C8F1CBF490A0030EFF8 /* PatientNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8E1CBF490A0030EFF8 /* PatientNameCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +139,8 @@
 		9F6A6D211CA75863000DAFDA /* PatientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientManager.swift; sourceTree = "<group>"; };
 		9F75D7F21CAF569500D4CF9C /* Patient_MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient_MainController.swift; sourceTree = "<group>"; };
 		9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = patientTabBarController.swift; sourceTree = "<group>"; };
+		9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientSettingsViewController.swift; sourceTree = "<group>"; };
+		9FF03C8E1CBF490A0030EFF8 /* PatientNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientNameCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +267,7 @@
 				9F690D611C95D080009F918E /* LaunchScreen.storyboard */,
 				9F690D591C95D080009F918E /* Main.storyboard */,
 				9F33A1081CB57242007E88FD /* PatientCell.swift */,
+				9FF03C8E1CBF490A0030EFF8 /* PatientNameCell.swift */,
 				9F33A1061CB46709007E88FD /* MedCell.swift */,
 				9F690D5F1C95D080009F918E /* Assets.xcassets */,
 				9F690D641C95D080009F918E /* Info.plist */,
@@ -314,6 +319,7 @@
 				9F6A6D0E1C9B77C2000DAFDA /* CareGiver_PatientMed.swift */,
 				9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */,
 				9F6A6D051C9B618C000DAFDA /* Caregiver_PatientOverview.swift */,
+				9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */,
 				9FF03C891CBD8CB10030EFF8 /* Create/Add */,
 			);
 			name = Caregiver;
@@ -505,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FF03C8F1CBF490A0030EFF8 /* PatientNameCell.swift in Sources */,
 				9F6A6D111C9B793A000DAFDA /* Medication.swift in Sources */,
 				9F33A1071CB46709007E88FD /* MedCell.swift in Sources */,
 				9FF03C8B1CBD9A2A0030EFF8 /* patientTabBarController.swift in Sources */,
@@ -532,6 +539,7 @@
 				9F3AD30E1CB0B45E0030CED1 /* AddScheduleViewController.swift in Sources */,
 				9F6A6D1D1CA74FD8000DAFDA /* PatientListViewController.swift in Sources */,
 				9F084C641CAE1753000970F9 /* AddPatinetCaregiver.swift in Sources */,
+				9FF03C8D1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

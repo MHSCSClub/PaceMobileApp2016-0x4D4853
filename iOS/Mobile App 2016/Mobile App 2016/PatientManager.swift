@@ -24,7 +24,7 @@ class PatientManager {
                 if (status == "success"){
                     if let data = json["data"] as? [[String: AnyObject]]{
                         for patinet in data{
-                            patients.append(Patient(pid: patinet["pid"] as! String , name: patinet["name"] as! String, active: patinet["active"] as! String))
+                            patients.append(Patient(pid: patinet["pid"] as! String , name: patinet["name"] as! String, active: patinet["active"] as! String, usability: patinet["usability"] as! String, medstatus: patinet["medstatus"] as! String))
                         }
                     }
                 }

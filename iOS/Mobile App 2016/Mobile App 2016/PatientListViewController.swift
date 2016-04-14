@@ -72,18 +72,19 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle,
-            reuseIdentifier: "cell")
+        let cell = tableView.dequeueReusableCellWithIdentifier("PatientNameCell")! as? PatientNameCell
         
         let row = indexPath.row
-        cell.textLabel?.font = UIFont(name: "HelveticaNeue", size: 25)
-        cell.textLabel?.text = "\(patientList[row].name)"
-        
-        if(patientList[row].active == 1){
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell!.name?.font = UIFont(name: "HelveticaNeue", size: 25)
+        cell!.name?.text = "\(patientList[row].name)"
+        //images-1.png
+        if(patientList[row].medstatus == 1){
+            cell!.status.image = UIImage(named: "images-1.png")
+        }else{
+            cell!.status.image = UIImage(named: "red-button2.png")
         }
         
-        return cell
+        return cell!
     }
     
     
@@ -98,6 +99,8 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
             let tabviewController = segue.destinationViewController as? UITabBarController
             let viewController = tabviewController?.childViewControllers[0] as? CareGiver_PatientMed
             viewController?.patient = patientList[selected]
+            let viewcontroller2 = tabviewController?.childViewControllers[1] as? PatientSettingsViewController
+            viewcontroller2?.patient = patientList[selected]
             
         }
         else if(segue.identifier == "AddPatient"){

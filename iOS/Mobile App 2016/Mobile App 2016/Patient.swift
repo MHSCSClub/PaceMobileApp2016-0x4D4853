@@ -12,6 +12,8 @@ class Patient {
     var name: String = ""
     var pid: Int
     var active: Int = 0
+    var usability = 0
+    var medstatus = 0
     
     init(pid: Int){
         self.pid = pid;
@@ -23,6 +25,13 @@ class Patient {
         self.pid = Int(pid)!;
         self.name = name;
         self.active = Int(active)!;
+    }
+    init(pid: String, name: String, active: String, usability: String, medstatus: String){
+        self.pid = Int(pid)!;
+        self.name = name;
+        self.active = Int(active)!;
+        self.usability = Int(usability)!
+        self.medstatus = Int(medstatus)!
     }
 
 }
