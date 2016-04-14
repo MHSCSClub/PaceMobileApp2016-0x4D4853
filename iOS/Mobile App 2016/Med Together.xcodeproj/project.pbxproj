@@ -61,6 +61,9 @@
 		9FF03C8B1CBD9A2A0030EFF8 /* patientTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */; };
 		9FF03C8D1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */; };
 		9FF03C8F1CBF490A0030EFF8 /* PatientNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C8E1CBF490A0030EFF8 /* PatientNameCell.swift */; };
+		9FF03C911CBFEBDA0030EFF8 /* MedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF03C901CBFEBDA0030EFF8 /* MedInfoViewController.swift */; };
+		9FF03C931CBFF43C0030EFF8 /* ic_record_voice_over_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FF03C921CBFF43C0030EFF8 /* ic_record_voice_over_black_24dp.png */; };
+		9FF03C951CBFF80A0030EFF8 /* icon_10.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FF03C941CBFF80A0030EFF8 /* icon_10.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +144,9 @@
 		9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = patientTabBarController.swift; sourceTree = "<group>"; };
 		9FF03C8C1CBF0BFB0030EFF8 /* PatientSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientSettingsViewController.swift; sourceTree = "<group>"; };
 		9FF03C8E1CBF490A0030EFF8 /* PatientNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientNameCell.swift; sourceTree = "<group>"; };
+		9FF03C901CBFEBDA0030EFF8 /* MedInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedInfoViewController.swift; sourceTree = "<group>"; };
+		9FF03C921CBFF43C0030EFF8 /* ic_record_voice_over_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_record_voice_over_black_24dp.png; sourceTree = "<group>"; };
+		9FF03C941CBFF80A0030EFF8 /* icon_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_10.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +207,8 @@
 		9F3AD3131CB190B40030CED1 /* Additional */ = {
 			isa = PBXGroup;
 			children = (
+				9FF03C941CBFF80A0030EFF8 /* icon_10.png */,
+				9FF03C921CBFF43C0030EFF8 /* ic_record_voice_over_black_24dp.png */,
 				9F3AD3161CB1A61B0030CED1 /* Popup.swift */,
 				9F3AD3311CB45E750030CED1 /* calendar-icon.png */,
 				9F33A1041CB45FA6007E88FD /* plainicon.com-50108-128px-eb1.png */,
@@ -315,6 +323,7 @@
 		9F6A6D0B1C9B7752000DAFDA /* Caregiver */ = {
 			isa = PBXGroup;
 			children = (
+				9FF03C901CBFEBDA0030EFF8 /* MedInfoViewController.swift */,
 				9FF03C8A1CBD9A2A0030EFF8 /* patientTabBarController.swift */,
 				9F6A6D0E1C9B77C2000DAFDA /* CareGiver_PatientMed.swift */,
 				9F6A6D1C1CA74FD8000DAFDA /* PatientListViewController.swift */,
@@ -477,10 +486,12 @@
 				9F3AD32C1CB36ABD0030CED1 /* reddot.png in Resources */,
 				9F3AD3281CB359250030CED1 /* Day3.png in Resources */,
 				9F3AD32E1CB36E660030CED1 /* red-button2.png in Resources */,
+				9FF03C931CBFF43C0030EFF8 /* ic_record_voice_over_black_24dp.png in Resources */,
 				9F3AD3221CB354DC0030CED1 /* Dawn2.png in Resources */,
 				9F3AD3241CB355D00030CED1 /* Night2.png in Resources */,
 				9F6A6D171C9B93FC000DAFDA /* images.png in Resources */,
 				9F3AD3261CB357480030CED1 /* day2.png in Resources */,
+				9FF03C951CBFF80A0030EFF8 /* icon_10.png in Resources */,
 				9F3AD31D1CB351230030CED1 /* Dawn.png in Resources */,
 				9F690D601C95D080009F918E /* Assets.xcassets in Resources */,
 				9F3AD3301CB45CE00030CED1 /* 006_-_Drug-512.png in Resources */,
@@ -524,6 +535,7 @@
 				9F6A6D0A1C9B67E6000DAFDA /* MedHistory.swift in Sources */,
 				9F6A6D1B1CA74587000DAFDA /* PickerViewController.swift in Sources */,
 				9F3AD3071CAF794E0030CED1 /* CreateMedViewController.swift in Sources */,
+				9FF03C911CBFEBDA0030EFF8 /* MedInfoViewController.swift in Sources */,
 				9F6A6D151C9B9236000DAFDA /* MedReminder.swift in Sources */,
 				9F690D5E1C95D080009F918E /* Mobile_App_2016.xcdatamodeld in Sources */,
 				9F3AD30A1CB0911E0030CED1 /* Schedule.swift in Sources */,

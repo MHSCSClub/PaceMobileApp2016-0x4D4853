@@ -17,6 +17,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet var addButton: UIBarButtonItem!
     var counter = 0
+    var indexPath:NSIndexPath!
     
     let textCellIdentifier = "TextCell"
     let dateFormatter = NSDateFormatter()
@@ -125,6 +126,12 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
             return scheduleManager.schedules.count + 1
         }
         return scheduleManager.schedules.count
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.indexPath = indexPath
+        
+        self.performSegueWithIdentifier("ShowMedDetail", sender: self)
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -263,6 +270,12 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
             controller?.patient = patient
             controller?.callback = update
             controller?.medicationList = medicationManager
+        }
+        else if(segue.identifier == "ShowMedDetail"){
+            let controller = segue.destinationViewController as? MedInfoViewController
+            controller?.patient = patient
+            controller?.medication = scheduleManager.schedules[indexPath.section].medications[indexPath.row]
+            
         }
     }
     func addMedication(){

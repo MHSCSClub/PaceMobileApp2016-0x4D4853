@@ -78,6 +78,7 @@ class PatientListViewController: UIViewController, UITableViewDataSource, UITabl
         cell!.name?.font = UIFont(name: "HelveticaNeue", size: 25)
         cell!.name?.text = "\(patientList[row].name)"
         //images-1.png
+        
         if(patientList[row].medstatus == 1){
             cell!.status.image = UIImage(named: "images-1.png")
         }else{

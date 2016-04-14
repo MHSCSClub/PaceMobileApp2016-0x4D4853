@@ -98,6 +98,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         if(counter == scheduleManager.schedules.count){
             print("Here")
             let late = scheduleManager.getLateMeds()
+            scheduleManager.sort()
             if(late.count != 0){
                 NSOperationQueue.mainQueue().addOperationWithBlock {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)

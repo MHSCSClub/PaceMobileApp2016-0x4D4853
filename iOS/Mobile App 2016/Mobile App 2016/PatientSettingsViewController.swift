@@ -9,10 +9,11 @@
 import UIKit
 
 class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var share: UIButton!
     @IBOutlet var linkLabel: UILabel!
     @IBOutlet var usernameShare: UITextField!
     @IBOutlet var settingTable: UITableView!
-    var setting = ["Usability"]
+    var setting = ["Usability", "Status"]
     var patient:Patient!
     
     override func viewDidLoad() {
@@ -21,9 +22,27 @@ class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITa
             print(patient.name)
             update()
         }
+        let border = CALayer()
+        border.borderColor = UIColor(red: 203/255, green: 203/255, blue: 203/255, alpha: 1.0).CGColor
+        border.frame = CGRect(x: 0, y: settingTable.frame.size.height - 1, width:  settingTable.frame.size.width, height: settingTable.frame.size.height)
+        border.borderWidth = 1
+        
+        let topBorder = CALayer()
+        topBorder.frame = CGRectMake(0, 0, settingTable.frame.size.width, 1)
+        topBorder.backgroundColor = UIColor(red: 203/255, green: 203/255, blue: 203/255, alpha: 1.0).CGColor
+        
+        self.view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
+        
         settingTable.delegate = self
         settingTable.dataSource = self
         settingTable.scrollEnabled = false;
+        settingTable.layer.addSublayer(border)
+        settingTable.layer.addSublayer(topBorder)
+        
+        share.layer.cornerRadius = 8
+        share.layer.masksToBounds = true
+        share.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        share.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
         
         
         
@@ -62,7 +81,7 @@ class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITa
                         if let lcode = data["lcode"] as? String {
                             print("lcode:\(lcode)")
                             NSOperationQueue.mainQueue().addOperationWithBlock {
-                               self.linkLabel.text = "Link Code: \(lcode)"
+                               self.linkLabel.text = "\(lcode)"
                             }
                             
                         }
@@ -89,8 +108,12 @@ class PatientSettingsViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCellWithIdentifier("rightDetail")
         cell!.textLabel?.text = setting[row]
         cell!.detailTextLabel?.text = "\(patient.usability)"
+        cell?.imageView!.image = UIImage(named: "icon_10.png")
+        if(row == 1){
+            cell!.detailTextLabel?.text = "\(patient.medstatus == 1 ? "Up To Date" : "Not Up to Date")"
+        }
+        
         return cell!
-          
         
         
         
