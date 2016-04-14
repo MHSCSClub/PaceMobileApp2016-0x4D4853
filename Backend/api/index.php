@@ -137,7 +137,6 @@
 				return DataAccess::capaPOST(@$_GET['authcode'], $trace[2], "getMedication", $params);
 			
 			case 'POST':
-				$params = array();
 				$params['name'] = @$_POST['name'];
 				$params['dosage'] = @$_POST['dosage'];
 				$params['remain'] = @$_POST['remain'];

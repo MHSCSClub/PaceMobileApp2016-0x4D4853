@@ -376,11 +376,15 @@
 
 		//Patient auxillary actions
 
+		private static function patientInfo($db, $pid) {
+			$res = $db->query("SELECT name, usability, active FROM relation INNER JOIN patients ON patients.pid = relation.pid WHERE patients.pid=$pid");                      
+                        $ret = $res->fetch_assoc();
+                        $ret['medstatus'] = self::medStatus($db, $pid) ? "1" : "0";
+			return $ret;
+		}
+
 		private static function GET_PATI_info($db, $pid) {
-			$res = $db->query("SELECT name, usability FROM patients WHERE pid=$pid");
-			$ret = $res->fetch_assoc();
-			$ret['medstatus'] = self::medStatus($db, $pid);
-			return Signal::success()->setData($res->fetch_assoc());
+			return Signal::success()->setData(self::patientInfo($db, $pid));
 		}
 
 		//Register Device
@@ -411,9 +415,16 @@
 		//Caretaker Patient Interaction 
 
 		private static function GET_CARE_patients($db, $cid) {
-			$res = $db->query("SELECT relation.pid, name, active FROM relation INNER JOIN patients ON patients.pid = relation.pid WHERE cid=$cid");
+			$res = $db->query("SELECT pid FROM relation WHERE cid=$cid");
+			$rows = array();
+			while($r = $res->fetch_assoc()) {
+				$pid = $r['pid'];
+				$r = self::patientInfo($db, $pid);
+				$r['pid'] = $pid;
+				$rows[] = $r;
+			}
 
-			return self::formatArrayResults($res);
+			return Signal::success()->setData($rows);
 		}
 
 		private static function POST_CARE_createPatient($db, $cid, $params) {
