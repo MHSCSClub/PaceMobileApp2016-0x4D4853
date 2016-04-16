@@ -66,7 +66,6 @@ class ScheduleManager {
     }
     func sort(){
         let new = schedules.sort(sortFunc)
-        print(new[2].hours)
         schedules = new
         
     }

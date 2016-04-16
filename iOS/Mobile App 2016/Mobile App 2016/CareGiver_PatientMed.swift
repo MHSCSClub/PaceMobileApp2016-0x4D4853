@@ -279,6 +279,7 @@ class CareGiver_PatientMed: UIViewController, UITableViewDataSource, UITableView
             }else{
                 controller?.medication = scheduleManager.schedules[indexPath.section].medications[indexPath.row]
             }
+            controller?.callback = update
             
             
         }

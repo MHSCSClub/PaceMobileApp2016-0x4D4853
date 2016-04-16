@@ -15,6 +15,12 @@ class Patient_ConectionController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(Patient_ConectionController.getRidOfKeyBoard))
+        
+        swipeDown.direction = UISwipeGestureRecognizerDirection.Down
+        
+        self.view.addGestureRecognizer(swipeDown)
     }
     
     override func didReceiveMemoryWarning() {
@@ -23,6 +29,9 @@ class Patient_ConectionController: UIViewController {
     }
     @IBAction func register(sender: AnyObject) {
         ServerConnection.postRequest(["lcode":conectionCode.text!], url: "\(Constants.baseURL)/Pace_2016_0x4D4853/Backend/api/patient/link", completion: finishRegister)
+    }
+    func getRidOfKeyBoard(gesture: UIGestureRecognizer){
+        conectionCode.resignFirstResponder()
     }
     
     func finishRegister(data: NSData) {

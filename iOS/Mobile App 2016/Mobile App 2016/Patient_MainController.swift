@@ -145,6 +145,7 @@ class Patient_MainController: UIViewController, UITableViewDelegate, UITableView
         }else{
             imageView.image = UIImage(named: "Night2.png")
         }
+        imageView.contentMode = .ScaleAspectFill
         
     }
     

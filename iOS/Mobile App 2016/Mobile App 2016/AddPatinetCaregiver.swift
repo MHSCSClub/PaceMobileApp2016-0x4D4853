@@ -17,6 +17,7 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
     @IBOutlet var createButton: UIButton!
     @IBOutlet var connectionView: UIView!
     @IBOutlet var connectionCode: UILabel!
+    @IBOutlet var create: UIButton!
     
     var callback: (() -> Void)!
     
@@ -38,6 +39,12 @@ class AddPatinetCaregiver: UIViewController,UIPickerViewDataSource,UIPickerViewD
         createButton.layer.masksToBounds = true
         createButton.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
         createButton.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
+        
+        create.layer.cornerRadius = 8
+        create.layer.masksToBounds = true
+        create.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
+        create.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
+
 
         
     }

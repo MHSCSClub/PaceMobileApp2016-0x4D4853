@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MedInfoViewController: UIViewController {
+class MedInfoViewController: UIViewController, UITextViewDelegate {
    
     @IBOutlet var info: UITextView!
     @IBOutlet var refil: UITextField!
@@ -22,6 +22,9 @@ class MedInfoViewController: UIViewController {
     @IBOutlet var saveButton: UIButton!
     var patient:Patient!
     var medication:Medication!
+    
+    var callback: (() -> Void)!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,14 +45,30 @@ class MedInfoViewController: UIViewController {
         saveButton.backgroundColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80)
         saveButton.layer.borderColor = UIColor(red: 0.13, green: 0.59 , blue: 0.95, alpha: 0.80).CGColor
         
+        info.delegate = self
+        
         if(doseRemain < 2){
             remaining.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
             dosagesRemain.textColor = UIColor(red: 0.96, green: 0.26 , blue: 0.21, alpha: 0.90)
         }
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(MedInfoViewController.getRideOfKeyboard(_:)))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.Down
+        self.view.addGestureRecognizer(swipeDown)
 
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    func getRideOfKeyboard(gesture: UIGestureRecognizer) {
+        if(info.isFirstResponder()){
+            self.view.frame.origin.y += 200
+            info.resignFirstResponder()
+        }
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        self.view.frame.origin.y -= 200
     }
     
     @IBAction func updateInfo(sender: AnyObject) {
@@ -63,6 +82,9 @@ class MedInfoViewController: UIViewController {
             if let status = json["status"] as? String {
                 if (status == "success"){
                     print("success")
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.backToScreen()
+                    }
                 }
             }
         }
@@ -140,6 +162,12 @@ class MedInfoViewController: UIViewController {
         }))
         self.presentViewController(alert, animated: true, completion: nil)
 
+    }
+    func backToScreen () {
+        navigationController?.popViewControllerAnimated(true)
+        if(callback != nil){
+            callback()
+        }
     }
     //ReturnReload
 }
